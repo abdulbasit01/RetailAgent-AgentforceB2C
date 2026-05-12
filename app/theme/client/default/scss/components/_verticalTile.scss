@@ -1,0 +1,312 @@
+@use '../abstracts/variables' as *;
+@use '../skin/skinVariables' as *;
+@use '../abstracts/mixins' as *;
+
+.section-wrapper {
+    &.btn-modal-section {
+        .chakra-button {
+            width: 200px;
+            height: 60px;
+            display: flex;
+            margin: 0 auto;
+            padding: 0 !important;
+            border-radius: 60px !important;
+            color: var(--color-white) !important;
+            font-size: 16px !important;
+            font-weight: 700 !important;
+            text-align: center;
+            background: var(--chakra-colors-rcDefault-6) !important;
+            border: none !important;
+            cursor: pointer !important;
+            font-family: 'Geomanist-bold' !important;
+
+            &:hover {
+                background: var(--chakra-colors-rcDefault-10) !important;
+                text-decoration: none;
+            }
+
+            &:focus {
+                background: var(--chakra-colors-rcDefault-6) !important;
+                outline: 3px solid var(--chakra-colors-rcDefault-12) !important;
+            }
+
+            &:active {
+                background: var(--chakra-colors-rcDefault-11) !important;
+            }
+
+            &.disabled {
+                background: var(--chakra-colors-rcDefault-12) !important;
+                cursor: not-allowed !important;
+            }
+        }
+    }
+
+    &.text-heading {
+        .textHeader {
+            padding: 0;
+            border-bottom: none;
+    
+            .heading-inner {
+                margin-bottom: 80px;
+                padding: 0;
+                text-align: center;
+                justify-content: center;
+                line-height: 1;
+
+                @include media-max(lg) {
+                    margin-bottom: 48px;
+                    padding: 0 24px;
+                }
+    
+                @include media-max(md) {
+                    text-align: left;
+                    justify-content: flex-start;
+                }
+    
+                > h4 {
+                    font-size: 64px;
+                    line-height: 50px;
+                    margin-bottom: 0;
+                    font-weight: 700;
+                    font-family: $fontGeomanistBold;
+                    margin-bottom: 0;
+    
+                    @include media-max(sm) {
+                        font-size: 40px;
+                        line-height: 44px;
+                        letter-spacing: -0.02em;
+                    }
+                }
+            }
+        }
+    }
+
+    &.unified-payment-wrapper {
+        padding: 72px 0;
+    
+        @include media-max(md) {
+            padding: 52px 24px;
+        }
+    
+        @include media-max(sm) {
+            padding: 52px 0;
+        }
+
+        .section-container {
+            .textHeader {
+                .heading-inner {
+                    margin-bottom: 32px;
+                    color: $rc-blue-4;
+
+                    h4 {
+                        color: inherit;
+                    }
+
+                    @include media-max(sm) {
+                        margin-bottom: 48px;
+                    }
+                }
+            }
+
+            .rich-text-editor {
+                margin-bottom: 80px;
+
+                @include media-max(sm) {
+                    display: none;
+                }
+
+                .text-editor-content {
+                    display: block;
+                    text-align: center;
+
+                    p {
+                        color: $rc-blue-4;
+                        font-family: $fontGeomanistRegular;
+                        font-size: 24px;
+                        font-weight: 400;
+                        line-height: 28px;
+                    }
+                }
+
+            }
+        }
+        
+
+        .mobile-2r-1c  {
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+
+            @include media-max(sm) {
+                gap: 24px;
+            }
+
+            > .region {
+                height: 100%;
+
+                &:last-of-type {
+                    .inner-content {
+                        h4 {
+                            &::after {
+                                content: "TM";
+                                font-size: 0.6em;
+                                vertical-align: super;
+                                margin-left: 1px;
+                            }
+                        }
+                    }
+                }
+
+                &:first-of-type {
+                    .vertical-tile-body {
+                        .image-tile-image {
+                            @include media-max(sm) {
+                                border: 1px solid $rc-gray-1;
+                            }
+                        }
+                    }
+                }
+
+                > .container {
+                    height: 100%;
+
+                    > .component{
+                        height: 100%;
+
+                        .container {
+                            height: 100%;
+                        }
+                    }
+                }
+            }
+        }
+
+        .payment-solution-container {
+            max-width: 818px;
+            margin: 0 auto;
+            border-radius: 16px;
+            border: 1px solid $rc-gray-2;
+
+            @include media-max(sm) {
+                padding: 24px;
+                margin: 0 18px;
+            }
+
+            .vertical-tile {
+                padding: 40px 32px;
+                width: 100%;
+                height: 100%;
+                border: none;
+                box-shadow: none;
+                background: transparent;
+
+                @include media-max(sm) {
+                    padding: 0;
+                }
+
+                .vertical-tile-body {
+                    .image-tile-image {
+                        max-width: 291px;
+                        margin: 0 auto 40px;
+                        border-radius: 32px;
+
+                        @include media-max(lg) {
+                            border-radius: 16px;
+                        }
+
+                        @include media-max(sm) {
+                            margin-bottom: 24px;
+                            max-width: 132px;
+                        }
+                    }
+
+                    .inner-content {
+                        margin-bottom: 40px;
+
+                        h4 {
+                            font-size: 32px;
+                            line-height: 32px;
+                            font-family: $fontGeomanistBold;
+                            font-weight: 700;
+                            color: $rc-blue-4;
+                            margin-bottom: 32px;
+                            text-align: center;
+
+                            @include media-max(sm) {
+                                margin-bottom: 16px;
+                                font-size: 20px;
+                                line-height: 22px;
+                            }
+                        }
+
+                        p {
+                            color: $rc-blue-4;
+
+                            &:last-child {
+                                margin-bottom: 0;
+                            }
+
+                            > p {
+                                font-size: 18px;
+                                line-height: 26px;
+                                font-weight: 400;
+                                color: inherit;
+                                font-family: $fontGeomanistRegular;
+
+                                @include media-max(sm) {
+                                    font-size: 14px;
+                                    line-height: 16px;
+                                }
+                            }
+
+                            &:last-child {
+                                margin-bottom: 0;
+                            }
+                        }
+                    }
+                }
+
+                .vertical-tile-footer {
+                    .assetBtn-block {
+                        min-width: 120px;
+                        height: 46px;
+                        line-height: 46px;
+                        border-width: 2px !important;
+                        border-color: $rc-orange !important;
+                        border-radius: 32px !important;
+                        color: $rc-orange !important;
+                        font-size: 14px !important;
+                        text-align: center;
+                        padding: 0 !important;
+
+                        &:hover {
+                            background: var(--chakra-colors-rcDefault-10) !important;
+                            text-decoration: none;
+                            color: $white !important;
+                        }
+            
+                        &:focus {
+                            background: var(--chakra-colors-rcDefault-6) !important;
+                            outline: 3px solid var(--chakra-colors-rcDefault-12) !important;
+                            color: $white !important;
+                        }
+            
+                        &:active {
+                            background: var(--chakra-colors-rcDefault-11) !important;
+                            color: $white !important;
+                        }
+            
+                        &.disabled {
+                            background: var(--chakra-colors-rcDefault-12) !important;
+                            cursor: not-allowed !important;
+                            color: $white !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+

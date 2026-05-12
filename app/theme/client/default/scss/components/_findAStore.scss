@@ -1,0 +1,39 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.find-a-store-wrapper {
+    .store-box {
+        border-color: var(--chakra-colors-rcDefault-7);
+        
+        @include media-max(md) {
+            border-color: var(--chakra-colors-rcDefault-5);
+        }
+    }
+
+    h5 {
+        font-family: $fontGeomanistBold;
+
+        span {
+            font-family: $fontGeomanistRegular;
+            font-weight: 400;
+        }
+    }
+
+    .costs-link {
+        font-family: $fontGeomanistMedium;
+        font-weight: 500;
+    }
+
+    .primary-btn.apply-btn,
+    .primary-btn-outline.direction-btn {
+        padding: 14px 24px !important;
+        font-size: 14px !important;
+
+        @include media-max(md) {
+            padding: 6px 12px !important;
+            font-family: $fontGeomanistMedium !important;
+            font-weight: 500 !important;
+            height: auto;
+        }
+    }
+}

@@ -1,0 +1,316 @@
+
+// .btn {
+//   padding: 0.5rem 1rem;
+//   border-radius: 4px;
+//   cursor: pointer;
+// }
+
+.primary-btn {
+    padding: 17px 23px !important;
+    border-radius: 30px !important;
+    color: var(--color-white) !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    text-align: center;
+    background: var(--chakra-colors-rcDefault-6) !important;
+    border: none !important;
+    cursor: pointer !important;
+    font-family: 'Geomanist-bold' !important;
+
+    &:hover {
+        background: var(--chakra-colors-rcDefault-10) !important;
+        text-decoration: none;
+    }
+
+    &:focus {
+        background: var(--chakra-colors-rcDefault-6) !important;
+        outline: 3px solid var(--chakra-colors-rcDefault-12) !important;
+    }
+
+    &:active {
+        background: var(--chakra-colors-rcDefault-11) !important;
+    }
+
+    &.disabled {
+        background: var(--chakra-colors-rcDefault-12) !important;
+        cursor: not-allowed !important;
+    }
+}
+
+.primary-btn-outline {
+    padding: 17px 23px !important;
+    border-radius: 30px !important;
+    color: var(--chakra-colors-rcDefault-6) !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    text-align: center;
+    background: var(--white) !important;
+    border: 2px solid var(--chakra-colors-rcDefault-6) !important;
+    cursor: pointer !important;
+    font-family: 'Geomanist-bold' !important;
+
+    &:hover {
+        background: var(--chakra-colors-rcDefault-10) !important;
+        text-decoration: none;
+        color: var(--white) !important;
+    }
+
+    &:focus {
+        background: var(--chakra-colors-rcDefault-6) !important;
+        outline: 3px solid var(--chakra-colors-rcDefault-12) !important;
+        color: var(--white) !important;
+    }
+
+    &:active {
+        background: var(--chakra-colors-rcDefault-11) !important;
+        color: var(--white) !important;
+    }
+
+    &.disabled {
+        background: var(--chakra-colors-rcDefault-12) !important;
+        cursor: not-allowed !important;
+        color: var(--white) !important;
+    }
+}
+
+.blue-btn-outline {
+    padding: 17px 23px !important;
+    border-radius: 30px !important;
+    color: var(--chakra-colors-rcDefault-2) !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    text-align: center;
+    background: var(--white) !important;
+    border: 2px solid var(--chakra-colors-rcDefault-2) !important;
+    cursor: pointer !important;
+    font-family: 'Geomanist-bold' !important;
+
+    &:hover {
+        background: var(--chakra-colors-rcDefault-2) !important;
+        text-decoration: none !important;
+        color: var(--white) !important;
+    }
+
+    &:focus {
+        background: var(--chakra-colors-rcDefault-2) !important;
+        outline: 3px solid var(--chakra-colors-rcDefault-3) !important;
+        color: var(--white) !important;
+    }
+
+    &:active {
+        background: var(--chakra-colors-rcDefault-1) !important;
+        color: var(--white) !important;
+    }
+
+    &.disabled {
+        background: var(--chakra-colors-rcDefault-3) !important;
+        cursor: not-allowed !important;
+        color: var(--white) !important;
+    }
+}
+
+.darkblue-btn-solid {
+    .chakra-button {
+        background: transparent !important;
+        border: 3px solid var(--white) !important;
+        border-radius: 60px !important;
+        color: var(--color-white) !important;
+        font-size: 16px !important;
+        font-weight: 700 !important;
+        text-align: center;
+        cursor: pointer !important;
+        font-family: 'Geomanist-bold' !important;
+        width: 200px;
+        height: 60px;
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.2) !important;
+        }
+
+        &:focus,
+        &:focus-visible {
+            background: rgba(185, 221, 255, 1) !important;
+            color: var(--chakra-colors-rcDefault-4) !important;
+            border-color: transparent !important;
+            outline: 3px solid var(--chakra-colors-rcDefault-15) !important;
+        }
+
+        &:active {
+            background: var(--chakra-colors-rcDefault-15) !important;
+            border-color: var(--chakra-colors-rcDefault-15) !important;
+            outline: none !important;
+        }
+    }
+}
+
+.blue-btn-solid {
+    .chakra-button {
+        background: var(--chakra-colors-rcDefault-1) !important;
+        border: 2px solid transparent !important;
+        border-radius: 60px !important;
+        color: var(--color-white) !important;
+        font-size: 16px !important;
+        font-weight: 700 !important;
+        text-align: center;
+        cursor: pointer !important;
+        font-family: 'Geomanist-bold' !important;
+        width: 200px;
+        height: 60px;
+
+        &:hover {
+            background: var(--chakra-colors-rcDefault-2) !important;
+        }
+
+        &:focus,
+        &:focus-visible {
+            background: var(--chakra-colors-rcDefault-1) !important;
+            color: var(--white) !important;
+            border-color: transparent !important;
+            outline: 3px solid var(--chakra-colors-rcDefault-14) !important;
+        }
+
+        &:active {
+            background: var(--chakra-colors-rcDefault-2) !important;
+            border-color: transparent !important;
+            outline: none !important;
+        }
+    }
+}
+
+.orange-btn-solid {
+    .assetBtn-block {
+        padding: 17px 23px !important;
+        border-radius: 30px !important;
+        color: var(--color-white) !important;
+        font-size: 16px !important;
+        font-weight: 700 !important;
+        text-align: center;
+        background: var(--chakra-colors-rcDefault-6) !important;
+        border: none !important;
+        cursor: pointer !important;
+        font-family: 'Geomanist-bold' !important;
+
+        &:hover {
+            background: var(--chakra-colors-rcDefault-10) !important;
+            text-decoration: none;
+        }
+
+        &:focus {
+            background: var(--chakra-colors-rcDefault-6) !important;
+            outline: 3px solid var(--chakra-colors-rcDefault-12) !important;
+        }
+
+        &:active {
+            background: var(--chakra-colors-rcDefault-11) !important;
+        }
+
+        &.disabled {
+            background: var(--chakra-colors-rcDefault-12) !important;
+            cursor: not-allowed !important;
+        }
+    }
+}
+
+.white-btn-outline {
+    .chakra-button,
+    .chakra-link {
+        background: transparent !important;
+        color: var(--white) !important;
+        border: 3px solid var(--white) !important;
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.2) !important;
+        }
+
+        &:focus,
+        &:focus-visible {
+            background: rgba(185, 221, 255, 1) !important;
+            color: var(--chakra-colors-rcDefault-4) !important;
+            border-color: transparent !important;
+            outline: 3px solid var(--chakra-colors-rcDefault-15) !important;
+        }
+
+        &:active {
+            background: var(--chakra-colors-rcDefault-15) !important;
+            border-color: var(--chakra-colors-rcDefault-15) !important;
+            outline: none !important;
+        }
+    }
+}
+
+.blue-btn-outline {
+    .assetBtn-block {
+        padding: 17px 23px !important;
+        border-radius: 30px !important;
+        color: var(--chakra-colors-rcDefault-2) !important;
+        font-size: 16px !important;
+        font-weight: 700 !important;
+        text-align: center;
+        background: var(--white) !important;
+        border: 1px solid var(--chakra-colors-rcDefault-2) !important;
+        cursor: pointer !important;
+        font-family: 'Geomanist-bold' !important;
+
+        &:hover {
+            background: var(--chakra-colors-rcDefault-2) !important;
+            text-decoration: none;
+            color: var(--white) !important;
+        }
+
+        &:focus {
+            background: var(--chakra-colors-rcDefault-2) !important;
+            outline: 3px solid var(--chakra-colors-rcDefault-3) !important;
+            color: var(--white) !important;
+        }
+
+        &:active {
+            background: var(--chakra-colors-rcDefault-1) !important;
+            color: var(--white) !important;
+        }
+
+        &.disabled {
+            background: var(--chakra-colors-rcDefault-3) !important;
+            cursor: not-allowed !important;
+            color: var(--white) !important;
+        }
+    }
+}
+
+.orange-btn-outline {
+    .assetBtn-block {
+        padding: 17px 23px !important;
+        border-radius: 30px !important;
+        color: var(--chakra-colors-rcDefault-6) !important;
+        font-size: 16px !important;
+        font-weight: 700 !important;
+        text-align: center;
+        background: var(--white) !important;
+        border: 1px solid var(--chakra-colors-rcDefault-6) !important;
+        cursor: pointer !important;
+        font-family: 'Geomanist-bold' !important;
+    
+        &:hover {
+            background: var(--chakra-colors-rcDefault-10) !important;
+            text-decoration: none;
+            color: var(--white) !important;
+        }
+    
+        &:focus {
+            background: var(--chakra-colors-rcDefault-6) !important;
+            outline: 3px solid var(--chakra-colors-rcDefault-12) !important;
+            color: var(--white) !important;
+        }
+    
+        &:active {
+            background: var(--chakra-colors-rcDefault-11) !important;
+            color: var(--white) !important;
+        }
+    
+        &.disabled {
+            background: var(--chakra-colors-rcDefault-12) !important;
+            cursor: not-allowed !important;
+            color: var(--white) !important;
+        }
+    }
+}
+

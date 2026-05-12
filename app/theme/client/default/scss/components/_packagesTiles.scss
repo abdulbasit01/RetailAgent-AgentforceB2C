@@ -1,0 +1,195 @@
+@use '../abstracts/variables' as *;
+@use '../skin/skinVariables' as *;
+@use '../abstracts/mixins' as *;
+
+.section-wrapper.packages-section {
+    padding: 80px 0;
+    background: var(--white);
+
+    @include media-max(md) {
+        padding: 50px 24px;
+    }
+
+    .custom-heading-2 {
+        text-align: center;
+        max-width: 670px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 60px;
+
+        @include media-max(md) {
+            margin-bottom: 30px;
+        }
+    }
+
+    .chakra-stack.carousel-container {
+        .chakra-heading {
+            font-size: 80px;
+            font-weight: 700;
+            line-height: 84px;
+
+            @include media-max(md) {
+                font-size: 40px;
+                line-height: 44px;
+                letter-spacing: -0.05em;
+            }
+        }
+
+        .caro-pagination {
+            display: none !important;
+        }
+    }
+
+    .carousel-container-items {
+        gap: 40px;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        justify-content: center;
+
+        @include media-max(lg) {
+            padding: 0 24px;
+        }
+
+        @include media-max(md) {
+            padding: 0;
+            gap: 24px;
+            justify-content: left;
+        }
+
+        .carousel-slide-item {
+            max-width: 31.1%;
+            margin: 0;
+
+            @include media-max(md) {
+                width: 100%;
+                max-width: 48%;
+            }
+
+            @include media-max(sm) {
+                width: 75%;
+                max-width: 100%;
+            }
+
+            > .css-0 {
+                height: 100% !important;
+
+                .component {
+                    height: 100% !important;
+
+                    .container {
+                        height: 100% !important;
+                    }
+                }
+            }
+        }
+    }
+
+    .packages-tile {
+        box-shadow: 0 0 0 !important;
+        border: 1px solid var(--chakra-colors-rcDefault-7);
+        height: 100%;
+        border-radius: 24px;
+        grid-gap: 40px;
+        padding: 32px;
+        max-width: 100%;
+
+        @include media-max(md) {
+            padding: 32px 24px;
+            border-radius: 16px;
+        }
+
+        .packages-tile-header {
+            .chakra-heading.heading-text {
+                font-size: 28px;
+                line-height: 28px;
+                font-weight: 700;
+                text-align: center;
+                margin-bottom: 0;
+                font-family: $fontGeomanistBold;
+                letter-spacing: -0.015em;
+                color: var(--chakra-colors-rcDefault-4);
+
+                @include media-max(md) {
+                    font-size: 24px;
+                    letter-spacing: -0.018em;
+                }
+            }
+        }
+
+        .packages-tile-body {
+            .inner-content {
+                margin-top: 40px;
+            }
+
+            img {
+                max-width: 280px;
+            }
+
+            b {
+                font-family: $fontGeomanistBold !important;
+            }
+
+            p {
+                font-size: 20px;
+                font-weight: 400;
+                line-height: 28px;
+                margin-bottom: 0;
+                font-family: $fontGeomanistRegular;
+                color: var(--chakra-colors-rcDefault-4);
+                letter-spacing: 0.013em;
+
+                @include media-max(md) {
+                    font-size: 16px;
+                    line-height: 20px;
+                }
+            }
+
+            ul {
+                padding-left: 30px;
+
+                li {
+                    font-size: 20px;
+                    font-weight: 400;
+                    line-height: 28px;
+                    font-family: $fontGeomanistRegular;
+                    color: var(--chakra-colors-rcDefault-4);
+                    letter-spacing: 0.013em;
+
+                    @include media-max(md) {
+                        font-size: 16px;
+                        line-height: 20px;
+                    }
+                }
+            }
+        }
+
+        .assetBtn-block {
+            min-width: 200px;
+            height: 60px;
+
+            @include media-max(sm) {
+                min-width: 132px;
+            }
+        }
+    }
+
+    &.hm-pack-tile {
+        &.text-center {
+            .packages-tile {
+                text-align: center;
+
+                .inner-content {
+                    max-width: 852px;
+                    margin-left: auto;
+                    margin-right: auto;
+
+                    @include media-max(md) {
+                        text-align: left;
+                        margin-left: 0;
+                        margin-right: 0;
+                    }
+                }
+            }
+        }
+    }
+}

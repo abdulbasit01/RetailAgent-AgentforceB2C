@@ -1,0 +1,24 @@
+// Base styles for elements
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+body {
+    background: $white;
+    color: var(--color-primary);
+    font-size: 16px;
+    font-weight: 400;
+    font-family: 'Geomanist-regular' !important;
+}
+
+.custom-container {
+    padding-left: var(--chakra-space-4);
+    padding-right: var(--chakra-space-4);
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.locale-selector .chakra-select__icon-wrapper,
+.lease-selector .chakra-select__icon-wrapper {
+    z-index: 1;
+}

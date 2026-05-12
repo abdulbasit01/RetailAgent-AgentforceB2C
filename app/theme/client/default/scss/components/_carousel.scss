@@ -1,0 +1,12 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.carousel {
+    .carousel-btn-prev {
+        left: 20px;
+    }
+
+    .carousel-btn-next {
+        right: 20px;
+    }
+}

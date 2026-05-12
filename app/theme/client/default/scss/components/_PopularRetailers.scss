@@ -1,0 +1,129 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.retailer-category-wrapper {
+    > .section-container {
+        margin: 0 auto 64px;
+
+        @include media-max(md) {
+            margin-bottom: 48px;
+        }
+    }
+
+    @include media-max(xl) {
+        padding: 0 24px;
+        margin-bottom: 48px;
+    }
+
+    .textHeader {
+        border-bottom: 0;
+        padding: 0;
+
+        .heading-inner {
+            margin: 0 0 24px;
+            padding: 0;
+
+            @include media-max(md) {
+                margin: 0 0 16px;
+            }
+
+            .chakra-heading {
+                font-size: 28px;
+                font-weight: 700;
+                line-height: 28px;
+                letter-spacing: -0.015em;
+                margin: 0;
+                color: var(--chakra-colors-rcDefault-4);
+
+                @include media-max(md) {
+                    font-size: 20px;
+                    letter-spacing: normal;
+                }
+            }
+
+            .chakra-button.headerLink {
+                font-size: 16px;
+                font-weight: 400 !important;
+                line-height: 20px;
+                color: var(--chakra-colors-rcDefault-2);
+                font-family: $fontGeomanistBook !important;
+
+                @include media-max(md) {
+                    font-family: $fontGeomanistMedium !important;
+                    font-weight: 500 !important;
+                    font-size: 14px;
+                    line-height: 16px;
+                }
+            }
+        }
+    }
+
+    #retailerCategory {
+        > .container {
+            grid-template-columns: repeat(7, 1fr);
+            display: grid;
+            gap: 16px;
+
+            .component:last-of-type {
+                display: none;
+            }
+
+            @include media-max(md) { 
+                gap: 18px;
+            }
+
+            @include media-max(md) {
+                grid-template-columns: repeat(4, 1fr);
+
+                .component:last-of-type {
+                    display: block;
+                }
+            }
+
+            .retailer-category-tile {
+                .chakra-link {
+                    width: 100%;
+                }
+
+                .image-tile-figure {
+                    border: 1px solid $rc-gray-2;
+                    border-radius: 40px;
+                    box-shadow: none;
+                    min-width: auto;
+                    min-height: 160px;
+                    padding: 0 20px;
+
+                    @include media-max(lg) { 
+                        min-width: auto;
+                    }
+        
+                    @include media-max(md) { 
+                        min-height: 72px;
+                        border-radius: 24px;
+                        padding: 0 7px;
+                    }
+        
+                    picture {
+                        @include media-max(md) { 
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                        }
+        
+                        img {
+                            width: inherit;
+                            min-height: auto;
+                            height: auto;
+        
+                            @include media-max(md) { 
+                                max-width: 56px;
+                                object-fit: contain;
+                                max-height: 50px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

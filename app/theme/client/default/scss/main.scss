@@ -1,0 +1,26 @@
+//Fonts open sans
+@use './fonts/font' as *;
+
+// Abstracts
+@use './abstracts/variables' as *;
+@use './abstracts/mixins' as *;
+@use './abstracts/functions' as *;
+
+// Base
+@use './base/reset' as *;
+@use './base/typography' as *;
+@use './base/base' as *;
+
+// skin
+@use 'skin/skinVariables' as *;
+
+// Layout
+@use './layout/header' as *;
+@use './layout/footer' as *;
+
+// Pages
+@use './pages/landing-page' as *;
+
+// Components
+@use './components/carousel' as *;
+@use './components/buttons' as *;

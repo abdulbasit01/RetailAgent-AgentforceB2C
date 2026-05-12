@@ -1,0 +1,71 @@
+@use '../abstracts/variables' as *;
+@use '../skin/skinVariables' as *;
+@use '../abstracts/mixins' as *;
+
+.locale-es-US {
+    .footer-wrapper {
+        .rich-text-editor {
+            .text-editor-content {
+                p a {
+                    word-wrap: break-word;
+                }
+            }
+        }
+    }
+
+    .mobile-flexi-3r-2c .region > .container .component {
+        .rich-text-editor .text-editor-content p {
+            white-space: pre-wrap;
+        }
+    }
+
+    .partner-page-template .section-wrapper.text-heading .textHeader .heading-inner .chakra-heading {
+        font-size: 50px;
+        line-height: 1 !important;
+    }
+
+    .accessibility-wrapper {
+        padding: 24px 0;
+
+    .accessbilityIframeContent {
+            height: 2520px !important;
+
+                @include media-max(md) { 
+                height: 4190px !important;
+            }
+
+            .title {
+                margin-top: 0;
+            }
+        }
+    }
+
+    .shop-section-wrapper .mobile-2r-1c {
+        .image-tile img {
+            @include media-max(md) {
+                max-height: 218px;
+            }
+        }
+
+        .chakra-button {
+            @include media-max(md) {
+                padding-left: 0;
+                padding-right: 0;
+            }
+        }
+    }
+
+    .bg-blue.main-banner-wrapper .banner-content-wrapper .fig-banner-content .fig-banner-caption p {
+        @include media-max(md) {
+            max-width: 200px;
+        }
+    }
+
+    .list-content-wrapper {
+        .list-content-container {
+            .blue-btn-outline {
+                max-width: 155px;
+            }
+        }
+    }
+}

@@ -1,0 +1,30 @@
+@use '../skin/skinVariables' as *;
+@use '../abstracts/mixins' as *;
+@use '../abstracts/variables' as *;
+
+/**Contnetful Page Styles**/
+.box-content-section {
+    .content-holder {
+        padding: 60px;
+
+        .left-content,
+        .right-content {
+            width: 50%;
+            flex-grow: 1;
+        }
+
+        h2 {
+            font-family: $fontGeomanistBold;
+            font-size: 60px;
+            font-weight: 700;
+        }
+
+        ul {
+        }
+
+        img {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+    }
+}

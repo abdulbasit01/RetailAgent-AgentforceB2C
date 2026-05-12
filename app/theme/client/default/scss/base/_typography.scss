@@ -1,0 +1,150 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+body {
+  h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    color: var(--color-primary);
+    font-weight: 700;
+    margin: 0 0 20px;
+    font-family: 'Geomanist-bold' !important;
+  }
+}
+
+h1, .h1 {
+  font-size: 38px;
+
+  @include media-max(md) {
+    font-size: 20px;
+  }
+}
+
+h2, .h2 {
+  font-size: 80px;
+  font-weight: 700;
+  line-height: 84px;
+
+  @include media-max(md) {
+    font-size: 40px;
+    line-height: 42px;
+  }
+}
+
+h3, .h3 { 
+  font-size: 24px;
+  
+  @include media-max(md) {
+    font-size: 18px;
+  }
+}
+
+h4, .h4 {
+  font-size: 20px;
+
+  @include media-max(md) {
+    font-size: 18px;
+  }
+}
+
+h5, .h5 {
+  font-size: 18px;
+
+  @include media-max(md) {
+    font-size: 16px;
+  }
+}
+
+h6, .h6 {
+  font-size: 16px;
+}
+
+p {
+  font-size: 16px;
+}
+
+.font-size-10 {
+  font-size: 10px !important;
+}
+
+.font-size-12 {
+  font-size: 12px !important;
+}
+
+.font-size-16 {
+  font-size: 16px !important;
+}
+
+.font-size-20 {
+  font-size: 20px !important;
+}
+
+.font-size-24 {
+  font-size: 24px !important;
+}
+
+.font-size-28 {
+  font-size: 28px !important;
+}
+
+.font-size-32 {
+  font-size: 32px !important;
+}
+
+.font-size-34 {
+  font-size: 34px !important;
+}
+
+.font-size-36 {
+  font-size: 36px !important;
+}
+
+.font-size-38 {
+  font-size: 38px !important;
+}
+
+.font-size-38 {
+  font-size: 38px !important;
+}
+
+.font-size-40 {
+  font-size: 40px !important;
+}
+
+.font-size-42 { 
+  font-size: 42px !important;
+}
+
+.font-size-44 {
+  font-size: 44px !important;
+}
+
+.text-gradient-orange {
+  background: linear-gradient(to right, #f73a00, #ffd8ca) !important;
+  -webkit-background-clip: text !important; 
+  -webkit-text-fill-color: transparent !important; 
+  background-clip: text !important;
+  color: transparent !important;
+}
+
+.text-gradient-blue {
+  background: linear-gradient(to right, #0033A1, #6BC4E8) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important; 
+  background-clip: text !important;
+  color: transparent !important;
+}
+
+.font-Geomanist-book {
+  font-family: $fontGeomanistBook !important;
+}
+
+.font-Geomanist-regular {
+  font-family: $fontGeomanistRegular !important;
+}
+
+.font-Geomanist-medium {
+  font-family: $fontGeomanistMedium !important;
+}
+
+.font-Geomanist-bold {
+  font-family: $fontGeomanistBold !important;
+}

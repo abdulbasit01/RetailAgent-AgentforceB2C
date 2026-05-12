@@ -1,0 +1,56 @@
+@use '../abstracts/variables' as *;
+@use '../skin/skinVariables' as *;
+@use '../abstracts/mixins' as *;
+
+// Form styles
+.chakra-form-control {
+    &[data-invalid] {
+        @include media-max(md) {
+            margin-bottom: 20px;
+        }
+
+        .chakra-form__label {
+            color: $rc-red-1 !important;
+        }
+
+        .chakra-input {
+            box-shadow: none;
+            border: 2px solid;
+            background: $rc-red-2;
+            color: $rc-red-1;
+            border-color: $rc-red-1 !important;
+            font-weight: 400;
+            font-family: $fontGeomanistRegular;
+            margin-bottom: 0;
+        }
+
+        .chakra-form__error-message {
+            color: $rc-red-1;
+            font-size: 12px;
+            font-weight: 400;
+            font-family: $fontGeomanistRegular;
+            margin-top: 0;
+            position: absolute;
+            bottom: -22px;
+        }
+    }
+}
+
+.contentStateInfo {
+    display: block;
+    text-align: center;
+    padding: 10px 0;
+
+    &.errorState {
+        color: $rc-red-1;
+    }
+
+    &.successState {
+        color: $green1;
+    }
+}
+
+.chakra-input [data-focus-visible],
+.chakra-input:focus-visible {
+    border-color: var(--chakra-colors-blue-600);
+}

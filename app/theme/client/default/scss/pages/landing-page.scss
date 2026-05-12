@@ -1,0 +1,108 @@
+@use '../skin/skinVariables' as *;
+@use '../abstracts/mixins' as *;
+@use '../abstracts/variables' as *;
+
+/**Landing Page Styles**/
+.pageWrapper {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.slick-intance-chakra {
+    position: relative;
+
+    .product-item-wrapper {
+        width: 100% !important;
+
+        .chakra-stack {
+            overflow: visible;
+        }
+
+        .chakra-badge {
+            margin-top: 25px;
+            margin-left: 20px;
+        }
+
+        .image-holder {
+            margin-bottom: 30px;
+        }
+
+        .promo-callout {
+            font-size: 14px;
+        }
+
+        .chakra-link {
+            &:hover {
+                text-decoration: none;
+            }
+        }
+    }
+
+    .slick-arrow {
+        color: #222;
+        z-index: 100;
+
+        &.slick-next {
+            right: -25px;
+        }
+
+        &.slick-prev {
+            left: -25px;
+        }
+
+        &.slick-prev, 
+        &.slick-next {
+            &::before {
+                color: inherit;
+            }
+
+            &:hover, 
+            &:focus {
+                color: rgba(0,0,0,0.5);
+            }
+        }
+    }
+}
+
+.section-container {
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.help-section {
+    h2 {
+        color: #fff;
+        margin-bottom: 0;
+    }
+
+    p {
+        color: #fff;
+    }
+}
+
+.feature-section {
+    h3 {
+        margin-bottom: 0;
+    }
+}
+
+.footer-wrapper {
+    .subscription-form {
+        p {
+            font-weight: 500;
+            font-family: $fontGeomanistMedium;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, .5);
+            color: #f5f5f5;
+        }
+    }
+
+    .footer-container {
+        li {
+            a {
+                font-weight: 500;
+                font-family: $fontGeomanistMedium;
+                text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.5);
+            }
+        }
+    }
+}

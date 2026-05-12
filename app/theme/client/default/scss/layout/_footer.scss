@@ -1,0 +1,72 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.footer-wrapper {
+    .rich-text-editor {
+        h3 {
+            color: $white;
+        }
+
+        ul {
+            list-style: none;
+
+            li {
+                font-size: 14px;
+                line-height: 30px;
+
+                a {
+                    color: $white;
+
+                    &:hover {
+                        color: $rc-orange;
+                    }
+                }
+            }
+        }
+
+        .text-editor-content p {
+            margin-bottom: 0;
+            font-size: inherit;
+
+            a {
+                font-size: 16px;
+                font-weight: 700;
+                line-height: 16px;
+                display: inline-block;
+                margin-bottom: 24px;
+                color: var(--chakra-colors-rcDefault-4) !important;
+                font-family: $fontGeomanistBold !important;
+
+                @include media-max(md) {
+                    line-height: 1.4;
+                }
+            }
+
+            &:last-child {
+                a {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+
+    .social-menu-wrapper {
+        margin-top: 24px;
+
+        h3 {
+            color: $white;
+        }
+
+        ul {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            li {
+                list-style: none;
+            }
+        }
+    }
+}
+
+

@@ -1,0 +1,715 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body h1, body h2, body h3, body h4, body h5, body h6, body .h1, body .h2, body .h3, body .h4, body .h5, body .h6 {
+  color: var(--color-primary);
+  font-weight: 700;
+  margin: 0 0 20px;
+  font-family: "Geomanist-bold" !important;
+}
+
+h1, .h1 {
+  font-size: 38px;
+}
+@media (max-width: 768px) {
+  h1, .h1 {
+    font-size: 20px;
+  }
+}
+
+h2, .h2 {
+  font-size: 80px;
+  font-weight: 700;
+  line-height: 84px;
+}
+@media (max-width: 768px) {
+  h2, .h2 {
+    font-size: 40px;
+    line-height: 42px;
+  }
+}
+
+h3, .h3 {
+  font-size: 24px;
+}
+@media (max-width: 768px) {
+  h3, .h3 {
+    font-size: 18px;
+  }
+}
+
+h4, .h4 {
+  font-size: 20px;
+}
+@media (max-width: 768px) {
+  h4, .h4 {
+    font-size: 18px;
+  }
+}
+
+h5, .h5 {
+  font-size: 18px;
+}
+@media (max-width: 768px) {
+  h5, .h5 {
+    font-size: 16px;
+  }
+}
+
+h6, .h6 {
+  font-size: 16px;
+}
+
+p {
+  font-size: 16px;
+}
+
+.font-size-10 {
+  font-size: 10px !important;
+}
+
+.font-size-12 {
+  font-size: 12px !important;
+}
+
+.font-size-16 {
+  font-size: 16px !important;
+}
+
+.font-size-20 {
+  font-size: 20px !important;
+}
+
+.font-size-24 {
+  font-size: 24px !important;
+}
+
+.font-size-28 {
+  font-size: 28px !important;
+}
+
+.font-size-32 {
+  font-size: 32px !important;
+}
+
+.font-size-34 {
+  font-size: 34px !important;
+}
+
+.font-size-36 {
+  font-size: 36px !important;
+}
+
+.font-size-38 {
+  font-size: 38px !important;
+}
+
+.font-size-38 {
+  font-size: 38px !important;
+}
+
+.font-size-40 {
+  font-size: 40px !important;
+}
+
+.font-size-42 {
+  font-size: 42px !important;
+}
+
+.font-size-44 {
+  font-size: 44px !important;
+}
+
+.text-gradient-orange {
+  background: linear-gradient(to right, #f73a00, #ffd8ca) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  color: transparent !important;
+}
+
+.text-gradient-blue {
+  background: linear-gradient(to right, #0033A1, #6BC4E8) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  color: transparent !important;
+}
+
+.font-Geomanist-book {
+  font-family: "Geomanist-regular-book" !important;
+}
+
+.font-Geomanist-regular {
+  font-family: "Geomanist-regular" !important;
+}
+
+.font-Geomanist-medium {
+  font-family: "Geomanist-medium" !important;
+}
+
+.font-Geomanist-bold {
+  font-family: "Geomanist-bold" !important;
+}
+
+body {
+  background: #fff;
+  color: var(--color-primary);
+  font-size: 16px;
+  font-weight: 400;
+  font-family: "Geomanist-regular" !important;
+}
+
+.custom-container {
+  padding-left: var(--chakra-space-4);
+  padding-right: var(--chakra-space-4);
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.locale-selector .chakra-select__icon-wrapper,
+.lease-selector .chakra-select__icon-wrapper {
+  z-index: 1;
+}
+
+:root {
+  /** ==================================================================== **/
+  /** Create Custom CSS Variables from "sfra bootstrap override" variables **/
+  /** ==================================================================== **/
+  --color-white: #fff;
+  --color-black: #000;
+  --color-blue: #0070d2;
+  --color-green: #008827;
+  --color-primary: #002561;
+  --color-red: #ed1c24;
+  --color-success: var(--color-green);
+  --color-danger: var(--chakra-colors-racDefault-9);
+  --chakra-colors-rcDefault-1: $rc-blue-1;
+  --chakra-colors-rcDefault-2: $rc-blue-2;
+  --chakra-colors-rcDefault-3: $rc-blue-3;
+  --chakra-colors-rcDefault-4: $rc-blue-4;
+  --chakra-colors-rcDefault-5: $rc-gray-1;
+  --chakra-colors-rcDefault-6: $rc-orange;
+  --chakra-colors-rcDefault-7: $rc-gray-2;
+  --chakra-colors-rcDefault-8: $rc-gray-3;
+  --chakra-colors-rcDefault-9: $grey-3;
+  --chakra-colors-rcDefault-10: $rc-orange-2;
+  --chakra-colors-rcDefault-11: $rc-orange-3;
+  --chakra-colors-rcDefault-12: $rc-orange-light;
+  --chakra-colors-rcDefault-13: $rc-light-gray-1;
+  --chakra-colors-rcDefault-14: $rc-blue-7;
+  --chakra-colors-rcDefault-15: $rc-blue-6;
+  --color-grey1: #f9f9f9;
+  --color-grey2: #eee;
+  --color-grey3: #ccc;
+  --color-grey4: #999;
+  --color-grey5: #666;
+  --color-grey6: #444;
+  --color-grey7: #222;
+  --color-grey8: #333;
+  --color-grey9: #c9c9c9;
+  --color-grey-transparent-1: rgba(0, 0, 0, 65%);
+  --color-grey-transparent-2: rgba(0, 0, 0, 25%);
+  --color-light-gray: var(--color-grey1);
+  --color-slightly-darker-gray: var(--color-grey4);
+  --color-dark-gray: var(--color-grey6);
+  --color-darker-gray: var(--color-grey7);
+  --color-horizontal-rule-grey: var(--color-grey3);
+  --color-product-number-grey: var(--color-grey3);
+  --color-horizontal-border-grey: var(--color-grey4);
+  --color-menu-link: var(--color-grey6);
+  --color-close-menu-bg: var(--color-grey2);
+  --color-link-color: var(--color-dark-gray);
+  --color-hr-border-color: var(--color-grey3);
+  /** ==================================================================== **/
+  /** Define skin named variables here                                    **/
+  /** ==================================================================== **/
+  --skin-background-color-1: var(--color-gray1);
+  --skin-border-color-1: var(--color-white);
+  --skin-main-text-color-1: var(--color-gray7);
+  --skin-main-text-color-2: var(--color-gray7);
+  --skin-menu-color-1: #444;
+  --skin-menu-color-1-invert: var(--color-white);
+  --skin-menu-color-2: #222;
+  --skin-link-color-1: #444;
+  --skin-link-color-2: var(--color-blue);
+  --skin-primary-color-1: var(--color-primary);
+  --skin-primary-color-2: var(--color-primary);
+  --skin-primary-color-invert-1: var(--color-white);
+  --skin-selectbox-background-color-1: var(--color-white);
+  --skin-selectbox-text-color-1: var(--skin-main-text-color-1);
+  --skin-banner-background-color-1: #444;
+  --skin-banner-background-color-2: #222;
+  --skin-banner-text-color-1: var(--color-white);
+  --skin-heading-color-1: var(--color-primary);
+  --skin-heading-color-1-invert: var(--color-white);
+  --skin-price-1: var(--color-gray7);
+  --skin-header-font: 'Dosis';
+  --skin-body-font: var(--font-family-sans-serif);
+}
+
+.main-header {
+  box-shadow: 0 0 0 !important;
+  padding-bottom: 12px;
+  padding-top: 10px;
+}
+@media (max-width: 768px) {
+  .main-header {
+    padding-top: 24px;
+    padding-bottom: 24px;
+  }
+}
+.main-header .header-logo svg {
+  width: 89px;
+  height: 23px;
+  line-height: normal;
+}
+.main-header .search-wrapper {
+  position: relative;
+  margin-right: 24px;
+}
+@media (max-width: 992px) {
+  .main-header .search-wrapper {
+    order: 1;
+    margin-right: 12px;
+    padding: 0 12px;
+  }
+}
+.main-header .search-wrapper input {
+  border: none;
+  border-bottom: 1px solid var(--chakra-colors-gray-900);
+  font-size: 12px;
+  padding: 0;
+  box-shadow: none;
+}
+.main-header .search-wrapper svg {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+}
+
+.mobile-menu-drawer .brand-logo-wrapper svg {
+  height: auto;
+}
+.mobile-menu-drawer .chakra-accordion .chakra-accordion__item h2 {
+  margin-bottom: 0;
+}
+.mobile-menu-drawer .chakra-accordion .chakra-accordion__item h2 p {
+  font-size: 14px;
+  font-family: "Geomanist-medium";
+  font-weight: 500;
+  line-height: 1;
+}
+.mobile-menu-drawer .acount-menus-wrapper p {
+  font-size: 14px;
+  font-family: "Geomanist-medium";
+  font-weight: 500;
+  line-height: 1;
+}
+
+.footer-wrapper .rich-text-editor h3 {
+  color: #fff;
+}
+.footer-wrapper .rich-text-editor ul {
+  list-style: none;
+}
+.footer-wrapper .rich-text-editor ul li {
+  font-size: 14px;
+  line-height: 30px;
+}
+.footer-wrapper .rich-text-editor ul li a {
+  color: #fff;
+}
+.footer-wrapper .rich-text-editor ul li a:hover {
+  color: #ff9900;
+}
+.footer-wrapper .rich-text-editor .text-editor-content p {
+  margin-bottom: 0;
+  font-size: inherit;
+}
+.footer-wrapper .rich-text-editor .text-editor-content p a {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 16px;
+  display: inline-block;
+  margin-bottom: 24px;
+  color: var(--chakra-colors-rcDefault-4) !important;
+  font-family: "Geomanist-bold" !important;
+}
+@media (max-width: 768px) {
+  .footer-wrapper .rich-text-editor .text-editor-content p a {
+    line-height: 1.4;
+  }
+}
+.footer-wrapper .rich-text-editor .text-editor-content p:last-child a {
+  margin-bottom: 0;
+}
+.footer-wrapper .social-menu-wrapper {
+  margin-top: 24px;
+}
+.footer-wrapper .social-menu-wrapper h3 {
+  color: #fff;
+}
+.footer-wrapper .social-menu-wrapper ul {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.footer-wrapper .social-menu-wrapper ul li {
+  list-style: none;
+}
+
+/**Landing Page Styles**/
+.pageWrapper {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.slick-intance-chakra {
+  position: relative;
+}
+.slick-intance-chakra .product-item-wrapper {
+  width: 100% !important;
+}
+.slick-intance-chakra .product-item-wrapper .chakra-stack {
+  overflow: visible;
+}
+.slick-intance-chakra .product-item-wrapper .chakra-badge {
+  margin-top: 25px;
+  margin-left: 20px;
+}
+.slick-intance-chakra .product-item-wrapper .image-holder {
+  margin-bottom: 30px;
+}
+.slick-intance-chakra .product-item-wrapper .promo-callout {
+  font-size: 14px;
+}
+.slick-intance-chakra .product-item-wrapper .chakra-link:hover {
+  text-decoration: none;
+}
+.slick-intance-chakra .slick-arrow {
+  color: #222;
+  z-index: 100;
+}
+.slick-intance-chakra .slick-arrow.slick-next {
+  right: -25px;
+}
+.slick-intance-chakra .slick-arrow.slick-prev {
+  left: -25px;
+}
+.slick-intance-chakra .slick-arrow.slick-prev::before, .slick-intance-chakra .slick-arrow.slick-next::before {
+  color: inherit;
+}
+.slick-intance-chakra .slick-arrow.slick-prev:hover, .slick-intance-chakra .slick-arrow.slick-prev:focus, .slick-intance-chakra .slick-arrow.slick-next:hover, .slick-intance-chakra .slick-arrow.slick-next:focus {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.section-container {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.help-section h2 {
+  color: #fff;
+  margin-bottom: 0;
+}
+.help-section p {
+  color: #fff;
+}
+
+.feature-section h3 {
+  margin-bottom: 0;
+}
+
+.footer-wrapper .subscription-form p {
+  font-weight: 500;
+  font-family: "Geomanist-medium";
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  color: #f5f5f5;
+}
+.footer-wrapper .footer-container li a {
+  font-weight: 500;
+  font-family: "Geomanist-medium";
+  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+.carousel .carousel-btn-prev {
+  left: 20px;
+}
+.carousel .carousel-btn-next {
+  right: 20px;
+}
+
+.primary-btn {
+  padding: 17px 23px !important;
+  border-radius: 30px !important;
+  color: var(--color-white) !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  text-align: center;
+  background: var(--chakra-colors-rcDefault-6) !important;
+  border: none !important;
+  cursor: pointer !important;
+  font-family: "Geomanist-bold" !important;
+}
+.primary-btn:hover {
+  background: var(--chakra-colors-rcDefault-10) !important;
+  text-decoration: none;
+}
+.primary-btn:focus {
+  background: var(--chakra-colors-rcDefault-6) !important;
+  outline: 3px solid var(--chakra-colors-rcDefault-12) !important;
+}
+.primary-btn:active {
+  background: var(--chakra-colors-rcDefault-11) !important;
+}
+.primary-btn.disabled {
+  background: var(--chakra-colors-rcDefault-12) !important;
+  cursor: not-allowed !important;
+}
+
+.primary-btn-outline {
+  padding: 17px 23px !important;
+  border-radius: 30px !important;
+  color: var(--chakra-colors-rcDefault-6) !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  text-align: center;
+  background: var(--white) !important;
+  border: 2px solid var(--chakra-colors-rcDefault-6) !important;
+  cursor: pointer !important;
+  font-family: "Geomanist-bold" !important;
+}
+.primary-btn-outline:hover {
+  background: var(--chakra-colors-rcDefault-10) !important;
+  text-decoration: none;
+  color: var(--white) !important;
+}
+.primary-btn-outline:focus {
+  background: var(--chakra-colors-rcDefault-6) !important;
+  outline: 3px solid var(--chakra-colors-rcDefault-12) !important;
+  color: var(--white) !important;
+}
+.primary-btn-outline:active {
+  background: var(--chakra-colors-rcDefault-11) !important;
+  color: var(--white) !important;
+}
+.primary-btn-outline.disabled {
+  background: var(--chakra-colors-rcDefault-12) !important;
+  cursor: not-allowed !important;
+  color: var(--white) !important;
+}
+
+.blue-btn-outline {
+  padding: 17px 23px !important;
+  border-radius: 30px !important;
+  color: var(--chakra-colors-rcDefault-2) !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  text-align: center;
+  background: var(--white) !important;
+  border: 2px solid var(--chakra-colors-rcDefault-2) !important;
+  cursor: pointer !important;
+  font-family: "Geomanist-bold" !important;
+}
+.blue-btn-outline:hover {
+  background: var(--chakra-colors-rcDefault-2) !important;
+  text-decoration: none !important;
+  color: var(--white) !important;
+}
+.blue-btn-outline:focus {
+  background: var(--chakra-colors-rcDefault-2) !important;
+  outline: 3px solid var(--chakra-colors-rcDefault-3) !important;
+  color: var(--white) !important;
+}
+.blue-btn-outline:active {
+  background: var(--chakra-colors-rcDefault-1) !important;
+  color: var(--white) !important;
+}
+.blue-btn-outline.disabled {
+  background: var(--chakra-colors-rcDefault-3) !important;
+  cursor: not-allowed !important;
+  color: var(--white) !important;
+}
+
+.darkblue-btn-solid .chakra-button {
+  background: transparent !important;
+  border: 3px solid var(--white) !important;
+  border-radius: 60px !important;
+  color: var(--color-white) !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  text-align: center;
+  cursor: pointer !important;
+  font-family: "Geomanist-bold" !important;
+  width: 200px;
+  height: 60px;
+}
+.darkblue-btn-solid .chakra-button:hover {
+  background: rgba(255, 255, 255, 0.2) !important;
+}
+.darkblue-btn-solid .chakra-button:focus, .darkblue-btn-solid .chakra-button:focus-visible {
+  background: rgb(185, 221, 255) !important;
+  color: var(--chakra-colors-rcDefault-4) !important;
+  border-color: transparent !important;
+  outline: 3px solid var(--chakra-colors-rcDefault-15) !important;
+}
+.darkblue-btn-solid .chakra-button:active {
+  background: var(--chakra-colors-rcDefault-15) !important;
+  border-color: var(--chakra-colors-rcDefault-15) !important;
+  outline: none !important;
+}
+
+.blue-btn-solid .chakra-button {
+  background: var(--chakra-colors-rcDefault-1) !important;
+  border: 2px solid transparent !important;
+  border-radius: 60px !important;
+  color: var(--color-white) !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  text-align: center;
+  cursor: pointer !important;
+  font-family: "Geomanist-bold" !important;
+  width: 200px;
+  height: 60px;
+}
+.blue-btn-solid .chakra-button:hover {
+  background: var(--chakra-colors-rcDefault-2) !important;
+}
+.blue-btn-solid .chakra-button:focus, .blue-btn-solid .chakra-button:focus-visible {
+  background: var(--chakra-colors-rcDefault-1) !important;
+  color: var(--white) !important;
+  border-color: transparent !important;
+  outline: 3px solid var(--chakra-colors-rcDefault-14) !important;
+}
+.blue-btn-solid .chakra-button:active {
+  background: var(--chakra-colors-rcDefault-2) !important;
+  border-color: transparent !important;
+  outline: none !important;
+}
+
+.orange-btn-solid .assetBtn-block {
+  padding: 17px 23px !important;
+  border-radius: 30px !important;
+  color: var(--color-white) !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  text-align: center;
+  background: var(--chakra-colors-rcDefault-6) !important;
+  border: none !important;
+  cursor: pointer !important;
+  font-family: "Geomanist-bold" !important;
+}
+.orange-btn-solid .assetBtn-block:hover {
+  background: var(--chakra-colors-rcDefault-10) !important;
+  text-decoration: none;
+}
+.orange-btn-solid .assetBtn-block:focus {
+  background: var(--chakra-colors-rcDefault-6) !important;
+  outline: 3px solid var(--chakra-colors-rcDefault-12) !important;
+}
+.orange-btn-solid .assetBtn-block:active {
+  background: var(--chakra-colors-rcDefault-11) !important;
+}
+.orange-btn-solid .assetBtn-block.disabled {
+  background: var(--chakra-colors-rcDefault-12) !important;
+  cursor: not-allowed !important;
+}
+
+.white-btn-outline .chakra-button,
+.white-btn-outline .chakra-link {
+  background: transparent !important;
+  color: var(--white) !important;
+  border: 3px solid var(--white) !important;
+}
+.white-btn-outline .chakra-button:hover,
+.white-btn-outline .chakra-link:hover {
+  background: rgba(255, 255, 255, 0.2) !important;
+}
+.white-btn-outline .chakra-button:focus, .white-btn-outline .chakra-button:focus-visible,
+.white-btn-outline .chakra-link:focus,
+.white-btn-outline .chakra-link:focus-visible {
+  background: rgb(185, 221, 255) !important;
+  color: var(--chakra-colors-rcDefault-4) !important;
+  border-color: transparent !important;
+  outline: 3px solid var(--chakra-colors-rcDefault-15) !important;
+}
+.white-btn-outline .chakra-button:active,
+.white-btn-outline .chakra-link:active {
+  background: var(--chakra-colors-rcDefault-15) !important;
+  border-color: var(--chakra-colors-rcDefault-15) !important;
+  outline: none !important;
+}
+
+.blue-btn-outline .assetBtn-block {
+  padding: 17px 23px !important;
+  border-radius: 30px !important;
+  color: var(--chakra-colors-rcDefault-2) !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  text-align: center;
+  background: var(--white) !important;
+  border: 1px solid var(--chakra-colors-rcDefault-2) !important;
+  cursor: pointer !important;
+  font-family: "Geomanist-bold" !important;
+}
+.blue-btn-outline .assetBtn-block:hover {
+  background: var(--chakra-colors-rcDefault-2) !important;
+  text-decoration: none;
+  color: var(--white) !important;
+}
+.blue-btn-outline .assetBtn-block:focus {
+  background: var(--chakra-colors-rcDefault-2) !important;
+  outline: 3px solid var(--chakra-colors-rcDefault-3) !important;
+  color: var(--white) !important;
+}
+.blue-btn-outline .assetBtn-block:active {
+  background: var(--chakra-colors-rcDefault-1) !important;
+  color: var(--white) !important;
+}
+.blue-btn-outline .assetBtn-block.disabled {
+  background: var(--chakra-colors-rcDefault-3) !important;
+  cursor: not-allowed !important;
+  color: var(--white) !important;
+}
+
+.orange-btn-outline .assetBtn-block {
+  padding: 17px 23px !important;
+  border-radius: 30px !important;
+  color: var(--chakra-colors-rcDefault-6) !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  text-align: center;
+  background: var(--white) !important;
+  border: 1px solid var(--chakra-colors-rcDefault-6) !important;
+  cursor: pointer !important;
+  font-family: "Geomanist-bold" !important;
+}
+.orange-btn-outline .assetBtn-block:hover {
+  background: var(--chakra-colors-rcDefault-10) !important;
+  text-decoration: none;
+  color: var(--white) !important;
+}
+.orange-btn-outline .assetBtn-block:focus {
+  background: var(--chakra-colors-rcDefault-6) !important;
+  outline: 3px solid var(--chakra-colors-rcDefault-12) !important;
+  color: var(--white) !important;
+}
+.orange-btn-outline .assetBtn-block:active {
+  background: var(--chakra-colors-rcDefault-11) !important;
+  color: var(--white) !important;
+}
+.orange-btn-outline .assetBtn-block.disabled {
+  background: var(--chakra-colors-rcDefault-12) !important;
+  cursor: not-allowed !important;
+  color: var(--white) !important;
+}
