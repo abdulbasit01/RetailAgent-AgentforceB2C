@@ -6,76 +6,119 @@
  */
 export default {
     baseStyle: {
-        borderRadius: 'base'
+        borderRadius: 'full',
+        fontWeight: 700,
+        textTransform: 'uppercase',
+        letterSpacing: '0.05em',
+        fontSize: 'sm'
     },
     variants: {
         solid: (props) =>
             props.colorScheme === 'blue'
                 ? {
-                      backgroundColor: 'blue.600',
+                      backgroundColor: '#111111',
                       color: 'white',
-                      _hover: {bg: 'blue.700', _disabled: {bg: 'blue.300'}},
-                      _active: {bg: 'blue.800'},
-                      _disabled: {bg: 'blue.300'}
+                      _hover: {bg: '#404040', _disabled: {bg: '#A3A3A3'}},
+                      _active: {bg: '#000000'},
+                      _disabled: {bg: '#A3A3A3'}
                   }
-                : {},
+                : {
+                      backgroundColor: '#111111',
+                      color: 'white',
+                      _hover: {bg: '#404040', _disabled: {bg: '#A3A3A3'}},
+                      _active: {bg: '#000000'},
+                      _disabled: {bg: '#A3A3A3'}
+                  },
         outline: (props) =>
             props.colorScheme === 'black'
-                ? {color: 'gray.900', _hover: {bg: 'gray.50'}, borderColor: 'gray.200'}
-                : {color: 'blue.600', _hover: {bg: 'gray.50'}},
+                ? {
+                      color: '#111111',
+                      _hover: {bg: '#F5F5F5'},
+                      borderColor: '#111111',
+                      borderWidth: '2px'
+                  }
+                : {
+                      color: '#111111',
+                      _hover: {bg: '#F5F5F5'},
+                      borderColor: '#111111',
+                      borderWidth: '2px'
+                  },
         footer: {
             fontSize: 'sm',
-            backgroundColor: 'gray.100',
-            color: 'black',
-            _hover: {bg: 'gray.200'},
-            _active: {bg: 'gray.300'},
-            paddingLeft: 3,
-            paddingRight: 3
+            backgroundColor: 'white',
+            color: '#111111',
+            borderRadius: 'full',
+            fontWeight: 700,
+            textTransform: 'uppercase',
+            letterSpacing: '0.05em',
+            _hover: {bg: '#F5F5F5'},
+            _active: {bg: '#E8E8E8'},
+            paddingLeft: 4,
+            paddingRight: 4
         },
         link: (props) => ({
-            color: props.colorScheme === 'red' ? 'red.500' : 'blue.600',
+            color: props.colorScheme === 'red' ? 'red.500' : '#111111',
             fontWeight: 'normal',
             minWidth: '1em',
-            lineHeight: 4
+            lineHeight: 4,
+            textTransform: 'none',
+            letterSpacing: 'normal'
         }),
         'menu-link': {
-            color: 'black',
+            color: '#111111',
             justifyContent: 'flex-start',
             fontSize: 'sm',
-            _hover: {bg: 'gray.50', textDecoration: 'underline', textDecorationColor: 'gray.900'},
+            fontWeight: 'normal',
+            textTransform: 'none',
+            letterSpacing: 'normal',
+            _hover: {
+                bg: '#F5F5F5',
+                textDecoration: 'underline',
+                textDecorationColor: '#111111'
+            },
             _activeLink: {
-                bg: 'gray.50',
+                bg: '#F5F5F5',
                 borderLeft: 'solid',
-                borderLeftColor: 'gray.600',
+                borderLeftColor: '#111111',
                 borderLeftWidth: '4px'
             }
         },
         'menu-link-mobile': {
-            color: 'black',
+            color: '#111111',
             justifyContent: 'flex-start',
             fontSize: 'sm',
-            _hover: {bg: 'gray.50', textDecoration: 'underline', textDecorationColor: 'gray.900'},
+            fontWeight: 'normal',
+            textTransform: 'none',
+            letterSpacing: 'normal',
+            _hover: {
+                bg: '#F5F5F5',
+                textDecoration: 'underline',
+                textDecorationColor: '#111111'
+            },
             _activeLink: {
-                bg: 'gray.100',
+                bg: '#F5F5F5',
                 border: 'solid',
-                borderColor: 'gray.600',
+                borderColor: '#111111',
                 borderWidth: '1px'
             }
         },
         'search-link': {
-            color: 'black',
+            color: '#111111',
             justifyContent: 'flex-start',
             fontSize: 'sm',
+            textTransform: 'none',
+            letterSpacing: 'normal',
             _hover: {textDecoration: 'none'}
         }
     },
     sizes: {
         md: {
             height: 11,
-            minWidth: 11
+            minWidth: 11,
+            px: 6
         }
     },
     defaultProps: {
-        colorScheme: 'blue'
+        colorScheme: 'blackAlpha'
     }
 }

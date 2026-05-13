@@ -36,7 +36,6 @@ import Search from '@salesforce/retail-react-app/app/components/search'
 import withRegistration from '@salesforce/retail-react-app/app/components/with-registration'
 import {
     AccountIcon,
-    BrandLogo,
     BasketIcon,
     HamburgerIcon,
     ChevronDownIcon,
@@ -177,16 +176,40 @@ const Header = ({
                         {...styles.icons}
                         onClick={onMenuClick}
                     />
-                    <IconButton
+                    <Box
+                        as="button"
+                        onClick={onLogoClick}
+                        cursor="pointer"
+                        border="none"
+                        bg="transparent"
+                        p={0}
+                        mr={[2, 2, 4]}
+                        _focusVisible={{
+                            outline: '2px solid #111111',
+                            outlineOffset: '2px',
+                            borderRadius: '4px'
+                        }}
                         aria-label={intl.formatMessage({
                             id: 'header.button.assistive_msg.logo',
                             defaultMessage: 'Logo'
                         })}
-                        icon={<BrandLogo {...styles.logo} />}
-                        {...styles.icons}
-                        variant="unstyled"
-                        onClick={onLogoClick}
-                    />
+                    >
+                        <Text
+                            fontFamily="'Helvetica Neue', Helvetica, Arial, sans-serif"
+                            fontWeight={900}
+                            fontSize={['sm', 'sm', 'md', 'lg']}
+                            letterSpacing="-0.05em"
+                            textTransform="uppercase"
+                            color="#111111"
+                            lineHeight={1}
+                            userSelect="none"
+                        >
+                            Agent
+                            <Text as="span" color="#FA5400">
+                                Force
+                            </Text>
+                        </Text>
+                    </Box>
                     <Box {...styles.bodyContainer}>{children}</Box>
                     <HideOnMobile>
                         <SearchBar />

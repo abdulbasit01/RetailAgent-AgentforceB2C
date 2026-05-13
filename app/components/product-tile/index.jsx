@@ -212,62 +212,65 @@ const ProductTile = (props) => {
                 {variationAttributes
                     ?.filter(({id}) => selectableAttributeId === id)
                     ?.map(({id, name, values}) => (
-                        <SwatchGroup
-                            ariaLabel={name}
-                            key={id}
-                            value={selectableAttributeValue}
-                            handleChange={(value) => {
-                                setSelectableAttributeValue(value)
-                            }}
-                        >
-                            {values?.map(({name, swatch, value}) => {
-                                const content = swatch ? (
-                                    <Box
-                                        height="100%"
-                                        width="100%"
-                                        minWidth="32px"
-                                        backgroundRepeat="no-repeat"
-                                        backgroundSize="cover"
-                                        backgroundColor={name.toLowerCase()}
-                                        backgroundImage={`url(${
-                                            swatch?.disBaseLink || swatch.link
-                                        })`}
-                                    />
-                                ) : (
-                                    name
-                                )
+                        <Box key={id} px={3} pt={2}>
+                            <SwatchGroup
+                                ariaLabel={name}
+                                value={selectableAttributeValue}
+                                handleChange={(value) => {
+                                    setSelectableAttributeValue(value)
+                                }}
+                            >
+                                {values?.map(({name, swatch, value}) => {
+                                    const content = swatch ? (
+                                        <Box
+                                            height="100%"
+                                            width="100%"
+                                            minWidth="32px"
+                                            backgroundRepeat="no-repeat"
+                                            backgroundSize="cover"
+                                            backgroundColor={name.toLowerCase()}
+                                            backgroundImage={`url(${
+                                                swatch?.disBaseLink || swatch.link
+                                            })`}
+                                        />
+                                    ) : (
+                                        name
+                                    )
 
-                                return (
-                                    <Swatch
-                                        key={value}
-                                        value={value}
-                                        name={name}
-                                        variant={'circle'}
-                                        isFocusable={true}
-                                    >
-                                        {content}
-                                    </Swatch>
-                                )
-                            })}
-                        </SwatchGroup>
+                                    return (
+                                        <Swatch
+                                            key={value}
+                                            value={value}
+                                            name={name}
+                                            variant={'circle'}
+                                            isFocusable={true}
+                                        >
+                                            {content}
+                                        </Swatch>
+                                    )
+                                })}
+                            </SwatchGroup>
+                        </Box>
                     ))}
 
-                {/* Title */}
-                <Text {...styles.title}>{localizedProductName}</Text>
+                {/* Title + Price wrapped with consistent padding */}
+                <Box px={3} pt={2} pb={3}>
+                    <Text {...styles.title}>{localizedProductName}</Text>
 
-                {isRefreshingData ? (
-                    <PricingAndPromotionsSkeleton />
-                ) : (
-                    <>
-                        {/* Price */}
-                        <DisplayPrice priceData={priceData} currency={currency} />
+                    {isRefreshingData ? (
+                        <PricingAndPromotionsSkeleton />
+                    ) : (
+                        <>
+                            {/* Price */}
+                            <DisplayPrice priceData={priceData} currency={currency} />
 
-                        {/* Promotion call-out message */}
-                        {shouldShowPromoCallout(productWithFilteredVariants) && (
-                            <PromoCallout product={productWithFilteredVariants} />
-                        )}
-                    </>
-                )}
+                            {/* Promotion call-out message */}
+                            {shouldShowPromoCallout(productWithFilteredVariants) && (
+                                <PromoCallout product={productWithFilteredVariants} />
+                            )}
+                        </>
+                    )}
+                </Box>
             </Link>
             {enableFavourite && (
                 <Box

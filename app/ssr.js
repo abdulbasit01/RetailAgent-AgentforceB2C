@@ -313,26 +313,37 @@ const {handler} = runtime.createHandler(options, (app) => {
             contentSecurityPolicy: {
                 useDefaults: true,
                   directives: {
-        "img-src": [ 
+        "img-src": [
+            "'self'",
+            'data:',
+            'blob:',
+            // SFCC / Commerce Cloud
             '*.demandware.net',
-                'checkoutshopper-test.adyen.com',
-                'https://www.gstatic.com',                                
-        "*.commercecloud.salesforce.com",
-        "gstatic.com",                                
-        "[prefix]-checkout-live.adyenpayments.com",  
-        'checkoutshopper-test.cdn.adyen.com',
-        'checkoutanalytics-test.adyen.com',
-        'https://checkoutshopper-test.cdn.adyen.com',
-        'https://checkoutshopper-test.adyen.com',
-         'data:',
-                        '*.adyen.com',
-                        '*.paypal.com',
-                        '*.media-amazon.com',
-                        '*.payments-amazon.com',
-                        'https://www.paypalobjects.com/js-sdk-logos/2.2.7/paypal-blue.svg',
-                        'https://*.cash.app',
-                        'https://*.gstatic.com'                             
-     ],
+            '*.commercecloud.salesforce.com',
+            // Editorial / lifestyle images
+            'https://images.unsplash.com',
+            'https://plus.unsplash.com',
+            'https://images.pexels.com',
+            'https://picsum.photos',
+            'https://fastly.picsum.photos',
+            'https://i.picsum.photos',
+            // Payment providers
+            'checkoutshopper-test.adyen.com',
+            'https://www.gstatic.com',
+            'gstatic.com',
+            '[prefix]-checkout-live.adyenpayments.com',
+            'checkoutshopper-test.cdn.adyen.com',
+            'checkoutanalytics-test.adyen.com',
+            'https://checkoutshopper-test.cdn.adyen.com',
+            'https://checkoutshopper-test.adyen.com',
+            '*.adyen.com',
+            '*.paypal.com',
+            '*.media-amazon.com',
+            '*.payments-amazon.com',
+            'https://www.paypalobjects.com/js-sdk-logos/2.2.7/paypal-blue.svg',
+            'https://*.cash.app',
+            'https://*.gstatic.com'
+        ],
                     "script-src": [
                             'https://pay.google.com/gp/p/js/pay.js',
                         'https://api.lab.amplitude.com/sdk/vardata',
