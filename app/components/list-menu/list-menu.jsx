@@ -46,7 +46,8 @@ const ListMenu = ({
     contentComponent,
     itemsKey,
     itemsCountKey,
-    maxColumns = MAXIMUM_NUMBER_COLUMNS
+    maxColumns = MAXIMUM_NUMBER_COLUMNS,
+    isHeaderTransparent = false
 }) => {
     const theme = useTheme()
     const [ariaBusy, setAriaBusy] = useState(true)
@@ -89,6 +90,7 @@ const ListMenu = ({
                                             items={item?.[itemsKey]}
                                             itemsKey={itemsKey}
                                             contentComponent={contentComponent}
+                                            isHeaderTransparent={isHeaderTransparent}
                                         />
                                     ) : (
                                         <Link
@@ -96,6 +98,8 @@ const ListMenu = ({
                                             to={categoryUrlBuilder(item)}
                                             onMouseOver={setActiveLink.bind(this, id)}
                                             onMouseOut={setActiveLink.bind(this)}
+                                            color={isHeaderTransparent ? 'white' : '#111111'}
+                                            _hover={{textDecoration: 'none', color: isHeaderTransparent ? 'rgba(255,255,255,0.7)' : '#737373'}}
                                             {...baseStyle.listMenuTriggerLink}
                                             {...{name: name + ' __'}}
                                             {...(activeLink === id
@@ -138,7 +142,11 @@ ListMenu.propTypes = {
     /**
      * Customize the component used to render the list menu item
      */
-    contentComponent: PropTypes.elementType
+    contentComponent: PropTypes.elementType,
+    /**
+     * Whether the header is in transparent mode
+     */
+    isHeaderTransparent: PropTypes.bool
 }
 
 export {ListMenu}

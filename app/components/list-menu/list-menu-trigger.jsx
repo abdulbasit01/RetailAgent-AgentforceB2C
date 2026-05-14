@@ -33,7 +33,7 @@ const ChevronIconTrigger = forwardRef(function ChevronIconTrigger(props, ref) {
     )
 })
 
-const ListMenuTrigger = ({item, name, isOpen, onOpen, onClose}) => {
+const ListMenuTrigger = ({item, name, isOpen, onOpen, onClose, isHeaderTransparent = false}) => {
     const theme = useTheme()
     const {baseStyle} = theme.components.ListMenu
 
@@ -48,6 +48,8 @@ const ListMenuTrigger = ({item, name, isOpen, onOpen, onClose}) => {
                 as={RouteLink}
                 to={categoryUrlBuilder(item)}
                 onMouseOver={onOpen}
+                color={isHeaderTransparent ? 'white' : '#111111'}
+                _hover={{textDecoration: 'none', color: isHeaderTransparent ? 'rgba(255,255,255,0.7)' : '#737373'}}
                 {...baseStyle.listMenuTriggerLink}
                 {...{name: name + ' __'}}
                 {...(isOpen ? baseStyle.listMenuTriggerLinkActive : {})}
@@ -63,6 +65,7 @@ const ListMenuTrigger = ({item, name, isOpen, onOpen, onClose}) => {
                     onKeyDown={(e) => {
                         keyMap[e.key]?.(e)
                     }}
+                    color={isHeaderTransparent ? 'white' : '#111111'}
                     {...baseStyle.listMenuTriggerLinkIcon}
                 >
                     <ChevronIconTrigger {...baseStyle.selectedButtonIcon} />
@@ -77,7 +80,8 @@ ListMenuTrigger.propTypes = {
     name: PropTypes.string,
     isOpen: PropTypes.bool,
     onOpen: PropTypes.func,
-    onClose: PropTypes.func
+    onClose: PropTypes.func,
+    isHeaderTransparent: PropTypes.bool
 }
 
 export {ListMenuTrigger}

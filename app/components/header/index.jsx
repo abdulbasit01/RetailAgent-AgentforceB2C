@@ -146,7 +146,7 @@ const Header = ({
         return () => window.removeEventListener('scroll', handleScroll)
     }, [isHomePage])
 
-const isTransparent = isHomePage && !scrolled
+    const isTransparent = isHomePage && !scrolled
 
     // tracking if users enter the popover Content,
     const hasEnterPopoverContent = useRef()
@@ -179,22 +179,25 @@ const isTransparent = isHomePage && !scrolled
     }
 
     return (
-<Box
+        <Box
             as="header"
             role="banner"
             {...styles.container}
             {...props}
-            position='fixed'
+            position="fixed"
             bg={isTransparent ? 'rgba(255,255,255,0.15)' : 'white'}
             boxShadow={isTransparent ? 'none' : '0 2px 10px rgba(0,0,0,0.08)'}
             borderBottom={isTransparent ? 'none' : '1px solid'}
             borderColor={isTransparent ? 'transparent' : '#E5E5E5'}
             transition="background-color 0.3s ease, box-shadow 0.3s ease"
-            sx={isTransparent ? {
-                '& a': {color: 'white !important'},
-                '& button': {color: 'white !important'},
-                '& *': {color: 'white'}
-            } : {}}
+            sx={
+                isTransparent
+                    ? {
+                          '& > div > nav a': {color: 'white !important'},
+                          '& > div > nav button': {color: 'white !important'}
+                      }
+                    : {}
+            }
         >
             <Box {...styles.content}>
                 {showLoading && <LoadingSpinner wrapperStyles={{height: '100vh'}} />}
@@ -248,7 +251,13 @@ const isTransparent = isHomePage && !scrolled
                             </Text>
                         </Text>
                     </Box>
-                    <Box {...styles.bodyContainer}>{children}</Box>
+                    <Box {...styles.bodyContainer}>
+                        {React.Children.map(children, (child) =>
+                            React.isValidElement(child)
+                                ? React.cloneElement(child, {isHeaderTransparent: isTransparent})
+                                : child
+                        )}
+                    </Box>
                     <HideOnMobile>
                         <SearchBar />
                     </HideOnMobile>
