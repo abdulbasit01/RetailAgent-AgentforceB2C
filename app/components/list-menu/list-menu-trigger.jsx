@@ -48,11 +48,11 @@ const ListMenuTrigger = ({item, name, isOpen, onOpen, onClose, isHeaderTranspare
                 as={RouteLink}
                 to={categoryUrlBuilder(item)}
                 onMouseOver={onOpen}
-                color={isHeaderTransparent ? 'white' : '#111111'}
-                _hover={{textDecoration: 'none', color: isHeaderTransparent ? 'rgba(255,255,255,0.7)' : '#737373'}}
                 {...baseStyle.listMenuTriggerLink}
                 {...{name: name + ' __'}}
                 {...(isOpen ? baseStyle.listMenuTriggerLinkActive : {})}
+                color={isHeaderTransparent ? 'white' : '#111111'}
+                _hover={{textDecoration: 'none', color: isHeaderTransparent ? 'rgba(255,255,255,0.7)' : '#737373'}}
             >
                 {name}
             </Link>
@@ -65,8 +65,8 @@ const ListMenuTrigger = ({item, name, isOpen, onOpen, onClose, isHeaderTranspare
                     onKeyDown={(e) => {
                         keyMap[e.key]?.(e)
                     }}
-                    color={isHeaderTransparent ? 'white' : '#111111'}
                     {...baseStyle.listMenuTriggerLinkIcon}
+                    color={isHeaderTransparent ? 'white' : '#111111'}
                 >
                     <ChevronIconTrigger {...baseStyle.selectedButtonIcon} />
                 </Link>

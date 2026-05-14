@@ -49,6 +49,7 @@ const ListMenu = ({
     maxColumns = MAXIMUM_NUMBER_COLUMNS,
     isHeaderTransparent = false
 }) => {
+    console.log("🚀 ~ ListMenu ~ isHeaderTransparent:", isHeaderTransparent)
     const theme = useTheme()
     const [ariaBusy, setAriaBusy] = useState(true)
     const [activeLink, setActiveLink] = useState()
@@ -98,9 +99,9 @@ const ListMenu = ({
                                             to={categoryUrlBuilder(item)}
                                             onMouseOver={setActiveLink.bind(this, id)}
                                             onMouseOut={setActiveLink.bind(this)}
+                                            {...baseStyle.listMenuTriggerLink}
                                             color={isHeaderTransparent ? 'white' : '#111111'}
                                             _hover={{textDecoration: 'none', color: isHeaderTransparent ? 'rgba(255,255,255,0.7)' : '#737373'}}
-                                            {...baseStyle.listMenuTriggerLink}
                                             {...{name: name + ' __'}}
                                             {...(activeLink === id
                                                 ? baseStyle.listMenuTriggerlessLinkActive

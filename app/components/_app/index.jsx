@@ -198,6 +198,23 @@ const App = (props) => {
     const isCheckout = /\/checkout$/.test(location?.pathname)
     const isExpress = /\/express$/.test(location?.pathname)
     const isHomePage = location?.pathname === '/'
+    const [scrolled, setScrolled] = useState(typeof window !== 'undefined' ? window.scrollY > 64 : false)
+    console.log('🚀 ~ _app isHomePage:', isHomePage, 'scrolled:', scrolled, 'isHeaderTransparent:', isHomePage && !scrolled)
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (isHomePage) {
+                setScrolled(window.scrollY > 64)
+            } else {
+                setScrolled(true)
+            }
+        }
+
+        handleScroll()
+        window.addEventListener('scroll', handleScroll, {passive: true})
+
+        return () => window.removeEventListener('scroll', handleScroll)
+    }, [isHomePage])
 
     // Get dynamic height for express payments
     const expressPaymentHeight = useExpressPaymentHeight()
@@ -475,6 +492,7 @@ const App = (props) => {
                                                         itemsKey="categories"
                                                         itemsCountKey="onlineSubCategoriesCount"
                                                         contentComponent={ListMenuContentWithData}
+                                                        isHeaderTransparent={isHomePage && !scrolled}
                                                     />
                                                 </HideOnMobile>
                                             </Header>
