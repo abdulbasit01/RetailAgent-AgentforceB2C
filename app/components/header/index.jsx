@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: BSD-3-Clause
  * For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import React, {useRef, useState} from 'react'
+import React, {useRef, useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {useIntl} from 'react-intl'
 import {
@@ -106,6 +106,7 @@ const Header = ({
     onMyCartClick = noop,
     onWishlistClick = noop,
     onStoreLocatorClick = noop,
+    isHomePage = false,
     ...props
 }) => {
     const intl = useIntl()
@@ -128,11 +129,32 @@ const Header = ({
     const [isDesktop] = useMediaQuery('(min-width: 992px)')
 
     const [showLoading, setShowLoading] = useState(false)
+    const [scrolled, setScrolled] = useState(false)
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (isHomePage) {
+                setScrolled(window.scrollY > 64)
+            } else {
+                setScrolled(true)
+            }
+        }
+
+        window.addEventListener('scroll', handleScroll, {passive: true})
+        handleScroll()
+
+        return () => window.removeEventListener('scroll', handleScroll)
+    }, [isHomePage])
+
+const isTransparent = isHomePage && !scrolled
+
     // tracking if users enter the popover Content,
-    // so we can decide whether to close the menu when users leave account icons
     const hasEnterPopoverContent = useRef()
 
     const styles = useMultiStyleConfig('Header')
+
+    const iconColor = isTransparent ? 'white' : '#111111'
+    const logoColor = isTransparent ? 'white' : '#111111'
 
     const onSignoutClick = async () => {
         setShowLoading(true)
@@ -157,7 +179,23 @@ const Header = ({
     }
 
     return (
-        <Box as="header" role="banner" {...styles.container} {...props}>
+<Box
+            as="header"
+            role="banner"
+            {...styles.container}
+            {...props}
+            position='fixed'
+            bg={isTransparent ? 'rgba(255,255,255,0.15)' : 'white'}
+            boxShadow={isTransparent ? 'none' : '0 2px 10px rgba(0,0,0,0.08)'}
+            borderBottom={isTransparent ? 'none' : '1px solid'}
+            borderColor={isTransparent ? 'transparent' : '#E5E5E5'}
+            transition="background-color 0.3s ease, box-shadow 0.3s ease"
+            sx={isTransparent ? {
+                '& a': {color: 'white !important'},
+                '& button': {color: 'white !important'},
+                '& *': {color: 'white'}
+            } : {}}
+        >
             <Box {...styles.content}>
                 {showLoading && <LoadingSpinner wrapperStyles={{height: '100vh'}} />}
                 <Flex wrap="wrap" alignItems={['baseline', 'baseline', 'baseline', 'center']}>
@@ -173,7 +211,7 @@ const Header = ({
                         icon={<HamburgerIcon />}
                         variant="unstyled"
                         display={{lg: 'none'}}
-                        {...styles.icons}
+                        color={iconColor}
                         onClick={onMenuClick}
                     />
                     <Box
@@ -197,14 +235,14 @@ const Header = ({
                         <Text
                             fontFamily="'Helvetica Neue', Helvetica, Arial, sans-serif"
                             fontWeight={900}
-                            fontSize={['sm', 'sm', 'md', 'lg']}
+                            fontSize={['md', 'md', 'md', 'lg']}
                             letterSpacing="-0.05em"
                             textTransform="uppercase"
-                            color="#111111"
+                            color={logoColor}
                             lineHeight={1}
                             userSelect="none"
                         >
-                            Agent
+                            Agent/
                             <Text as="span" color="#FA5400">
                                 Force
                             </Text>
@@ -221,7 +259,7 @@ const Header = ({
                             defaultMessage: 'My Account'
                         })}
                         variant="unstyled"
-                        {...styles.icons}
+                        color={iconColor}
                         {...styles.accountIcon}
                         onClick={onMyAccountClick}
                         onMouseOver={isDesktop ? onAccountMenuOpen : noop}
@@ -244,7 +282,7 @@ const Header = ({
                                     })}
                                     icon={<ChevronDownIcon />}
                                     variant="unstyled"
-                                    {...styles.icons}
+                                    color={iconColor}
                                     {...styles.arrowDown}
                                     {...getAccountMenuButtonProps()}
                                     onMouseOver={onAccountMenuOpen}
@@ -332,7 +370,7 @@ const Header = ({
                         })}
                         icon={<HeartIcon />}
                         variant="unstyled"
-                        {...styles.icons}
+                        color={iconColor}
                         {...styles.wishlistIcon}
                         onClick={onWishlistClick}
                     />
@@ -343,7 +381,7 @@ const Header = ({
                                 id: 'header.button.assistive_msg.store_locator'
                             })}
                             icon={<StoreIcon />}
-                            {...styles.icons}
+                            color={iconColor}
                             variant="unstyled"
                             onClick={onStoreLocatorClick}
                         />
@@ -365,7 +403,7 @@ const Header = ({
                             </>
                         }
                         variant="unstyled"
-                        {...styles.icons}
+                        color={iconColor}
                         onClick={onMyCartClick}
                     />
                     <HideOnDesktop display={{base: 'contents', lg: 'none'}}>
@@ -385,6 +423,7 @@ Header.propTypes = {
     onWishlistClick: PropTypes.func,
     onMyCartClick: PropTypes.func,
     onStoreLocatorClick: PropTypes.func,
+    isHomePage: PropTypes.bool,
     searchInputRef: PropTypes.oneOfType([
         PropTypes.func,
         PropTypes.shape({current: PropTypes.elementType})

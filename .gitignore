@@ -34,3 +34,6 @@ app/cache-hash-manifest.json
 app/loader-cache-hash-manifest.json
 
 .vscode
+
+# AI
+.opencode*/

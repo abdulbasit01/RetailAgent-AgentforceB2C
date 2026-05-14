@@ -180,7 +180,7 @@ const Home = () => {
                                     <Box
                                         position="relative"
                                         bg={slide.bg}
-                                        minH={['62vh', '75vh', '85vh']}
+                                        minH="100vh"
                                         display="flex"
                                         alignItems="center"
                                         overflow="hidden"
@@ -292,7 +292,7 @@ const Home = () => {
                     <Box
                         position="relative"
                         bg={HERO_SLIDES[0].bg}
-                        minH="85vh"
+                        minH="100vh"
                         display="flex"
                         alignItems="center"
                     >

@@ -197,6 +197,7 @@ const App = (props) => {
     // Used to conditionally render header/footer for checkout page
     const isCheckout = /\/checkout$/.test(location?.pathname)
     const isExpress = /\/express$/.test(location?.pathname)
+    const isHomePage = location?.pathname === '/'
 
     // Get dynamic height for express payments
     const expressPaymentHeight = useExpressPaymentHeight()
@@ -446,6 +447,7 @@ const App = (props) => {
                                                 onMyAccountClick={onAccountClick}
                                                 onWishlistClick={onWishlistClick}
                                                 onStoreLocatorClick={onOpenStoreLocator}
+                                                isHomePage={isHomePage}
                                             >
                                                 <HideOnDesktop>
                                                     <DrawerMenu
