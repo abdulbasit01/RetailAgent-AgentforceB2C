@@ -147,6 +147,7 @@ const Header = ({
     }, [isHomePage])
 
     const isTransparent = isHomePage && !scrolled
+    console.log('🚀 ~ Header isTransparent:', isTransparent, 'isHomePage:', isHomePage, 'scrolled:', scrolled, 'iconColor:', isTransparent ? 'white' : '#111111')
 
     // tracking if users enter the popover Content,
     const hasEnterPopoverContent = useRef()
@@ -190,14 +191,14 @@ const Header = ({
             borderBottom={isTransparent ? 'none' : '1px solid'}
             borderColor={isTransparent ? 'transparent' : '#E5E5E5'}
             transition="background-color 0.3s ease, box-shadow 0.3s ease"
-            sx={
-                isTransparent
-                    ? {
-                          '& > div > nav a': {color: 'white !important'},
-                          '& > div > nav button': {color: 'white !important'}
-                      }
-                    : {}
-            }
+            // sx={
+            //     isTransparent
+            //         ? {
+            //               '& > div > nav a': {color: 'white !important'},
+            //               '& > div > nav button': {color: 'white !important'}
+            //           }
+            //         : {}
+            // }
         >
             <Box {...styles.content}>
                 {showLoading && <LoadingSpinner wrapperStyles={{height: '100vh'}} />}
@@ -389,7 +390,7 @@ const Header = ({
                                 defaultMessage: 'Store Locator',
                                 id: 'header.button.assistive_msg.store_locator'
                             })}
-                            icon={<StoreIcon />}
+                            icon={<StoreIcon color={iconColor} fill={iconColor} />}
                             color={iconColor}
                             variant="unstyled"
                             onClick={onStoreLocatorClick}
