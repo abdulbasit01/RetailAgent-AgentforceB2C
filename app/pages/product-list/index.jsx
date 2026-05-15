@@ -99,6 +99,9 @@ import useNavigation from '@salesforce/retail-react-app/app/hooks/use-navigation
 import LoadingSpinner from '@salesforce/retail-react-app/app/components/loading-spinner'
 import {useWishList} from '@salesforce/retail-react-app/app/hooks/use-wish-list'
 import {isHydrated} from '@salesforce/retail-react-app/app/utils/utils'
+import PlpHeroBanner from './partials/plp-hero-banner'
+
+
 
 // NOTE: You can ignore certain refinements on a template level by updating the below
 // list of ignored refinements.
@@ -442,13 +445,17 @@ const ProductList = (props) => {
     }, [productSearchResult])
 
     return (
-        <Box
-            className="sf-product-list-page"
-            data-testid="sf-product-list-page"
-            layerStyle="page"
+
+        <>
+            <PlpHeroBanner category={category} searchQuery={searchQuery} />
+            
+            <Box
+                className="sf-product-list-page"
+                data-testid="sf-product-list-page"
+                layerStyle="page"
             paddingTop={{base: 6, lg: 8}}
-            {...rest}
-        >
+                {...rest}
+            >
             <Helmet>
                 <title>{category?.pageTitle ?? searchQuery}</title>
                 <meta name="description" content={category?.pageDescription ?? searchQuery} />
@@ -837,7 +844,8 @@ const ProductList = (props) => {
                     </DrawerBody>
                 </DrawerContent>
             </Drawer>
-        </Box>
+            </Box>
+        </>
     )
 }
 

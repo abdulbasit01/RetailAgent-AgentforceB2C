@@ -71,9 +71,9 @@ const StoreInventoryFilter = ({toggleFilter, selectedFilters}) => {
         <>
             <Stack
                 spacing={4}
-                paddingTop={0}
-                paddingBottom={6}
-                borderBottom="1px solid gray.200"
+                border="1px solid #111111"
+                padding="12px 8px"
+                borderRadius="4px"
                 data-testid="sf-store-inventory-filter"
             >
                 <Heading as="h2" fontSize="md" fontWeight={600}>
