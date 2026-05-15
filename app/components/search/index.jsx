@@ -4,6 +4,8 @@
  * SPDX-License-Identifier: BSD-3-Clause
  * For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
+import {useCustomerId} from '@salesforce/commerce-sdk-react'
+import {useCustomerBaskets} from '@salesforce/commerce-sdk-react/hooks/ShopperCustomers'
 import React, {useEffect, useMemo, useRef, useState} from 'react'
 import {useSearchSuggestions} from '@salesforce/commerce-sdk-react'
 import {
@@ -120,7 +122,13 @@ const Search = (props) => {
     const location = useLocation()
     const appOrigin = useAppOrigin()
     const sfLanguage = normalizeLocaleToSalesforce(locale.id)
-
+    const customerId = useCustomerId()
+    const {data: basketsData} = useCustomerBaskets(
+        {parameters: {customerId}},
+        {enabled: !!customerId && onClient}
+    )
+    const customer = customerId ? {customerId} : null
+    const basket = basketsData?.baskets?.[0]
     const askAgentOnSearchEnabled = useMemo(() => {
         const {enabled, askAgentOnSearch} = getCommerceAgentConfig()
         return isAskAgentOnSearchEnabled(enabled, askAgentOnSearch)
@@ -212,7 +220,9 @@ const Search = (props) => {
                     RefreshToken: refreshToken,
                     Currency: locale.preferredCurrency,
                     Language: sfLanguage,
-                    DomainUrl: `${appOrigin}${buildUrl(location.pathname)}`
+                    DomainUrl: `${appOrigin}${buildUrl(location.pathname)}`,
+                    customerId: customer?.customerId,
+                    basketId: basket?.basketId
                 })
             }
         }
