@@ -39,17 +39,24 @@ export const Skeleton = ({size}) => {
 
     return (
         <Box data-testid="sf-image-gallery-skeleton">
-            <Flex flexDirection="column">
-                <AspectRatio ratio={1} {...styles.heroImageSkeleton}>
-                    <ChakraSkeleton />
-                </AspectRatio>
-                <Flex>
+            <Flex gap={4}>
+                <Flex direction="column" gap={3}>
                     {new Array(4).fill(0).map((_, index) => (
-                        <AspectRatio ratio={1} {...styles.thumbnailImageSkeleton} key={index}>
+                        <AspectRatio
+                            ratio={1}
+                            key={index}
+                            w="72px"
+                            borderRadius="md"
+                            overflow="hidden"
+                        >
                             <ChakraSkeleton />
                         </AspectRatio>
                     ))}
                 </Flex>
+
+                <AspectRatio ratio={1} flex="1">
+                    <ChakraSkeleton borderRadius="2xl" />
+                </AspectRatio>
             </Flex>
         </Box>
     )
@@ -99,45 +106,50 @@ const ImageGallery = ({imageGroups = [], selectedVariationAttributes = {}, size,
     const thumbnailImages = thumbnailImageGroup?.images || []
     const loadingStrategy = lazy ? 'lazy' : 'eager'
 
-    const heroImageMaxWidth = styles.heroImage.maxWidth[3] // in px
+    const heroImageMaxWidth = styles.heroImage?.maxWidth?.[3]
 
     return (
-        <Flex direction="column">
-            {heroImage && (
-                <Box {...styles.heroImageGroup}>
-                    <AspectRatio {...styles.heroImage} ratio={1}>
-                        <DynamicImage
-                            src={`${heroImage.disBaseLink || heroImage.link}[?sw={width}&q=60]`}
-                            widths={{
-                                base: '100vw',
-                                lg: heroImageMaxWidth
-                            }}
-                            imageProps={{
-                                alt: heroImage.alt,
-                                loading: loadingStrategy
-                            }}
-                        />
-                    </AspectRatio>
-                </Box>
-            )}
-
-            <List display={'flex'} flexWrap={'wrap'}>
+        <Flex
+            gap={{base: 4, lg: 6}}
+            align="flex-start"
+            direction={{base: 'column-reverse', lg: 'row'}}
+        >
+            {/* THUMBNAILS */}
+            <List
+                display="flex"
+                flexDirection={{base: 'row', lg: 'column'}}
+                gap={3}
+                m={0}
+                p={0}
+            >
                 {thumbnailImages.map((image, index) => {
                     const selected = index === selectedIndex
                     return (
                         <ListItem
-                            {...styles.thumbnailImageItem}
                             key={index}
-                            borderColor={`${selected ? 'black' : ''}`}
-                            borderWidth={`${selected ? '1px' : 0}`}
+                            listStyleType="none"
+                            borderRadius="lg"
+                            overflow="hidden"
+                            borderWidth="2px"
+                            borderColor={selected ? 'black' : 'gray.200'}
+                            transition="all 0.2s ease"
+                            cursor="pointer"
+                            _hover={{
+                                borderColor: 'black',
+                                transform: 'translateY(-2px)'
+                            }}
+                            bg="white"
+                            w={{base: '72px', lg: '84px'}}
                         >
                             <AspectRatio ratio={1}>
                                 <Box
                                     as="button"
+                                    w="100%"
+                                    h="100%"
                                     aria-pressed={selected ? 'true' : 'false'}
                                     onKeyDown={(e) => {
                                         if (e.keyCode === EnterKeyNumber) {
-                                            return setSelectedIndex(index)
+                                            setSelectedIndex(index)
                                         }
                                     }}
                                     onClick={() => setSelectedIndex(index)}
@@ -147,6 +159,9 @@ const ImageGallery = ({imageGroups = [], selectedVariationAttributes = {}, size,
                                         alt={image.alt}
                                         src={image.disBaseLink || image.link}
                                         loading={loadingStrategy}
+                                        objectFit="cover"
+                                        w="100%"
+                                        h="100%"
                                     />
                                 </Box>
                             </AspectRatio>
@@ -154,6 +169,38 @@ const ImageGallery = ({imageGroups = [], selectedVariationAttributes = {}, size,
                     )
                 })}
             </List>
+
+            {/* HERO IMAGE */}
+            {heroImage && (
+                <Box
+                    position="relative"
+                    flex="1"
+                    bg="#f7f7f7"
+                    borderRadius="2xl"
+                    overflow="hidden"
+                    w="100%"
+                >
+                    <AspectRatio ratio={1}>
+                        <DynamicImage
+                            src={`${heroImage.disBaseLink || heroImage.link}[?sw={width}&q=70]`}
+                            widths={{
+                                base: '100vw',
+                                lg: heroImageMaxWidth
+                            }}
+                            imageProps={{
+                                alt: heroImage.alt,
+                                loading: loadingStrategy,
+                                style: {
+                                    objectFit: 'cover',
+                                    width: '100%',
+                                    height: '100%'
+                                }
+                            }}
+                        />
+                    </AspectRatio>
+
+                </Box>
+            )}
         </Flex>
     )
 }

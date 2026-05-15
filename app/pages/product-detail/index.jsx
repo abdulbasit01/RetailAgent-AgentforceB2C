@@ -39,7 +39,7 @@ import {getConfig} from '@salesforce/pwa-kit-runtime/utils/ssr-config'
 // Project Components
 import RecommendedProducts from '@salesforce/retail-react-app/app/components/recommended-products'
 import ProductView from '@salesforce/retail-react-app/app/components/product-view'
-import InformationAccordion from '@salesforce/retail-react-app/app/pages/product-detail/partials/information-accordion'
+import InformationAccordion from '@salesforce/retail-react-app/app/pages/product-detail/partials/information-tabs'
 import Island from '@salesforce/retail-react-app/app/components/island'
 
 import {HTTPNotFound, HTTPError} from '@salesforce/pwa-kit-react-sdk/ssr/universal/errors'
@@ -62,6 +62,7 @@ import {useWishList} from '@salesforce/retail-react-app/app/hooks/use-wish-list'
 import {useStoreLocatorModal} from '@salesforce/retail-react-app/app/hooks/use-store-locator'
 import {isPickupMethod} from '@salesforce/retail-react-app/app/utils/shipment-utils'
 import {useProductInventory} from '@salesforce/retail-react-app/app/hooks/use-product-inventory'
+import InformationTabs from './partials/information-tabs'
 
 const ProductDetail = () => {
     const {formatMessage} = useIntl()
@@ -767,7 +768,7 @@ const ProductDetail = () => {
                                                 storeLocatorEnabled && !isProductABundle
                                             }
                                         />
-                                        <InformationAccordion product={childProduct} />
+                                        <InformationTabs product={childProduct} />
 
                                         <Box display={['none', 'none', 'none', 'block']}>
                                             <hr />
@@ -799,7 +800,7 @@ const ProductDetail = () => {
                                 onOpenStoreLocator={onOpenStoreLocator}
                                 showDeliveryOptions={storeLocatorEnabled}
                             />
-                            <InformationAccordion product={product} />
+                            <InformationTabs product={product} />
                         </Island>
                     </Fragment>
                 )}
