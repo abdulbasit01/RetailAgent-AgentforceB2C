@@ -38,8 +38,8 @@ import {
     STALE_WHILE_REVALIDATE
 } from '@salesforce/retail-react-app/app/constants'
 import ProductTileHome from '../../components/product-tile/product-tile-home'
-import {Tile} from '../../components/shared/ui/Tile'
 import ProductSlideHome from '../../components/product-tile/product-slide-home'
+import { Tile } from '../../components/shared/ui/Tile'
 
 // Pexels CDN helper — verified clothing/athletic photo IDs
 const PX = (id, w = 1920, h = 1080) =>
