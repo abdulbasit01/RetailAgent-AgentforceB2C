@@ -37,6 +37,9 @@ import {
     MAX_CACHE_AGE,
     STALE_WHILE_REVALIDATE
 } from '@salesforce/retail-react-app/app/constants'
+import ProductTileHome from '../../components/product-tile/product-tile-home'
+import {Tile} from '../../components/shared/ui/Tile'
+import ProductSlideHome from '../../components/product-tile/product-slide-home'
 
 // Pexels CDN helper — verified clothing/athletic photo IDs
 const PX = (id, w = 1920, h = 1080) =>
@@ -47,7 +50,7 @@ const HERO_SLIDES = [
     {
         id: 'slide-1',
         bg: '#0d0d0d',
-        image: PX(2294361, 1920, 900),   // runner on track
+        image: PX(2294361, 1920, 900), // runner on track
         eyebrow: 'New Season — Spring 2025',
         headline: 'Just\nDo It.',
         sub: 'Gear built for every rep, every run, every day.',
@@ -57,7 +60,7 @@ const HERO_SLIDES = [
     {
         id: 'slide-2',
         bg: '#111827',
-        image: PX(1545590, 1920, 900),   // women athletic gear
+        image: PX(1545590, 1920, 900), // women athletic gear
         eyebrow: "Women's Collection",
         headline: 'Made to\nMove.',
         sub: 'Performance meets style for every athlete.',
@@ -67,7 +70,7 @@ const HERO_SLIDES = [
     {
         id: 'slide-3',
         bg: '#1a0a00',
-        image: PX(1598505, 1920, 900),   // sneakers / footwear
+        image: PX(1598505, 1920, 900), // sneakers / footwear
         eyebrow: 'Iconic Footwear',
         headline: 'Fresh\nKicks.',
         sub: 'The most iconic silhouettes, updated for today.',
@@ -78,10 +81,10 @@ const HERO_SLIDES = [
 
 // Category tiles — clothing-appropriate images matched to category
 const CATEGORY_TILES = [
-    {label: "Men's",   subLabel: 'New Arrivals',  image: PX(1043474, 600, 800), bg: '#1A1A1A'}, // athletic man
-    {label: "Women's", subLabel: 'Best Sellers',  image: PX(34263759, 600, 800), bg: '#C8B8A2'}, // women workout
-    {label: "Kids'",   subLabel: 'Fresh Styles',  image: PX(6261908, 600, 800), bg: '#BDD7EE'}, // kids sport
-    {label: 'Sale',    subLabel: 'Up to 50% Off', image: PX(1598505, 600, 800), bg: '#FA5400'}  // sneakers
+    {label: "Men's", subLabel: 'New Arrivals', image: PX(1043474, 600, 800), bg: '#1A1A1A'}, // athletic man
+    {label: "Women's", subLabel: 'Best Sellers', image: PX(34263759, 600, 800), bg: '#C8B8A2'}, // women workout
+    {label: "Kids'", subLabel: 'Fresh Styles', image: PX(6261908, 600, 800), bg: '#BDD7EE'}, // kids sport
+    {label: 'Sale', subLabel: 'Up to 50% Off', image: PX(1598505, 600, 800), bg: '#FA5400'} // sneakers
 ]
 
 // ─── Slick CSS overrides ─────────────────────────────────────────────────────
@@ -187,7 +190,10 @@ const Home = () => {
                                     >
                                         <Box
                                             position="absolute"
-                                            top={0} right={0} bottom={0} left={0}
+                                            top={0}
+                                            right={0}
+                                            bottom={0}
+                                            left={0}
                                             bgImage={`url(${slide.image})`}
                                             bgSize="cover"
                                             bgPosition="center"
@@ -195,7 +201,10 @@ const Home = () => {
                                         />
                                         <Box
                                             position="absolute"
-                                            top={0} right={0} bottom={0} left={0}
+                                            top={0}
+                                            right={0}
+                                            bottom={0}
+                                            left={0}
                                             bgGradient="linear(to-r, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.25) 55%, transparent 100%)"
                                         />
                                         <Container
@@ -298,7 +307,10 @@ const Home = () => {
                     >
                         <Box
                             position="absolute"
-                            top={0} right={0} bottom={0} left={0}
+                            top={0}
+                            right={0}
+                            bottom={0}
+                            left={0}
                             bgImage={`url(${HERO_SLIDES[0].image})`}
                             bgSize="cover"
                             bgPosition="center"
@@ -306,7 +318,10 @@ const Home = () => {
                         />
                         <Box
                             position="absolute"
-                            top={0} right={0} bottom={0} left={0}
+                            top={0}
+                            right={0}
+                            bottom={0}
+                            left={0}
                             bgGradient="linear(to-r, rgba(0,0,0,0.78) 0%, transparent 60%)"
                         />
                         <Container maxW="container.xl" position="relative" zIndex={1} px={[6, 16]}>
@@ -360,88 +375,14 @@ const Home = () => {
                         </Heading>
                         <SimpleGrid columns={[2, 2, 4]} spacing={[3, 4]}>
                             {CATEGORY_TILES.map((tile, i) => (
-                                <Link key={i} href="/" _hover={{textDecoration: 'none'}}>
-                                    <Box
-                                        borderRadius="xl"
-                                        overflow="hidden"
-                                        position="relative"
-                                        bg={tile.bg}
-                                        cursor="pointer"
-                                        transition="transform 0.25s ease, box-shadow 0.25s ease"
-                                        _hover={{
-                                            transform: 'translateY(-4px)',
-                                            boxShadow: '0 16px 40px rgba(0,0,0,0.18)'
-                                        }}
-                                    >
-                                        <AspectRatio ratio={3 / 4}>
-                                            <Box position="relative" w="full" h="full">
-                                                <Box
-                                                    position="absolute"
-                                                    top={0} right={0} bottom={0} left={0}
-                                                    bgImage={`url(${tile.image})`}
-                                                    bgSize="cover"
-                                                    bgPosition="center top"
-                                                    opacity={0.85}
-                                                />
-                                                <Box
-                                                    position="absolute"
-                                                    top={0} right={0} bottom={0} left={0}
-                                                    bgGradient="linear(to-t, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.1) 50%, transparent 100%)"
-                                                />
-                                                <Flex
-                                                    position="absolute"
-                                                    bottom={0}
-                                                    left={0}
-                                                    right={0}
-                                                    p={[4, 5, 6]}
-                                                    direction="column"
-                                                    align="flex-start"
-                                                >
-                                                    <Text
-                                                        fontSize={['lg', 'xl', '2xl']}
-                                                        fontWeight={900}
-                                                        color="white"
-                                                        textTransform="uppercase"
-                                                        letterSpacing="-0.02em"
-                                                        lineHeight={1}
-                                                    >
-                                                        {tile.label}
-                                                    </Text>
-                                                    <Text
-                                                        fontSize="xs"
-                                                        fontWeight={600}
-                                                        color="rgba(255,255,255,0.75)"
-                                                        textTransform="uppercase"
-                                                        letterSpacing="0.1em"
-                                                        mt={1}
-                                                    >
-                                                        {tile.subLabel}
-                                                    </Text>
-                                                    <Box
-                                                        mt={3}
-                                                        px={3}
-                                                        py="5px"
-                                                        bg="white"
-                                                        borderRadius="full"
-                                                        display="inline-flex"
-                                                        alignItems="center"
-                                                    >
-                                                        <Text
-                                                            fontSize="xs"
-                                                            fontWeight={700}
-                                                            color="#111111"
-                                                            textTransform="uppercase"
-                                                            letterSpacing="0.08em"
-                                                            lineHeight={1}
-                                                        >
-                                                            Shop →
-                                                        </Text>
-                                                    </Box>
-                                                </Flex>
-                                            </Box>
-                                        </AspectRatio>
-                                    </Box>
-                                </Link>
+                                <Tile
+                                    key={tile.id}
+                                    href={tile.href}
+                                    image={tile.image}
+                                    label={tile.label}
+                                    subLabel={tile.subLabel}
+                                    bg={tile.bg}
+                                />
                             ))}
                         </SimpleGrid>
                     </Container>
@@ -493,21 +434,17 @@ const Home = () => {
                                     View All
                                 </Link>
                             </HStack>
-                            <SimpleGrid columns={[2, 2, 4]} spacing={[3, 4, 5]}>
+                            <SimpleGrid columns={[1, 2, 4]} spacing={[3, 4, 5]}>
                                 {featuredProducts.map((product) => (
                                     <Box
-                                        key={product.productId}
                                         bg="white"
                                         borderRadius="xl"
                                         overflow="hidden"
-                                        boxShadow="0 2px 8px rgba(0,0,0,0.06)"
-                                        transition="transform 0.2s ease, box-shadow 0.2s ease"
-                                        _hover={{
-                                            transform: 'translateY(-4px)',
-                                            boxShadow: '0 12px 28px rgba(0,0,0,0.12)'
-                                        }}
+                                        border="1px solid"
+                                        borderColor="#EBEBEB"
+                                        height="100%"
                                     >
-                                        <ProductTile product={product} />
+                                        <ProductTileHome product={product} />
                                     </Box>
                                 ))}
                             </SimpleGrid>
@@ -579,7 +516,10 @@ const Home = () => {
                     >
                         <Box
                             position="absolute"
-                            top={0} right={0} bottom={0} left={0}
+                            top={0}
+                            right={0}
+                            bottom={0}
+                            left={0}
                             bgImage={`url(${PX(2897532, 960, 720)})`}
                             bgSize="cover"
                             bgPosition="center"
@@ -592,7 +532,7 @@ const Home = () => {
             {popularProducts.length > 0 && (
                 <Island hydrateOn="visible">
                     <Box py={[10, 12, 16]} bg="white">
-                        <Container maxW="container.xl" mx="auto" px={[4, 6, 8]}>
+                        <Container maxW="container.xxl" mx="auto" px={[4, 6, 8]}>
                             <HStack justify="space-between" align="center" mb={[6, 8]}>
                                 <Heading
                                     as="h2"
@@ -665,7 +605,7 @@ const Home = () => {
                                 </HStack>
                             </HStack>
                             {typeof window !== 'undefined' && (
-                                <Box sx={productSlickSx} overflow="hidden">
+                                <Box sx={productSlickSx} overflow="hidden" height="100%">
                                     <Slider
                                         ref={popularSliderRef}
                                         dots={false}
@@ -698,13 +638,9 @@ const Home = () => {
                                                     border="1px solid"
                                                     borderColor="#EBEBEB"
                                                     height="100%"
-                                                    transition="box-shadow 0.2s ease, transform 0.2s ease"
-                                                    _hover={{
-                                                        boxShadow: '0 8px 24px rgba(0,0,0,0.1)',
-                                                        transform: 'translateY(-2px)'
-                                                    }}
+                                                    minH="420px"
                                                 >
-                                                    <ProductTile product={product} />
+                                                    <ProductSlideHome product={product} />
                                                 </Box>
                                             </Box>
                                         ))}
@@ -720,11 +656,11 @@ const Home = () => {
             <Island hydrateOn="visible">
                 <Box py={[8, 10, 12]} px={[4, 6, 8]} bg="#F5F5F5">
                     <Container maxW="container.xl" mx="auto">
-                        <SimpleGrid columns={[1, 3]} spacing={[4, 4, 5]}>
+                        <SimpleGrid columns={[1, 1, 3]} spacing={[4, 4, 5]}>
                             {[
-                                {id: 2294361,  label: 'Running',   badge: 'Trending'},
-                                {id: 1552242,  label: 'Training',  badge: 'Staff Pick'},
-                                {id: 1043474,  label: 'Lifestyle', badge: 'New'}
+                                {id: 2294361, label: 'Running', badge: 'Trending'},
+                                {id: 1552242, label: 'Training', badge: 'Staff Pick'},
+                                {id: 1043474, label: 'Lifestyle', badge: 'New'}
                             ].map((promo, i) => (
                                 <Link key={i} href="/" _hover={{textDecoration: 'none'}}>
                                     <Box
@@ -740,7 +676,10 @@ const Home = () => {
                                             <Box position="relative" w="full" h="full">
                                                 <Box
                                                     position="absolute"
-                                                    top={0} right={0} bottom={0} left={0}
+                                                    top={0}
+                                                    right={0}
+                                                    bottom={0}
+                                                    left={0}
                                                     bgImage={`url(${PX(promo.id, 640, 360)})`}
                                                     bgSize="cover"
                                                     bgPosition="center"
@@ -748,7 +687,10 @@ const Home = () => {
                                                 />
                                                 <Box
                                                     position="absolute"
-                                                    top={0} right={0} bottom={0} left={0}
+                                                    top={0}
+                                                    right={0}
+                                                    bottom={0}
+                                                    left={0}
                                                     bgGradient="linear(to-t, rgba(0,0,0,0.7) 0%, transparent 60%)"
                                                 />
                                                 <Flex
@@ -806,7 +748,10 @@ const Home = () => {
                 >
                     <Box
                         position="absolute"
-                        top={0} right={0} bottom={0} left={0}
+                        top={0}
+                        right={0}
+                        bottom={0}
+                        left={0}
                         bgImage={`url(${PX(2897532, 1920, 700)})`}
                         bgSize="cover"
                         bgPosition="center"
