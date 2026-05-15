@@ -272,4 +272,4 @@ export const USER_NOT_FOUND_ERROR = /user not found/i
  * Constant to enable partial hydration capabilities, i.e. `<Island/>` components
  * @deprecated Use `partialHydrationEnabled` in the config file instead
  */
-export const PARTIAL_HYDRATION_ENABLED = false
+export const PARTIAL_HYDRATION_ENABLED = true
