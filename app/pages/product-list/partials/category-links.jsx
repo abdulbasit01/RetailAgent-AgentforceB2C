@@ -29,31 +29,62 @@ const CategoryLinks = ({category = {}, onSelect = noop}) => {
 
     return (
         <AccordionItem paddingBottom={6} borderTop="none" key="show-all">
-            <AccordionButton>
-                <Heading as="h2" flex="1" textAlign="left" fontSize="md" fontWeight={600}>
-                    <FormattedMessage defaultMessage="Categories" id="category_links.button_text" />
-                </Heading>
-                <AccordionIcon />
-            </AccordionButton>
-            <AccordionPanel>
-                <Stack spacing={1}>
-                    {categories.map(({id, name}) => {
-                        return (
-                            <Link
-                                display="flex"
-                                alignItems="center"
-                                lineHeight={{base: '44px', lg: '24px'}}
-                                key={id}
-                                href={`/category/${id}`}
-                                onClick={onSelect}
-                                useNavLink
-                            >
-                                <Text fontSize="sm">{name}</Text>
-                            </Link>
-                        )
-                    })}
-                </Stack>
-            </AccordionPanel>
+            {({ isExpanded }) => (
+                <>
+                    <AccordionButton
+                        paddingBottom={isExpanded ? 2 : 0}
+                        padding="12px"
+                        borderRadius="4px"
+                        border="1px solid #111111"
+                        background={isExpanded ? '#111111' : 'white'}
+                        borderBottom={isExpanded ? 'none' : '1px solid #111111'}
+                        _hover={{
+                            background: isExpanded ? '#111111' : '#ebebeb'
+                        }}
+                    >
+                        <Heading
+                            as="h2"
+                            flex="1"
+                            textAlign="left"
+                            fontSize="md"
+                            fontWeight={600}
+                            marginBottom="0px"
+                            color={isExpanded ? 'white' : '#111111'}
+                        >
+                            <FormattedMessage
+                                defaultMessage="Categories"
+                                id="category_links.button_text"
+                            />
+                        </Heading>
+
+                        <AccordionIcon color={isExpanded ? 'white' : '#111111'} />
+                    </AccordionButton>
+
+                    <AccordionPanel
+                        paddingLeft={0}
+                        border="1px solid #111111"
+                        borderTop="none"
+                        mt="-6px"
+                        padding="12px 8px"
+                    >
+                        <Stack spacing={1}>
+                            {categories.map(({ id, name }) => (
+                                <Link
+                                    key={id}
+                                    display="flex"
+                                    alignItems="center"
+                                    lineHeight={{ base: '44px', lg: '24px' }}
+                                    href={`/category/${id}`}
+                                    onClick={onSelect}
+                                    useNavLink
+                                >
+                                    <Text fontSize="sm">{name}</Text>
+                                </Link>
+                            ))}
+                        </Stack>
+                    </AccordionPanel>
+                </>
+            )}
         </AccordionItem>
     )
 }

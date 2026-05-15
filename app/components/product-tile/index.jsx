@@ -24,7 +24,7 @@ import {
 import DynamicImage from '@salesforce/retail-react-app/app/components/dynamic-image'
 
 // Project Components
-import {HeartIcon, HeartSolidIcon} from '@salesforce/retail-react-app/app/components/icons'
+import {HeartIcon, HeartSolidIcon} from '../../components/icons'
 import Link from '@salesforce/retail-react-app/app/components/link'
 import Swatch from '@salesforce/retail-react-app/app/components/swatch-group/swatch'
 import SwatchGroup from '@salesforce/retail-react-app/app/components/swatch-group'
@@ -182,7 +182,7 @@ const ProductTile = (props) => {
     }, [product, badgeDetails])
 
     return (
-        <Box {...styles.container}>
+        <Box {...styles.container} border="1px solid" borderColor="#EBEBEB" borderRadius="xl">
             <Link data-testid="product-tile" to={productUrl} {...styles.link} {...rest}>
                 <Box {...styles.imageWrapper}>
                     <Box {...styles.image}>
@@ -282,6 +282,7 @@ const ProductTile = (props) => {
                     }}
                 >
                     <IconButtonWithRegistration
+                        backgroundColor="white"
                         data-testid="wishlist-button"
                         aria-label={
                             isFavourite
@@ -300,7 +301,7 @@ const ProductTile = (props) => {
                                       {product: localizedProductName}
                                   )
                         }
-                        icon={isFavourite ? <HeartSolidIcon /> : <HeartIcon />}
+                        icon={isFavourite ? <HeartSolidIcon /> : <HeartIcon color="#FA5400" />}
                         {...styles.favIcon}
                         onClick={async () => {
                             if (!isFavouriteLoading.current) {

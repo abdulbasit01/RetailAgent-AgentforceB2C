@@ -77,12 +77,12 @@ const SelectedRefinements = ({toggleFilter, selectedFilterValues, filters, handl
                             <Button
                                 marginTop={1}
                                 padding={5}
-                                color="black"
+                                color="white"
                                 colorScheme="gray"
                                 size="sm"
                                 iconSpacing={1}
                                 rightIcon={
-                                    <CloseIcon color="black" boxSize={4} mr="-7px" mb="-6px" />
+                                    <CloseIcon color="white" boxSize={4} mr="-7px" mb="-6px" />
                                 }
                                 onClick={() =>
                                     toggleFilter({value: filter.apiLabel}, filter.value, true)
