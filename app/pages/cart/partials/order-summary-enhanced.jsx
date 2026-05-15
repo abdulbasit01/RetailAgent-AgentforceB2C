@@ -149,7 +149,7 @@ const OrderSummaryEnhanced = ({
         >
             {/* HEADER */}
             <Box px={6} py={5} bg="#111">
-                <Heading fontSize="md" color="white" fontWeight="800">
+                <Heading fontSize="md" color="white" fontWeight="800" mb='0'>
                     Order Summary
                 </Heading>
             </Box>
