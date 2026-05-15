@@ -1,29 +1,37 @@
 /*
  * Copyright (c) 2023, Salesforce, Inc.
- * All rights reserved.
  * SPDX-License-Identifier: BSD-3-Clause
- * For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
+
 import React from 'react'
 import PropTypes from 'prop-types'
-import {Stack, Box, Heading} from '@salesforce/retail-react-app/app/components/shared/ui'
+
+import {
+    Stack,
+    Box,
+    Heading,
+    Divider
+} from '@salesforce/retail-react-app/app/components/shared/ui'
+
 import SelectBonusProductsCard from '@salesforce/retail-react-app/app/pages/cart/partials/select-bonus-products-card'
+
 import {getBonusProductsForSpecificCartItem} from '@salesforce/retail-react-app/app/utils/bonus-product/cart'
 import {getRemainingAvailableBonusProductsForProduct} from '@salesforce/retail-react-app/app/utils/bonus-product/discovery'
 import {shouldShowBonusProductSelection} from '@salesforce/retail-react-app/app/utils/bonus-product/business-logic'
 
-/**
- * Fragment component that renders cart items with bonus products grouped with their qualifying products
- * @param {Object} props - Component props
- * @param {Array} props.nonBonusProducts - Array of non-bonus products
- * @param {Object} props.basket - The current basket data
- * @param {Object} props.productsWithPromotions - Products with promotion data
- * @param {boolean} props.isPromotionDataLoading - Whether promotion data is loading
- * @param {Function} props.renderProductItem - Function to render individual product items
- * @param {Function} props.getPromotionCalloutText - Function to get promotion text
- * @param {Function} props.onSelectBonusProducts - Callback when select bonus products button is clicked
- * @returns {JSX.Element} The grouped cart product list
- */
+/* ---------------- NIKE STYLE TOKENS ---------------- */
+const BORDER = '#EAEAEA'
+const SOFT_BG = '#FAFAFA'
+const CARD_BG = '#FFFFFF'
+
+/* ---- IMPORTANT: override image rounding globally via wrapper ---- */
+const imageWrapperSx = {
+    '& img': {
+        borderRadius: '12px',   // <- key fix (Nike subtle rounding)
+        objectFit: 'cover'
+    }
+}
+
 const CartProductListWithGroupedBonusProducts = ({
     nonBonusProducts,
     basket,
@@ -34,21 +42,21 @@ const CartProductListWithGroupedBonusProducts = ({
     onSelectBonusProducts,
     hideBorder = false
 }) => {
-    // Fallback: if no non-bonus products, render all products in simple layout
-    if (!nonBonusProducts || nonBonusProducts.length === 0) {
+    if (!nonBonusProducts?.length) {
         return (
-            <Stack gap={4}>
+            <Stack spacing={4}>
                 {basket.productItems?.map((productItem, idx) =>
-                    renderProductItem(productItem, idx)
+                    renderProductItem(productItem, idx, {
+                        imageWrapperSx   // pass styling hint if supported
+                    })
                 )}
             </Stack>
         )
     }
 
     return (
-        <Stack gap={6}>
+        <Stack spacing={8}>
             {nonBonusProducts.map((qualifyingProduct, qualifyingIdx) => {
-                // Skip bonus product logic if promotion data is not loaded
                 if (!productsWithPromotions || isPromotionDataLoading) {
                     return (
                         <Box key={qualifyingProduct.itemId}>
@@ -57,15 +65,12 @@ const CartProductListWithGroupedBonusProducts = ({
                     )
                 }
 
-                // Check if product should show bonus product selection
-                // This will return false for products that are themselves bonus products
                 const shouldShowBonusSelection = shouldShowBonusProductSelection(
                     basket,
                     qualifyingProduct.productId,
                     productsWithPromotions
                 )
 
-                // If not eligible for bonus product selection, render as simple card
                 if (!shouldShowBonusSelection) {
                     return (
                         <Box key={qualifyingProduct.itemId}>
@@ -74,21 +79,24 @@ const CartProductListWithGroupedBonusProducts = ({
                     )
                 }
 
-                // Enhanced rendering for eligible products
                 try {
-                    // Get bonus products allocated specifically to this cart item
-                    const bonusProductsForThisProduct = getBonusProductsForSpecificCartItem(
-                        basket,
-                        qualifyingProduct,
-                        productsWithPromotions
-                    )
-                    const remainingBonusProductsData = getRemainingAvailableBonusProductsForProduct(
-                        basket,
-                        qualifyingProduct.productId,
-                        productsWithPromotions
-                    )
+                    const bonusProductsForThisProduct =
+                        getBonusProductsForSpecificCartItem(
+                            basket,
+                            qualifyingProduct,
+                            productsWithPromotions
+                        )
 
-                    const hasBonusProductsInCart = bonusProductsForThisProduct.length > 0
+                    const remainingBonusProductsData =
+                        getRemainingAvailableBonusProductsForProduct(
+                            basket,
+                            qualifyingProduct.productId,
+                            productsWithPromotions
+                        )
+
+                    const hasBonusProductsInCart =
+                        bonusProductsForThisProduct.length > 0
+
                     const hasRemainingCapacity =
                         remainingBonusProductsData.hasRemainingCapacity ||
                         (shouldShowBonusSelection &&
@@ -98,38 +106,42 @@ const CartProductListWithGroupedBonusProducts = ({
                         <Box
                             key={qualifyingProduct.itemId}
                             data-testid={`product-group-${qualifyingProduct.productId}`}
-                            layerStyle={hideBorder ? 'card' : 'cardBordered'}
-                            p={4}
-                            backgroundColor="white"
-                            {...(hideBorder
-                                ? {
-                                      border: 'none',
-                                      borderWidth: '0px',
-                                      borderRadius: 'base'
-                                  }
-                                : {
-                                      borderWidth: '1px',
-                                      borderColor: 'gray.200',
-                                      borderRadius: 'base'
-                                  })}
+                            bg={CARD_BG}
+                            borderRadius="2xl"
+                            border={hideBorder ? 'none' : `1px solid ${BORDER}`}
+                            boxShadow="0 6px 20px rgba(0,0,0,0.04)"
+                            overflow="hidden"
+                            transition="all 0.25s ease"
+                            _hover={{
+                                transform: 'translateY(-2px)',
+                                boxShadow: '0 12px 28px rgba(0,0,0,0.06)'
+                            }}
                         >
-                            {/* Main product */}
-                            <Box>
+                            {/* MAIN PRODUCT */}
+                            <Box px={4} py={4} sx={imageWrapperSx}>
                                 {renderProductItem(qualifyingProduct, qualifyingIdx, {
                                     hideBorder: true
                                 })}
                             </Box>
 
-                            {/* Bonus products already in cart */}
+                            {/* BONUS PRODUCTS */}
                             {hasBonusProductsInCart && (
-                                <Box mt={4}>
-                                    <Heading fontSize="md" pt="1" mb={3}>
-                                        Bonus Products
+                                <Box bg={SOFT_BG} px={4} py={4}>
+                                    <Heading
+                                        fontSize="xs"
+                                        fontWeight="900"
+                                        color="#111"
+                                        mb={3}
+                                        textTransform="uppercase"
+                                        letterSpacing="0.12em"
+                                    >
+                                        Bonus Picks
                                     </Heading>
-                                    <Stack gap={0}>
+
+                                    <Stack spacing={3}>
                                         {bonusProductsForThisProduct.map(
                                             (bonusProduct, bonusIdx) => {
-                                                const isLastBonusProduct =
+                                                const isLast =
                                                     bonusIdx ===
                                                     bonusProductsForThisProduct.length - 1
 
@@ -137,17 +149,22 @@ const CartProductListWithGroupedBonusProducts = ({
                                                     <Box
                                                         key={bonusProduct.itemId}
                                                         data-testid={`bonus-product-${bonusProduct.productId}`}
-                                                        border="none"
-                                                        borderBottom="none"
-                                                        borderTop="none"
-                                                        borderLeft="none"
-                                                        borderRight="none"
+                                                        bg="white"
+                                                        borderRadius="lg"
+                                                        border={`1px solid ${BORDER}`}
+                                                        px={3}
+                                                        py={3}
+                                                        sx={imageWrapperSx}
                                                     >
-                                                        {renderProductItem(bonusProduct, bonusIdx, {
-                                                            showQuantitySelector: false,
-                                                            hideBorder: true,
-                                                            hideBottomBorder: isLastBonusProduct
-                                                        })}
+                                                        {renderProductItem(
+                                                            bonusProduct,
+                                                            bonusIdx,
+                                                            {
+                                                                showQuantitySelector: false,
+                                                                hideBorder: true,
+                                                                hideBottomBorder: isLast
+                                                            }
+                                                        )}
                                                     </Box>
                                                 )
                                             }
@@ -156,28 +173,47 @@ const CartProductListWithGroupedBonusProducts = ({
                                 </Box>
                             )}
 
-                            {/* Space between bonus products and SelectBonusProductsCard */}
+                            {/* DIVIDER */}
                             {hasBonusProductsInCart && hasRemainingCapacity && (
-                                <Box mt={4} mb={4} />
+                                <Divider borderColor={BORDER} />
                             )}
 
-                            {/* Select Bonus Products card */}
+                            {/* BONUS CTA (THIS IS THE FIXED PART) */}
                             {hasRemainingCapacity && (
-                                <SelectBonusProductsCard
-                                    qualifyingProduct={qualifyingProduct}
-                                    basket={basket}
-                                    productsWithPromotions={productsWithPromotions}
-                                    remainingBonusProductsData={remainingBonusProductsData}
-                                    isEligible={shouldShowBonusSelection}
-                                    getPromotionCalloutText={getPromotionCalloutText}
-                                    onSelectBonusProducts={onSelectBonusProducts}
-                                />
+                                <Box px={4} py={4}>
+                                    <Box
+                                        /* Nike-style CTA wrapper */
+                                        bg="#111"
+                                        color="white"
+                                        borderRadius="full"
+                                        px={5}
+                                        py={3}
+                                        textAlign="center"
+                                        fontWeight="700"
+                                        fontSize="sm"
+                                        letterSpacing="0.08em"
+                                        textTransform="uppercase"
+                                        cursor="pointer"
+                                        transition="all 0.2s ease"
+                                        _hover={{
+                                            bg: '#000',
+                                            transform: 'translateY(-1px)'
+                                        }}
+                                        onClick={() =>
+                                            onSelectBonusProducts(qualifyingProduct)
+                                        }
+                                    >
+                                        {getPromotionCalloutText(
+                                            qualifyingProduct
+                                        ) || 'Select Bonus Product'}
+                                    </Box>
+                                </Box>
                             )}
                         </Box>
                     )
                 } catch (error) {
                     console.error('Error in enhanced rendering:', error)
-                    // Fallback to simple rendering if enhanced fails
+
                     return (
                         <Box key={qualifyingProduct.itemId}>
                             {renderProductItem(qualifyingProduct, qualifyingIdx)}
@@ -190,21 +226,8 @@ const CartProductListWithGroupedBonusProducts = ({
 }
 
 CartProductListWithGroupedBonusProducts.propTypes = {
-    nonBonusProducts: PropTypes.arrayOf(
-        PropTypes.shape({
-            itemId: PropTypes.string,
-            productId: PropTypes.string
-        })
-    ).isRequired,
-    basket: PropTypes.shape({
-        productItems: PropTypes.arrayOf(
-            PropTypes.shape({
-                itemId: PropTypes.string,
-                productId: PropTypes.string,
-                bonusProductLineItem: PropTypes.bool
-            })
-        )
-    }).isRequired,
+    nonBonusProducts: PropTypes.array.isRequired,
+    basket: PropTypes.object.isRequired,
     productsWithPromotions: PropTypes.object,
     isPromotionDataLoading: PropTypes.bool.isRequired,
     renderProductItem: PropTypes.func.isRequired,
