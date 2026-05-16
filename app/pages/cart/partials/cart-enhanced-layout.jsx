@@ -29,6 +29,7 @@ const CartEnhancedLayout = ({
         <Box
             minH="100vh"
             bg="linear-gradient(180deg, #F7F7F7 0%, #F2F2F2 100%)"
+            borderRadius="2xl"
             data-testid="sf-cart-container-enhanced"
         >
             <Container
