@@ -573,7 +573,7 @@ const Home = () => {
                                 letterSpacing="-0.04em"
                                 lineHeight={0.92}
                             >
-                                The Best of Agent Force,
+                                The Best of Agent/<Text as="span" color='#FA5400'>Force</Text>,
                                 <br />
                                 For Members.
                             </Heading>
