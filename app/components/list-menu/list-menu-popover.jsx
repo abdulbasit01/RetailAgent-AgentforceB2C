@@ -25,7 +25,6 @@ import {
 } from '@salesforce/retail-react-app/app/components/shared/ui'
 
 const ListMenuPopover = ({contentComponent, item, name, itemsKey, maxColumns, isHeaderTransparent = false}) => {
-    console.log("🚀 ~ ListMenuPopover ~ isHeaderTransparent:", isHeaderTransparent)
     const initialFocusRef = useRef()
     const {isOpen, onClose, onOpen} = useDisclosure()
     const ContentComponent = contentComponent || ListMenuContent

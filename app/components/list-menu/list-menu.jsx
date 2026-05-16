@@ -49,7 +49,6 @@ const ListMenu = ({
     maxColumns = MAXIMUM_NUMBER_COLUMNS,
     isHeaderTransparent = false
 }) => {
-    console.log("🚀 ~ ListMenu ~ isHeaderTransparent:", isHeaderTransparent)
     const theme = useTheme()
     const [ariaBusy, setAriaBusy] = useState(true)
     const [activeLink, setActiveLink] = useState()

@@ -1,6 +1,6 @@
 import React, {useEffect, useRef} from 'react'
 import {useIntl} from 'react-intl'
-import {useLocation} from 'react-router-dom'
+import {useLocation, useParams} from 'react-router-dom'
 
 import {
     Badge,
@@ -56,8 +56,8 @@ const HERO_SLIDES = [
         },
 
         sub: 'Gear built for every rep, every run, every day.',
-        ctaPrimary: {label: "Shop Men's", href: '/'},
-        ctaSecondary: {label: "Shop Women's", href: '/'}
+        ctaPrimary: {label: "Shop Men's", href: '/category/mens'},
+        ctaSecondary: {label: "Shop Women's", href: '/category/womens'}
     },
     {
         id: 'slide-2',
@@ -71,7 +71,7 @@ const HERO_SLIDES = [
         },
 
         sub: 'Performance meets style for every athlete.',
-        ctaPrimary: {label: 'Shop Now', href: '/'},
+        ctaPrimary: {label: 'Shop Now', href: '/category/womens'},
         ctaSecondary: null
     },
     {
@@ -86,17 +86,17 @@ const HERO_SLIDES = [
         },
 
         sub: 'The most iconic silhouettes, updated for today.',
-        ctaPrimary: {label: 'Shop Footwear', href: '/'},
-        ctaSecondary: {label: 'View Sale', href: '/'}
+        ctaPrimary: {label: 'Shop Footwear', href: '/category/mens-footwear'},
+        ctaSecondary: {label: 'View Sale', href: '/category/sale'}
     }
 ]
 
 // Category tiles — clothing-appropriate images matched to category
 const CATEGORY_TILES = [
-    {label: "Men's", subLabel: 'New Arrivals', image: PX(1043474, 600, 800), bg: '#1A1A1A'}, // athletic man
-    {label: "Women's", subLabel: 'Best Sellers', image: PX(34263759, 600, 800), bg: '#C8B8A2'}, // women workout
-    {label: "Kids'", subLabel: 'Fresh Styles', image: PX(6261908, 600, 800), bg: '#BDD7EE'}, // kids sport
-    {label: 'Sale', subLabel: 'Up to 50% Off', image: PX(1598505, 600, 800), bg: '#FA5400'} // sneakers
+    {id: 'mens', label: "Men's", subLabel: 'New Arrivals', image: PX(1043474, 600, 800), bg: '#1A1A1A'},
+    {id: 'womens', label: "Women's", subLabel: 'Best Sellers', image: PX(34263759, 600, 800), bg: '#C8B8A2'},
+    {id: 'kids', label: "Kids'", subLabel: 'Fresh Styles', image: PX(6261908, 600, 800), bg: '#BDD7EE'},
+    {id: 'sale', label: 'Sale', subLabel: 'Up to 50% Off', image: PX(1598505, 600, 800), bg: '#FA5400'}
 ]
 
 // Product slider — no built-in arrows (we add custom ones in the header row)
@@ -173,7 +173,7 @@ const Home = () => {
                             {CATEGORY_TILES.map((tile, i) => (
                                 <Tile
                                     key={tile.id}
-                                    href={tile.href}
+                                    href={`/category/${tile.id}`}
                                     image={tile.image}
                                     label={tile.label}
                                     subLabel={tile.subLabel}

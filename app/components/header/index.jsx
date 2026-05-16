@@ -147,8 +147,7 @@ const Header = ({
     }, [isHomePage])
 
     const isTransparent = isHomePage && !scrolled
-    console.log('🚀 ~ Header isTransparent:', isTransparent, 'isHomePage:', isHomePage, 'scrolled:', scrolled, 'iconColor:', isTransparent ? 'white' : '#111111')
-
+    
     // tracking if users enter the popover Content,
     const hasEnterPopoverContent = useRef()
 

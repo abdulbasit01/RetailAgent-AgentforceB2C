@@ -198,8 +198,9 @@ const App = (props) => {
     const isCheckout = /\/checkout$/.test(location?.pathname)
     const isExpress = /\/express$/.test(location?.pathname)
     const isHomePage = location?.pathname === '/'
-    const [scrolled, setScrolled] = useState(typeof window !== 'undefined' ? window.scrollY > 64 : false)
-    console.log('🚀 ~ _app isHomePage:', isHomePage, 'scrolled:', scrolled, 'isHeaderTransparent:', isHomePage && !scrolled)
+    const [scrolled, setScrolled] = useState(
+        typeof window !== 'undefined' ? window.scrollY > 64 : false
+    )
 
     useEffect(() => {
         const handleScroll = () => {
@@ -492,7 +493,9 @@ const App = (props) => {
                                                         itemsKey="categories"
                                                         itemsCountKey="onlineSubCategoriesCount"
                                                         contentComponent={ListMenuContentWithData}
-                                                        isHeaderTransparent={isHomePage && !scrolled}
+                                                        isHeaderTransparent={
+                                                            isHomePage && !scrolled
+                                                        }
                                                     />
                                                 </HideOnMobile>
                                             </Header>
