@@ -237,7 +237,7 @@ const Header = ({
                         })}
                     >
                         <Text
-                            fontFamily="'Helvetica Neue', Helvetica, Arial, sans-serif"
+                            fontFamily="Geomanist-bold"
                             fontWeight={900}
                             fontSize={['md', 'md', 'md', 'lg']}
                             letterSpacing="-0.05em"
@@ -247,7 +247,7 @@ const Header = ({
                             userSelect="none"
                         >
                             Agent/
-                            <Text as="span" color="#FA5400">
+                            <Text as="span"  color="#FA5400">
                                 Force
                             </Text>
                         </Text>

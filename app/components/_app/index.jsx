@@ -520,7 +520,7 @@ const App = (props) => {
                                             display="flex"
                                             flexDirection="column"
                                             flex="1"
-                                            pt={isHomePage ? '0px' : '90px'}
+                                            pt={isHomePage ? '0px' : '70px'}
                                         >
                                             <OfflineBoundary isOnline={false}>
                                                 {children}

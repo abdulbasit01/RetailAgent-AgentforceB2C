@@ -1025,19 +1025,19 @@ const Cart = () => {
                                                 shipmentInfo.shipment?.shipmentId ||
                                                 'combined-delivery'
                                             }
-                                            bg="white"
-                                            borderLeft="1px solid"
-                                            borderRight="1px solid"
-                                            borderBottom="1px solid"
-                                            borderColor="gray.200"
-                                            borderRadius="md"
-                                            borderTopRadius="none"
-                                            overflow="hidden"
-                                            boxShadow="sm"
-                                            p={4}
+                                            // bg="white"
+                                            // borderLeft="1px solid"
+                                            // borderRight="1px solid"
+                                            // borderBottom="1px solid"
+                                            // borderColor="gray.200"
+                                            // borderRadius="md"
+                                            // borderTopRadius="none"
+                                            // overflow="hidden"
+                                            // boxShadow="sm"
+                                            // p={4}
                                         >
                                             {/* Order Type Display */}
-                                            {storeLocatorEnabled && (
+                                            {/* {storeLocatorEnabled && (
                                                 <OrderTypeDisplay
                                                     isPickupOrder={shipmentInfo.isPickupOrder}
                                                     store={shipmentInfo.store}
@@ -1055,7 +1055,7 @@ const Cart = () => {
                                                             : null
                                                     }
                                                 />
-                                            )}
+                                            )} */}
 
                                             {/* Conditional Bonus Product Rendering with Shipment-based Structure */}
                                             {groupBonusProductsWithQualifyingProduct ? (
