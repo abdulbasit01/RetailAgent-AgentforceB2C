@@ -2,24 +2,18 @@ import React, {useEffect, useRef} from 'react'
 import {useIntl} from 'react-intl'
 import {useLocation} from 'react-router-dom'
 
-import Slider from 'react-slick'
-import 'slick-carousel/slick/slick.css'
-import 'slick-carousel/slick/slick-theme.css'
-
 import {
+    Badge,
     Box,
     Button,
-    SimpleGrid,
     HStack,
-    VStack,
-    Text,
     Flex,
     Container,
-    Link,
     AspectRatio,
     Heading,
-    Badge,
-    IconButton
+    SimpleGrid,
+    Text,
+    VStack
 } from '@salesforce/retail-react-app/app/components/shared/ui'
 
 import Seo from '@salesforce/retail-react-app/app/components/seo'
@@ -39,7 +33,10 @@ import {
 } from '@salesforce/retail-react-app/app/constants'
 import ProductTileHome from '../../components/product-tile/product-tile-home'
 import ProductSlideHome from '../../components/product-tile/product-slide-home'
-import { Tile } from '../../components/shared/ui/Tile'
+import {Tile} from '../../components/shared/ui/Tile'
+import HeroSlider from './partials/hero-slider'
+import Link from '../../components/link'
+import Slider from 'react-slick'
 
 // Pexels CDN helper — verified clothing/athletic photo IDs
 const PX = (id, w = 1920, h = 1080) =>
@@ -50,9 +47,14 @@ const HERO_SLIDES = [
     {
         id: 'slide-1',
         bg: '#0d0d0d',
-        image: PX(2294361, 1920, 900), // runner on track
+        image: PX(2294361, 1920, 900),
         eyebrow: 'New Season — Spring 2025',
-        headline: 'Just\nDo It.',
+
+        headline: {
+            primary: 'Just',
+            rest: 'Do It.'
+        },
+
         sub: 'Gear built for every rep, every run, every day.',
         ctaPrimary: {label: "Shop Men's", href: '/'},
         ctaSecondary: {label: "Shop Women's", href: '/'}
@@ -60,9 +62,14 @@ const HERO_SLIDES = [
     {
         id: 'slide-2',
         bg: '#111827',
-        image: PX(1545590, 1920, 900), // women athletic gear
+        image: PX(1545590, 1920, 900),
         eyebrow: "Women's Collection",
-        headline: 'Made to\nMove.',
+
+        headline: {
+            primary: 'Made',
+            rest: 'to Move.'
+        },
+
         sub: 'Performance meets style for every athlete.',
         ctaPrimary: {label: 'Shop Now', href: '/'},
         ctaSecondary: null
@@ -70,9 +77,14 @@ const HERO_SLIDES = [
     {
         id: 'slide-3',
         bg: '#1a0a00',
-        image: PX(1598505, 1920, 900), // sneakers / footwear
+        image: PX(1598505, 1920, 900),
         eyebrow: 'Iconic Footwear',
-        headline: 'Fresh\nKicks.',
+
+        headline: {
+            primary: 'Fresh',
+            rest: 'Kicks.'
+        },
+
         sub: 'The most iconic silhouettes, updated for today.',
         ctaPrimary: {label: 'Shop Footwear', href: '/'},
         ctaSecondary: {label: 'View Sale', href: '/'}
@@ -86,32 +98,6 @@ const CATEGORY_TILES = [
     {label: "Kids'", subLabel: 'Fresh Styles', image: PX(6261908, 600, 800), bg: '#BDD7EE'}, // kids sport
     {label: 'Sale', subLabel: 'Up to 50% Off', image: PX(1598505, 600, 800), bg: '#FA5400'} // sneakers
 ]
-
-// ─── Slick CSS overrides ─────────────────────────────────────────────────────
-const heroSlickSx = {
-    '.slick-slider, .slick-list, .slick-track': {height: '100%'},
-    '.slick-prev, .slick-next': {
-        width: '48px',
-        height: '48px',
-        background: 'rgba(255,255,255,0.12)',
-        backdropFilter: 'blur(8px)',
-        borderRadius: '50%',
-        border: '1px solid rgba(255,255,255,0.25)',
-        zIndex: 2,
-        transition: 'background 0.2s ease',
-        '&:before': {fontSize: '22px', color: 'white', opacity: 1},
-        '&:hover': {background: 'rgba(255,255,255,0.28)'}
-    },
-    '.slick-prev': {left: '20px'},
-    '.slick-next': {right: '20px'},
-    '.slick-dots': {bottom: '24px'},
-    '.slick-dots li button:before': {
-        color: 'white',
-        opacity: 0.5,
-        fontSize: '8px'
-    },
-    '.slick-dots li.slick-active button:before': {opacity: 1, color: 'white'}
-}
 
 // Product slider — no built-in arrows (we add custom ones in the header row)
 const productSlickSx = {
@@ -165,197 +151,7 @@ const Home = () => {
 
             {/* ── 1. HERO SLIDER ───────────────────────────────────────── */}
             <Island hydrateOn="visible">
-                {typeof window !== 'undefined' ? (
-                    <Box sx={heroSlickSx}>
-                        <Slider
-                            dots={true}
-                            arrows={true}
-                            infinite={true}
-                            speed={700}
-                            slidesToShow={1}
-                            slidesToScroll={1}
-                            autoplay={true}
-                            autoplaySpeed={5500}
-                            pauseOnHover={true}
-                        >
-                            {HERO_SLIDES.map((slide) => (
-                                <Box key={slide.id}>
-                                    <Box
-                                        position="relative"
-                                        bg={slide.bg}
-                                        minH="100vh"
-                                        display="flex"
-                                        alignItems="center"
-                                        overflow="hidden"
-                                    >
-                                        <Box
-                                            position="absolute"
-                                            top={0}
-                                            right={0}
-                                            bottom={0}
-                                            left={0}
-                                            bgImage={`url(${slide.image})`}
-                                            bgSize="cover"
-                                            bgPosition="center"
-                                            opacity={0.55}
-                                        />
-                                        <Box
-                                            position="absolute"
-                                            top={0}
-                                            right={0}
-                                            bottom={0}
-                                            left={0}
-                                            bgGradient="linear(to-r, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.25) 55%, transparent 100%)"
-                                        />
-                                        <Container
-                                            maxW="container.xl"
-                                            position="relative"
-                                            zIndex={1}
-                                            px={[6, 10, 16, 20]}
-                                            py={[12, 16]}
-                                        >
-                                            <VStack
-                                                align="flex-start"
-                                                spacing={[4, 5, 6]}
-                                                maxW="520px"
-                                            >
-                                                <Text
-                                                    fontSize={['xs', 'sm']}
-                                                    fontWeight={700}
-                                                    color="rgba(255,255,255,0.7)"
-                                                    textTransform="uppercase"
-                                                    letterSpacing="0.2em"
-                                                >
-                                                    {slide.eyebrow}
-                                                </Text>
-                                                <Heading
-                                                    as="h1"
-                                                    fontSize={['4xl', '6xl', '7xl', '8xl']}
-                                                    fontWeight={900}
-                                                    color="white"
-                                                    lineHeight={0.88}
-                                                    textTransform="uppercase"
-                                                    letterSpacing="-0.04em"
-                                                    whiteSpace="pre-line"
-                                                >
-                                                    {slide.headline}
-                                                </Heading>
-                                                <Text
-                                                    fontSize={['sm', 'md', 'lg']}
-                                                    color="rgba(255,255,255,0.75)"
-                                                    maxW="360px"
-                                                    lineHeight={1.6}
-                                                >
-                                                    {slide.sub}
-                                                </Text>
-                                                <HStack spacing={3} flexWrap="wrap" pt={1}>
-                                                    <Button
-                                                        as={Link}
-                                                        href={slide.ctaPrimary.href}
-                                                        size="lg"
-                                                        bg="white"
-                                                        color="#111111"
-                                                        borderRadius="full"
-                                                        fontWeight={700}
-                                                        textTransform="uppercase"
-                                                        letterSpacing="0.05em"
-                                                        px={8}
-                                                        _hover={{
-                                                            bg: '#F0F0F0',
-                                                            textDecoration: 'none'
-                                                        }}
-                                                    >
-                                                        {slide.ctaPrimary.label}
-                                                    </Button>
-                                                    {slide.ctaSecondary && (
-                                                        <Button
-                                                            as={Link}
-                                                            href={slide.ctaSecondary.href}
-                                                            size="lg"
-                                                            bg="transparent"
-                                                            borderWidth="2px"
-                                                            borderColor="rgba(255,255,255,0.65)"
-                                                            color="white"
-                                                            borderRadius="full"
-                                                            fontWeight={700}
-                                                            textTransform="uppercase"
-                                                            letterSpacing="0.05em"
-                                                            px={8}
-                                                            _hover={{
-                                                                bg: 'rgba(255,255,255,0.12)',
-                                                                textDecoration: 'none'
-                                                            }}
-                                                        >
-                                                            {slide.ctaSecondary.label}
-                                                        </Button>
-                                                    )}
-                                                </HStack>
-                                            </VStack>
-                                        </Container>
-                                    </Box>
-                                </Box>
-                            ))}
-                        </Slider>
-                    </Box>
-                ) : (
-                    <Box
-                        position="relative"
-                        bg={HERO_SLIDES[0].bg}
-                        minH="100vh"
-                        display="flex"
-                        alignItems="center"
-                    >
-                        <Box
-                            position="absolute"
-                            top={0}
-                            right={0}
-                            bottom={0}
-                            left={0}
-                            bgImage={`url(${HERO_SLIDES[0].image})`}
-                            bgSize="cover"
-                            bgPosition="center"
-                            opacity={0.55}
-                        />
-                        <Box
-                            position="absolute"
-                            top={0}
-                            right={0}
-                            bottom={0}
-                            left={0}
-                            bgGradient="linear(to-r, rgba(0,0,0,0.78) 0%, transparent 60%)"
-                        />
-                        <Container maxW="container.xl" position="relative" zIndex={1} px={[6, 16]}>
-                            <VStack align="flex-start" spacing={6} maxW="520px">
-                                <Heading
-                                    as="h1"
-                                    fontSize={['4xl', '7xl']}
-                                    fontWeight={900}
-                                    color="white"
-                                    lineHeight={0.88}
-                                    textTransform="uppercase"
-                                    letterSpacing="-0.04em"
-                                    whiteSpace="pre-line"
-                                >
-                                    {HERO_SLIDES[0].headline}
-                                </Heading>
-                                <Button
-                                    as={Link}
-                                    href={HERO_SLIDES[0].ctaPrimary.href}
-                                    size="lg"
-                                    bg="white"
-                                    color="#111111"
-                                    borderRadius="full"
-                                    fontWeight={700}
-                                    textTransform="uppercase"
-                                    px={8}
-                                    _hover={{bg: '#F0F0F0', textDecoration: 'none'}}
-                                >
-                                    {HERO_SLIDES[0].ctaPrimary.label}
-                                </Button>
-                            </VStack>
-                        </Container>
-                    </Box>
-                )}
+                <HeroSlider slides={HERO_SLIDES} />
             </Island>
 
             {/* ── 2. SHOP BY CATEGORY ─────────────────────────────────── */}
