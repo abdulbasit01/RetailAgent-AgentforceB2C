@@ -280,7 +280,7 @@ const Home = () => {
                                 letterSpacing="-0.03em"
                                 lineHeight={0.92}
                             >
-                                Run the World in Style.
+                                Run the <Text as="span" color="#FA5400">World</Text> in Style.
                             </Heading>
                             <Text fontSize="md" color="#A3A3A3" lineHeight={1.7}>
                                 Our most advanced running gear — engineered for speed, designed for
