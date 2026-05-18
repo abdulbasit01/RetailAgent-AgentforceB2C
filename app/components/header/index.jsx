@@ -245,9 +245,9 @@ const Header = ({
                             lineHeight={1}
                             userSelect="none"
                         >
-                            Agent/
+                            Retail/
                             <Text as="span"  color="#FA5400">
-                                Force
+                                Agent
                             </Text>
                         </Text>
                     </Box>
@@ -314,7 +314,7 @@ const Header = ({
                             >
                                 <PopoverArrow />
                                 <PopoverHeader>
-                                    <Text as="h2" fontSize="l" fontFamily="body" fontWeight="700">
+                                    <Text as="h2" fontSize="lg" fontFamily="body" fontWeight="700">
                                         {intl.formatMessage({
                                             defaultMessage: 'My Account',
                                             id: 'header.popover.title.my_account'

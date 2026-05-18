@@ -140,9 +140,9 @@ const DrawerMenu = ({
                             lineHeight={1}
                             userSelect="none"
                         >
-                            Agent/
+                            Retail/
                             <Text as="span" color="#FA5400">
-                                Force
+                                Agent
                             </Text>
                         </Text>
                     </Box>

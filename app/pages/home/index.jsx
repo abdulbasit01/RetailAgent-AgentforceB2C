@@ -47,47 +47,51 @@ const HERO_SLIDES = [
     {
         id: 'slide-1',
         bg: '#0d0d0d',
-        image: PX(2294361, 1920, 900),
-        eyebrow: 'New Season — Spring 2025',
+        image: PX(12932518, 1920, 900),
+        eyebrow: 'AI Retail Assistant',
 
         headline: {
-            primary: 'Just',
-            rest: 'Do It.'
+            primary: 'Smarter Shopping',
+            rest: 'Starts Here'
         },
 
-        sub: 'Gear built for every rep, every run, every day.',
+        sub: 'Help your customers discover, compare, and buy with real-time intelligent guidance.',
         ctaPrimary: {label: "Shop Men's", href: '/category/mens'},
         ctaSecondary: {label: "Shop Women's", href: '/category/womens'}
     },
     {
         id: 'slide-2',
         bg: '#111827',
-        image: PX(1545590, 1920, 900),
-        eyebrow: "Women's Collection",
+        image: PX(8387129, 1920, 900),
+
+        eyebrow: "Women's Fashion Experience",
 
         headline: {
-            primary: 'Made',
-            rest: 'to Move.'
+            primary: 'Discover Your Style',
+            rest: 'Effortlessly.'
         },
 
-        sub: 'Performance meets style for every athlete.',
-        ctaPrimary: {label: 'Shop Now', href: '/category/womens'},
+        sub: 'Explore curated women’s fashion and find pieces that match your vibe perfectly.',
+
+        ctaPrimary: { label: 'Shop Women', href: '/category/womens' },
         ctaSecondary: null
     },
     {
         id: 'slide-3',
         bg: '#1a0a00',
         image: PX(1598505, 1920, 900),
+
         eyebrow: 'Iconic Footwear',
 
         headline: {
-            primary: 'Fresh',
-            rest: 'Kicks.'
+            primary: 'Step Into',
+            rest: 'Fresh Kicks.'
         },
 
-        sub: 'The most iconic silhouettes, updated for today.',
-        ctaPrimary: {label: 'Shop Footwear', href: '/category/mens-footwear'},
-        ctaSecondary: {label: 'View Sale', href: '/category/sale'}
+        sub: 'Iconic silhouettes reimagined for everyday wear and modern style.',
+
+        ctaPrimary: { label: 'Shop Footwear', href: '/category/mens-footwear' },
+        ctaSecondary: { label: 'View Sale', href: '/category/sale' }
     }
 ]
 
@@ -269,8 +273,9 @@ const Home = () => {
                                 textTransform="uppercase"
                                 letterSpacing="0.2em"
                             >
-                                Member Exclusive
+                                AI Retail Assistant
                             </Text>
+
                             <Heading
                                 as="h2"
                                 fontSize={['3xl', '4xl', '5xl']}
@@ -280,12 +285,13 @@ const Home = () => {
                                 letterSpacing="-0.03em"
                                 lineHeight={0.92}
                             >
-                                Run the <Text as="span" color="#FA5400">World</Text> in Style.
+                                Shop Smarter. <Text as="span" color="#FA5400">Buy Faster.</Text>
                             </Heading>
+
                             <Text fontSize="md" color="#A3A3A3" lineHeight={1.7}>
-                                Our most advanced running gear — engineered for speed, designed for
-                                the streets.
+                                Your intelligent retail agent helps customers discover products, compare options, and make confident purchase decisions in real time.
                             </Text>
+
                             <Button
                                 as={Link}
                                 href="/"
@@ -297,9 +303,9 @@ const Home = () => {
                                 textTransform="uppercase"
                                 letterSpacing="0.05em"
                                 px={8}
-                                _hover={{bg: '#F0F0F0', textDecoration: 'none'}}
+                                _hover={{ bg: '#F0F0F0', textDecoration: 'none' }}
                             >
-                                Explore Running
+                                Try Retail Agent
                             </Button>
                         </VStack>
                     </Flex>
@@ -316,7 +322,7 @@ const Home = () => {
                             right={0}
                             bottom={0}
                             left={0}
-                            bgImage={`url(${PX(2897532, 960, 720)})`}
+                            bgImage={`url(${PX(8311878, 960, 720)})`}
                             bgSize="cover"
                             bgPosition="center"
                         />
@@ -454,11 +460,11 @@ const Home = () => {
                     <Container maxW="container.xl" mx="auto">
                         <SimpleGrid columns={[1, 1, 3]} spacing={[4, 4, 5]}>
                             {[
-                                {id: 2294361, label: 'Running', badge: 'Trending'},
-                                {id: 1552242, label: 'Training', badge: 'Staff Pick'},
-                                {id: 1043474, label: 'Lifestyle', badge: 'New'}
+                                { id: 33800036, label: 'Smart Picks', badge: 'Trending' },
+                                { id: 33276443, label: 'Personalized Deals', badge: 'AI Curated' },
+                                { id: 5531746, label: 'New Arrivals', badge: 'Just In' }
                             ].map((promo, i) => (
-                                <Link key={i} href="/" _hover={{textDecoration: 'none'}}>
+                                <Link key={i} href="/" _hover={{ textDecoration: 'none' }}>
                                     <Box
                                         borderRadius="xl"
                                         overflow="hidden"
@@ -466,7 +472,7 @@ const Home = () => {
                                         bg="#2a2a2a"
                                         cursor="pointer"
                                         transition="transform 0.25s ease"
-                                        _hover={{transform: 'translateY(-3px)'}}
+                                        _hover={{ transform: 'translateY(-3px)' }}
                                     >
                                         <AspectRatio ratio={16 / 9}>
                                             <Box position="relative" w="full" h="full">
@@ -489,6 +495,7 @@ const Home = () => {
                                                     left={0}
                                                     bgGradient="linear(to-t, rgba(0,0,0,0.7) 0%, transparent 60%)"
                                                 />
+
                                                 <Flex
                                                     position="absolute"
                                                     bottom={0}
@@ -512,6 +519,7 @@ const Home = () => {
                                                     >
                                                         {promo.badge}
                                                     </Badge>
+
                                                     <Text
                                                         fontSize={['md', 'lg']}
                                                         fontWeight={800}
@@ -562,8 +570,9 @@ const Home = () => {
                                 textTransform="uppercase"
                                 letterSpacing="0.2em"
                             >
-                                Membership
+                                Retail AI Membership
                             </Text>
+
                             <Heading
                                 as="h2"
                                 fontSize={['3xl', '4xl', '5xl', '6xl']}
@@ -573,19 +582,19 @@ const Home = () => {
                                 letterSpacing="-0.04em"
                                 lineHeight={0.92}
                             >
-                                The Best of Agent/<Text as="span" color='#FA5400'>Force</Text>,
-                                <br />
-                                For Members.
+                                Smarter Shopping for<br />
+                                <Text as="span" color="#FA5400">Every Member.</Text>
                             </Heading>
+
                             <Text
                                 fontSize={['md', 'lg']}
                                 color="#737373"
                                 maxW="460px"
                                 lineHeight={1.7}
                             >
-                                Join free — exclusive access to the latest products, member-only
-                                events and free standard shipping.
+                                Join free to unlock personalized recommendations, exclusive drops, and faster checkout powered by your retail AI agent.
                             </Text>
+
                             <HStack spacing={4} flexWrap="wrap" justify="center" pt={2}>
                                 <Button
                                     as={Link}
@@ -598,10 +607,11 @@ const Home = () => {
                                     textTransform="uppercase"
                                     letterSpacing="0.05em"
                                     px={10}
-                                    _hover={{bg: '#F0F0F0', textDecoration: 'none'}}
+                                    _hover={{ bg: '#F0F0F0', textDecoration: 'none' }}
                                 >
-                                    Join Us Free
+                                    Get Started Free
                                 </Button>
+
                                 <Button
                                     as={Link}
                                     href="/login"
