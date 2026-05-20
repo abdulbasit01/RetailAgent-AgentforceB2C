@@ -21,12 +21,16 @@ import {
 // Project Components
 import BonusProductsTitle from '@salesforce/retail-react-app/app/pages/cart/partials/bonus-products-title'
 import CartCta from '@salesforce/retail-react-app/app/pages/cart/partials/cart-cta'
+import CartCtaEnhanced from '@salesforce/retail-react-app/app/pages/cart/partials/cart-cta-enhanced'
+import CartHeaderEnhanced from '@salesforce/retail-react-app/app/pages/cart/partials/cart-header-enhanced'
 import CartSecondaryButtonGroup from '@salesforce/retail-react-app/app/pages/cart/partials/cart-secondary-button-group'
 import CartSkeleton from '@salesforce/retail-react-app/app/pages/cart/partials/cart-skeleton'
 import CartTitle from '@salesforce/retail-react-app/app/pages/cart/partials/cart-title'
 import ConfirmationModal from '@salesforce/retail-react-app/app/components/confirmation-modal'
 import EmptyCart from '@salesforce/retail-react-app/app/pages/cart/partials/empty-cart'
+import MobileStickyCta from '@salesforce/retail-react-app/app/pages/cart/partials/mobile-sticky-cta'
 import OrderSummary from '@salesforce/retail-react-app/app/components/order-summary'
+import OrderSummaryEnhanced from '@salesforce/retail-react-app/app/pages/cart/partials/order-summary-enhanced'
 import OrderTypeDisplay from '@salesforce/retail-react-app/app/pages/cart/partials/order-type-display'
 import PickupOrDelivery from '@salesforce/retail-react-app/app/components/pickup-or-delivery'
 import ProductItemList from '@salesforce/retail-react-app/app/components/product-item-list'
@@ -1003,12 +1007,15 @@ const Cart = () => {
                 paddingTop={{base: 8, lg: 8}}
                 paddingBottom={{base: 8, lg: 14}}
             >
-                <Stack spacing={24}>
+                <Stack spacing={8}>
+                    <CartHeaderEnhanced />
+
                     <Stack spacing={4}>
-                        <CartTitle />
+                        <Box display="none">{/* Legacy title hidden but available */}</Box>
                         <Grid
-                            templateColumns={{base: '1fr', lg: '66% 1fr'}}
-                            gap={{base: 10, xl: 20}}
+                            templateColumns={{base: '1fr', lg: '1fr 380px'}}
+                            gap={{base: 8, xl: 12}}
+                            alignItems="start"
                         >
                             <GridItem>
                                 <Stack spacing={6}>
@@ -1018,19 +1025,19 @@ const Cart = () => {
                                                 shipmentInfo.shipment?.shipmentId ||
                                                 'combined-delivery'
                                             }
-                                            bg="white"
-                                            borderLeft="1px solid"
-                                            borderRight="1px solid"
-                                            borderBottom="1px solid"
-                                            borderColor="gray.200"
-                                            borderRadius="md"
-                                            borderTopRadius="none"
-                                            overflow="hidden"
-                                            boxShadow="sm"
-                                            p={4}
+                                            // bg="white"
+                                            // borderLeft="1px solid"
+                                            // borderRight="1px solid"
+                                            // borderBottom="1px solid"
+                                            // borderColor="gray.200"
+                                            // borderRadius="md"
+                                            // borderTopRadius="none"
+                                            // overflow="hidden"
+                                            // boxShadow="sm"
+                                            // p={4}
                                         >
                                             {/* Order Type Display */}
-                                            {storeLocatorEnabled && (
+                                            {/* {storeLocatorEnabled && (
                                                 <OrderTypeDisplay
                                                     isPickupOrder={shipmentInfo.isPickupOrder}
                                                     store={shipmentInfo.store}
@@ -1048,7 +1055,7 @@ const Cart = () => {
                                                             : null
                                                     }
                                                 />
-                                            )}
+                                            )} */}
 
                                             {/* Conditional Bonus Product Rendering with Shipment-based Structure */}
                                             {groupBonusProductsWithQualifyingProduct ? (
@@ -1397,14 +1404,14 @@ const Cart = () => {
                                 </Box>
                             </GridItem>
                             <GridItem>
-                                <Stack spacing={4}>
-                                    <OrderSummary
+                                <Stack spacing={6} position="sticky" top="100px">
+                                    <OrderSummaryEnhanced
                                         showPromoCodeForm={true}
                                         isEstimate={true}
                                         basket={basket}
                                     />
                                     <Box display={{base: 'none', lg: 'block'}}>
-                                        <CartCta />
+                                        <CartCtaEnhanced />
                                     </Box>
                                 </Stack>
                             </GridItem>
@@ -1439,19 +1446,11 @@ const Cart = () => {
                             />
                         </Stack>
                     </Stack>
-                </Stack>
+
+                <MobileStickyCta basket={basket} />
+            </Stack>
             </Container>
 
-            <Box
-                h="130px"
-                position="sticky"
-                bottom={0}
-                bg="white"
-                display={{base: 'block', lg: 'none'}}
-                align="center"
-            >
-                <CartCta />
-            </Box>
             <ConfirmationModal
                 {...REMOVE_CART_ITEM_CONFIRMATION_DIALOG_CONFIG}
                 onPrimaryAction={() => {

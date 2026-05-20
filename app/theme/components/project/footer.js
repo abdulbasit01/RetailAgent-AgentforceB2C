@@ -22,15 +22,15 @@ export default {
     baseStyle: {
         container: {
             width: 'full',
-            background: 'gray.900'
+            background: '#111111'
         },
         content: {
             maxWidth: 'container.xxl',
             marginLeft: 'auto',
             marginRight: 'auto',
             color: 'white',
-            paddingTop: {base: 8, lg: 10},
-            paddingBottom: 8,
+            paddingTop: {base: 10, lg: 16},
+            paddingBottom: 10,
             paddingLeft: [4, 4, 6, 8],
             paddingRight: [4, 4, 6, 8]
         },
@@ -39,27 +39,34 @@ export default {
         },
         subscribeField: {
             background: 'white',
-            color: 'gray.900'
+            color: '#111111',
+            borderRadius: 'full'
         },
         subscribeButtonContainer: {
             width: 'auto'
         },
         subscribeHeading: {
-            fontSize: 'md',
-            marginBottom: 2
+            fontSize: 'lg',
+            marginBottom: 2,
+            color: 'white',
+            fontWeight: 700,
+            textTransform: 'uppercase',
+            letterSpacing: '0.05em'
         },
         subscribeMessage: {
             fontSize: 'sm',
-            marginBottom: 4
+            marginBottom: 4,
+            color: '#A3A3A3'
         },
         localeSelector: {
             display: 'inline-block',
             marginTop: 8
         },
         localeDropdown: {
-            background: 'gray.800',
+            background: '#2E2E2E',
+            color: 'white',
             _hover: {
-                background: 'whiteAlpha.500'
+                background: '#404040'
             }
         },
         localeDropdownOption: {
@@ -69,16 +76,17 @@ export default {
             maxWidth: {base: '34.5rem', lg: '100%'}
         },
         horizontalRule: {
-            marginTop: 4,
-            marginBottom: 4
+            marginTop: 8,
+            marginBottom: 8,
+            borderColor: '#2E2E2E'
         },
         copyright: {
             fontSize: 'sm',
             marginBottom: 6,
-            color: 'gray.50'
+            color: '#A3A3A3'
         },
         socialIcons: {
-            marginTop: 4
+            marginTop: 6
         }
     }
 }

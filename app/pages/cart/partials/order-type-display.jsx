@@ -42,7 +42,7 @@ const OrderTypeDisplay = ({
                     </Box>
                 </Box>
             ) : (
-                <Text fontWeight="bold">
+                <Text fontWeight={400} fontSize='sm' color='#757575'>
                     <FormattedMessage
                         defaultMessage="Delivery - {itemsInShipment} out of {totalItemsInCart} items"
                         id="cart.order_type.delivery"

@@ -106,23 +106,31 @@ const Refinements = ({
                                 <Stack key={filter.attributeId} divider={<Divider />}>
                                     <AccordionItem
                                         paddingTop={idx !== 0 || itemsBefore ? 6 : 0}
-                                        borderBottom={
-                                            idx === filters.length - 1
-                                                ? '1px solid gray.200'
-                                                : 'none'
-                                        }
-                                        paddingBottom={6}
-                                        borderTop={
-                                            idx === 0 && !itemsBefore
-                                                ? 'none'
-                                                : '1px solid gray.200'
-                                        }
+                                        // borderBottom={
+                                        //     idx === filters.length - 1
+                                        //         ? '1px solid gray.200'
+                                        //         : 'none'
+                                        // }
+                                        // borderTop={
+                                        //     idx === 0 && !itemsBefore
+                                        //         ? 'none'
+                                        //         : '1px solid gray.200'
+                                        // }
+                                        border="none"
                                     >
                                         {({isExpanded}) => (
                                             <>
                                                 <AccordionButton
-                                                    paddingTop={0}
+                                                    // paddingTop={0}
                                                     paddingBottom={isExpanded ? 2 : 0}
+                                                    padding="12px"
+                                                    borderRadius="4px"
+                                                    border="1px solid #111111"
+                                                    background={isExpanded ? '#111111' : 'white'}
+                                                    borderBottom={isExpanded ? 'none' : '1px solid #111111'}
+                                                    _hover={{
+                                                        background: isExpanded ? '#111111' : '#ebebeb'
+                                                    }}
                                                 >
                                                     <Heading
                                                         as="h2"
@@ -130,12 +138,14 @@ const Refinements = ({
                                                         textAlign="left"
                                                         fontSize="md"
                                                         fontWeight={600}
+                                                        marginBottom="0px"
+                                                        color={isExpanded ? 'white' : '#111111'}
                                                     >
                                                         {filter.label}
                                                     </Heading>
-                                                    <AccordionIcon />
+                                                    <AccordionIcon color={ isExpanded ? 'white' : '#111111'}  />
                                                 </AccordionButton>
-                                                <AccordionPanel paddingLeft={0}>
+                                                <AccordionPanel paddingLeft={0} border="1px solid #111111" borderTop="none" mt="-6px" padding="12px 8px">
                                                     <Values
                                                         selectedFilters={selectedFiltersArray}
                                                         filter={filter}

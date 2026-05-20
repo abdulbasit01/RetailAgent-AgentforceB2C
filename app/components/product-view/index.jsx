@@ -60,7 +60,7 @@ const ProductViewHeader = ({
     isProductPartOfBundle
 }) => {
     return (
-        <VStack mr={4} spacing={2} align="flex-start" marginBottom={[4, 4, 4, 0, 0]}>
+        <VStack borderBottom="1px solid" borderColor="gray.200" mr={4} spacing={2} align="flex-start" marginBottom={[4, 4, 4, 0, 0]}>
             {category && (
                 <Skeleton isLoaded={category} minWidth={64}>
                     <Breadcrumb categories={category} />
@@ -336,6 +336,29 @@ const ProductView = forwardRef(
                 addToWishlist(product, variant, quantity)
             }
 
+            // child product of bundles do not have add to wishlist button
+            if ((addToWishlist || updateWishlist) && !isProductPartOfBundle) {
+                buttons.push(
+                    <ButtonWithRegistration
+                        key="wishlist-button"
+                        onClick={handleWishlistItem}
+                        disabled={isWishlistLoading || !canAddToWishlist}
+                        isLoading={isWishlistLoading}
+                        width="100%"
+                        variant="outline"
+                        marginBottom={4}
+                    >
+                        {updateWishlist
+                            ? buttonText.update
+                            : isProductASet
+                            ? buttonText.addSetToWishlist
+                            : isProductABundle
+                            ? buttonText.addBundleToWishlist
+                            : buttonText.addToWishlist}
+                    </ButtonWithRegistration>
+                )
+            }
+
             // child product of bundles do not have add to cart button
             if ((addToCart || updateCart) && !isProductPartOfBundle) {
                 buttons.push(
@@ -359,28 +382,7 @@ const ProductView = forwardRef(
                 )
             }
 
-            // child product of bundles do not have add to wishlist button
-            if ((addToWishlist || updateWishlist) && !isProductPartOfBundle) {
-                buttons.push(
-                    <ButtonWithRegistration
-                        key="wishlist-button"
-                        onClick={handleWishlistItem}
-                        disabled={isWishlistLoading || !canAddToWishlist}
-                        isLoading={isWishlistLoading}
-                        width="100%"
-                        variant="outline"
-                        marginBottom={4}
-                    >
-                        {updateWishlist
-                            ? buttonText.update
-                            : isProductASet
-                            ? buttonText.addSetToWishlist
-                            : isProductABundle
-                            ? buttonText.addBundleToWishlist
-                            : buttonText.addToWishlist}
-                    </ButtonWithRegistration>
-                )
-            }
+            
 
             // Add custom buttons if provided
             if (customButtons && customButtons.length > 0) {
@@ -730,136 +732,301 @@ const ProductView = forwardRef(
                             )}
                             <Box>
                                 {showDeliveryOptions && (
-                                    <>
-                                        <Box mb={4}>
-                                            <Text fontWeight={600} mb={3}>
-                                                <FormattedMessage
-                                                    defaultMessage="Delivery:"
-                                                    id="product_view.label.delivery"
-                                                />
-                                            </Text>
-                                            <RadioGroup
-                                                value={
-                                                    pickupInStore
-                                                        ? DELIVERY_OPTIONS.PICKUP
-                                                        : DELIVERY_OPTIONS.DELIVERY
+                                <Box
+                                    bg="#111111"
+                                    border="1px solid"
+                                    borderColor="whiteAlpha.200"
+                                    borderRadius="20px"
+                                    p={{base: 5, md: 6}}
+                                    color="white"
+                                    >
+                                    {/* Heading */}
+                                    <Flex
+                                        align="center"
+                                        justify="space-between"
+                                        mb={5}
+                                    >
+                                        <Text
+                                            fontSize="lg"
+                                            fontWeight="800"
+                                            letterSpacing="0.5px"
+                                            textTransform="uppercase"
+                                        >
+                                            <FormattedMessage
+                                                defaultMessage="Delivery Options"
+                                                id="product_view.label.delivery"
+                                            />
+                                        </Text>
+
+                                        <Text
+                                            fontSize="xs"
+                                            color="whiteAlpha.600"
+                                            textTransform="uppercase"
+                                            letterSpacing="1px"
+                                        >
+                                            Fast & Flexible
+                                        </Text>
+                                    </Flex>
+
+                                    <RadioGroup
+                                        value={
+                                            pickupInStore
+                                                ? DELIVERY_OPTIONS.PICKUP
+                                                : DELIVERY_OPTIONS.DELIVERY
+                                        }
+                                        onChange={handleDeliveryOptionChange}
+                                    >
+                                        <Stack spacing={4}>
+                                            {/* SHIP OPTION */}
+                                            <Box
+                                                position="relative"
+                                                borderRadius="18px"
+                                                border="1px solid"
+                                                borderColor={
+                                                    !pickupInStore
+                                                        ? 'white'
+                                                        : 'whiteAlpha.200'
                                                 }
-                                                onChange={handleDeliveryOptionChange}
-                                                mb={1}
+                                                bg={
+                                                    !pickupInStore
+                                                        ? 'white'
+                                                        : 'rgba(255,255,255,0.03)'
+                                                }
+                                                color={
+                                                    !pickupInStore
+                                                        ? 'black'
+                                                        : 'white'
+                                                }
+                                                transition="all .25s ease"
+                                                overflow="hidden"
+                                                _hover={{
+                                                    borderColor: 'whiteAlpha.500',
+                                                    transform: 'translateY(-2px)'
+                                                }}
+                                                padding={{ base: 3, md: 4}}
                                             >
-                                                <Stack direction="column" spacing={2}>
+                                                <Radio
+                                                    value={DELIVERY_OPTIONS.DELIVERY}
+                                                    isDisabled={disableButton}
+                                                    colorScheme="blackAlpha"
+                                                    width="100%"
+                                                >
+                                                    <Flex
+                                                        align="center"
+                                                        justify="space-between"
+                                                        width="100%"
+                                                    >
+                                                        <Flex
+                                                            direction="column"
+                                                            gap={1}
+                                                        >
+                                                            <Text
+                                                                fontWeight="800"
+                                                                fontSize="md"
+                                                                textTransform="uppercase"
+                                                                letterSpacing="0.4px"
+                                                            >
+                                                                <FormattedMessage
+                                                                    defaultMessage="Ship to Address"
+                                                                    id="product_view.label.ship_to_address"
+                                                                />
+                                                            </Text>
+
+                                                            <Text
+                                                                fontSize="sm"
+                                                                color={
+                                                                    !pickupInStore
+                                                                        ? 'gray.600'
+                                                                        : 'whiteAlpha.700'
+                                                                }
+                                                            >
+                                                                Premium doorstep delivery
+                                                            </Text>
+                                                        </Flex>
+
+                                                        <Box
+                                                            fontSize="24px"
+                                                            opacity={0.9}
+                                                        >
+                                                            🚚
+                                                        </Box>
+                                                    </Flex>
+                                                </Radio>
+                                            </Box>
+
+                                            {/* PICKUP OPTION */}
+                                            {storeLocatorEnabled && (
+                                                <Box
+                                                    position="relative"
+                                                    borderRadius="18px"
+                                                    border="1px solid"
+                                                    borderColor={
+                                                        pickupInStore
+                                                            ? 'white'
+                                                            : 'whiteAlpha.200'
+                                                    }
+                                                    bg={
+                                                        pickupInStore
+                                                            ? 'white'
+                                                            : 'rgba(255,255,255,0.03)'
+                                                    }
+                                                    color={
+                                                        pickupInStore
+                                                            ? 'black'
+                                                            : 'white'
+                                                    }
+                                                    opacity={
+                                                        !pickupEnabled ||
+                                                        (storeName &&
+                                                            inventoryId &&
+                                                            isSelectedStoreOutOfStock)
+                                                            ? 0.5
+                                                            : 1
+                                                    }
+                                                    transition="all .25s ease"
+                                                    overflow="hidden"
+                                                    _hover={{
+                                                        borderColor: 'whiteAlpha.500',
+                                                        transform: 'translateY(-2px)'
+                                                    }}
+                                                    padding={{ base: 3, md: 4}}
+                                                >
                                                     <Radio
-                                                        value={DELIVERY_OPTIONS.DELIVERY}
-                                                        isDisabled={disableButton}
+                                                        value={DELIVERY_OPTIONS.PICKUP}
+                                                        isDisabled={
+                                                            !pickupEnabled ||
+                                                            (storeName &&
+                                                                inventoryId &&
+                                                                isSelectedStoreOutOfStock)
+                                                        }
+                                                        colorScheme="blackAlpha"
+                                                        width="100%"
                                                     >
-                                                        <FormattedMessage
-                                                            defaultMessage="Ship to Address"
-                                                            id="product_view.label.ship_to_address"
-                                                        />
+                                                        <Flex
+                                                            align="center"
+                                                            justify="space-between"
+                                                            width="100%"
+                                                        >
+                                                            <Flex
+                                                                direction="column"
+                                                                gap={1}
+                                                            >
+                                                                <Text
+                                                                    fontWeight="800"
+                                                                    fontSize="md"
+                                                                    textTransform="uppercase"
+                                                                    letterSpacing="0.4px"
+                                                                >
+                                                                    <FormattedMessage
+                                                                        defaultMessage="Pick Up in Store"
+                                                                        id="product_view.label.pickup_in_store"
+                                                                    />
+                                                                </Text>
+
+                                                                {/* STATUS */}
+                                                                {storeName && inventoryId ? (
+                                                                    <Text
+                                                                        fontSize="sm"
+                                                                        color={
+                                                                            pickupInStore
+                                                                                ? isSelectedStoreOutOfStock
+                                                                                    ? 'red.500'
+                                                                                    : 'green.600'
+                                                                                : isSelectedStoreOutOfStock
+                                                                                ? 'red.300'
+                                                                                : 'green.300'
+                                                                        }
+                                                                    >
+                                                                        {isSelectedStoreOutOfStock
+                                                                            ? 'Out of stock at '
+                                                                            : 'Available at '}
+
+                                                                        <Link
+                                                                            as="button"
+                                                                            fontWeight="700"
+                                                                            textDecoration="underline"
+                                                                            color={
+                                                                                pickupInStore
+                                                                                    ? 'black'
+                                                                                    : 'white'
+                                                                            }
+                                                                            onClick={
+                                                                                onOpenStoreLocator
+                                                                            }
+                                                                        >
+                                                                            {storeName}
+                                                                        </Link>
+                                                                    </Text>
+                                                                ) : (
+                                                                    <Text
+                                                                        fontSize="sm"
+                                                                        color={
+                                                                            pickupInStore
+                                                                                ? 'gray.600'
+                                                                                : 'whiteAlpha.700'
+                                                                        }
+                                                                    >
+                                                                        Choose your preferred store
+                                                                    </Text>
+                                                                )}
+                                                            </Flex>
+
+                                                            <Box
+                                                                fontSize="24px"
+                                                                opacity={0.9}
+                                                            >
+                                                                🏬
+                                                            </Box>
+                                                        </Flex>
                                                     </Radio>
-                                                    {storeLocatorEnabled && (
-                                                        <Radio
-                                                            value={DELIVERY_OPTIONS.PICKUP}
-                                                            isDisabled={
-                                                                !pickupEnabled ||
-                                                                (storeName &&
-                                                                    inventoryId &&
-                                                                    isSelectedStoreOutOfStock)
-                                                            }
-                                                        >
-                                                            <FormattedMessage
-                                                                defaultMessage="Pick Up in Store"
-                                                                id="product_view.label.pickup_in_store"
-                                                            />
-                                                        </Radio>
-                                                    )}
-                                                </Stack>
-                                            </RadioGroup>
-                                        </Box>
+                                                </Box>
+                                            )}
+                                        </Stack>
+                                    </RadioGroup>
 
-                                        {storeLocatorEnabled && (
-                                            <>
-                                                {storeName && inventoryId && (
-                                                    <Text
-                                                        color="black"
-                                                        fontWeight={600}
-                                                        mb={2}
-                                                        data-testid="store-stock-status-msg"
-                                                    >
-                                                        {!isSelectedStoreOutOfStock
-                                                            ? intl.formatMessage(
-                                                                  {
-                                                                      id: 'product_view.status.in_stock_at_store',
-                                                                      defaultMessage:
-                                                                          'In stock at {storeName}'
-                                                                  },
-                                                                  {
-                                                                      storeName: (
-                                                                          <Link
-                                                                              as="button"
-                                                                              color="blue.600"
-                                                                              textDecoration="underline"
-                                                                              onClick={
-                                                                                  onOpenStoreLocator
-                                                                              }
-                                                                          >
-                                                                              {storeName}
-                                                                          </Link>
-                                                                      )
-                                                                  }
-                                                              )
-                                                            : intl.formatMessage(
-                                                                  {
-                                                                      id: 'product_view.status.out_of_stock_at_store',
-                                                                      defaultMessage:
-                                                                          'Out of Stock at {storeName}'
-                                                                  },
-                                                                  {
-                                                                      storeName: (
-                                                                          <Link
-                                                                              as="button"
-                                                                              color="blue.600"
-                                                                              textDecoration="underline"
-                                                                              onClick={
-                                                                                  onOpenStoreLocator
-                                                                              }
-                                                                          >
-                                                                              {storeName}
-                                                                          </Link>
-                                                                      )
-                                                                  }
-                                                              )}
-                                                    </Text>
-                                                )}
+                                    {/* SELECT STORE CTA */}
+                                    {storeLocatorEnabled &&
+                                        !pickupEnabled &&
+                                        !storeName &&
+                                        !inventoryId && (
+                                            <Box
+                                                mt={5}
+                                                borderRadius="16px"
+                                                border="1px dashed"
+                                                borderColor="whiteAlpha.300"
+                                                bg="rgba(255,255,255,0.03)"
+                                                p={4}
+                                            >
+                                                <Text
+                                                    fontSize="sm"
+                                                    color="whiteAlpha.800"
+                                                    mb={2}
+                                                >
+                                                    Store pickup requires a selected location.
+                                                </Text>
 
-                                                {/* Show label if pickup is disabled due to no store/inventoryId */}
-                                                {!pickupEnabled && !storeName && !inventoryId && (
-                                                    <Text
-                                                        color="black"
-                                                        fontWeight={600}
-                                                        mb={3}
-                                                        data-testid="pickup-select-store-msg"
-                                                    >
-                                                        <FormattedMessage
-                                                            defaultMessage="Pick up in "
-                                                            id="product_view.label.pickup_in_select_store_prefix"
-                                                        />{' '}
-                                                        <Link
-                                                            as="button"
-                                                            color="blue.600"
-                                                            textDecoration="underline"
-                                                            onClick={onOpenStoreLocator}
-                                                        >
-                                                            <FormattedMessage
-                                                                defaultMessage="Select Store"
-                                                                id="product_view.label.select_store_link"
-                                                            />
-                                                        </Link>
-                                                    </Text>
-                                                )}
-                                            </>
+                                                <Button
+                                                    onClick={onOpenStoreLocator}
+                                                    bg="white"
+                                                    color="black"
+                                                    borderRadius="999px"
+                                                    px={6}
+                                                    size="sm"
+                                                    fontWeight="800"
+                                                    textTransform="uppercase"
+                                                    letterSpacing="0.5px"
+                                                    _hover={{
+                                                        bg: 'gray.200'
+                                                    }}
+                                                >
+                                                    <FormattedMessage
+                                                        defaultMessage="Select Store"
+                                                        id="product_view.label.select_store_link"
+                                                    />
+                                                </Button>
+                                            </Box>
                                         )}
-                                    </>
+                                    </Box>
                                 )}
                                 <Box
                                     display={
@@ -867,6 +1034,7 @@ const ProductView = forwardRef(
                                             ? 'block'
                                             : ['none', 'none', 'none', 'block']
                                     }
+                                    mt={4}
                                 >
                                     {renderActionButtons()}
                                 </Box>

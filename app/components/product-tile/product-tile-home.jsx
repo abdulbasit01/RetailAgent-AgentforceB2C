@@ -24,7 +24,7 @@ import {
 import DynamicImage from '@salesforce/retail-react-app/app/components/dynamic-image'
 
 // Project Components
-import {HeartIcon, HeartSolidIcon} from '../../components/icons'
+import {HeartIcon, HeartSolidIcon} from '@salesforce/retail-react-app/app/components/icons'
 import Link from '@salesforce/retail-react-app/app/components/link'
 import Swatch from '@salesforce/retail-react-app/app/components/swatch-group/swatch'
 import SwatchGroup from '@salesforce/retail-react-app/app/components/swatch-group'
@@ -47,6 +47,8 @@ import {
     getDecoratedVariationAttributes
 } from '@salesforce/retail-react-app/app/utils/product-utils'
 import {PRODUCT_BADGE_DETAILS} from '@salesforce/retail-react-app/app/constants'
+import {getAssetUrl} from '@salesforce/pwa-kit-react-sdk/ssr/universal/utils'
+
 
 const IconButtonWithRegistration = withRegistration(IconButton)
 
@@ -81,7 +83,7 @@ export const Skeleton = () => {
  * product object. It will show its default image, name and price.
  * It also supports favourite products, controlled by a heart icon.
  */
-const ProductTile = (props) => {
+const ProductTileHome = (props) => {
     const {
         dynamicImageProps,
         enableFavourite = false,
@@ -182,153 +184,167 @@ const ProductTile = (props) => {
     }, [product, badgeDetails])
 
     return (
-        <Box {...styles.container} border="1px solid" borderColor="#EBEBEB" borderRadius="xl">
-            <Link data-testid="product-tile" to={productUrl} {...styles.link} {...rest}>
-                <Box {...styles.imageWrapper}>
-                    <Box {...styles.image}>
+        <Box
+            position="relative"
+            borderRadius="2xl"
+            overflow="hidden"
+            bg="gray.100"
+            height="100%"
+            transition="transform 0.25s ease, box-shadow 0.25s ease"
+            _hover={{
+                transform: 'translateY(-4px)',
+                boxShadow: '0 16px 40px rgba(0,0,0,0.18)'
+            }}
+        >
+            <Link
+                data-testid="product-tile"
+                to={productUrl}
+                _hover={{textDecoration: 'none'}}
+                height="100%"
+                display="block"
+            >
+                <AspectRatio ratio={3 / 4}>
+                    <Box position="relative" w="full" h="full">
+                        {/* IMAGE */}
                         <DynamicImage
+                            height="100%"
                             data-testid="product-tile-image"
-                            className= "product-tile-image"
                             src={`${
                                 image?.disBaseLink ||
                                 image?.link ||
                                 product?.image?.disBaseLink ||
-                                product?.image?.link
-                            }[?sw={width}&q=60]`}
+                                product?.image?.link ||
+                                getAssetUrl('static/img/dummy.png')
+                            }[?sw={width}&q=70]`}
                             widths={dynamicImageProps?.widths}
                             imageProps={{
-                                // treat img as a decorative item, we don't need to pass `image.alt`
-                                // since it is the same as product name
-                                // which can cause confusion for individuals who uses screen readers
                                 alt: '',
                                 loading: 'lazy',
+                                style: {
+                                    width: '100%',
+                                    height: '100%',
+                                    objectFit: 'cover'
+                                },
                                 ...dynamicImageProps?.imageProps
                             }}
                         />
-                    </Box>
-                </Box>
 
-                {/* Swatches */}
-                {variationAttributes
-                    ?.filter(({id}) => selectableAttributeId === id)
-                    ?.map(({id, name, values}) => (
-                        <Box key={id} px={3} pt={2}>
-                            <SwatchGroup
-                                ariaLabel={name}
-                                value={selectableAttributeValue}
-                                handleChange={(value) => {
-                                    setSelectableAttributeValue(value)
-                                }}
-                            >
-                                {values?.map(({name, swatch, value}) => {
-                                    const content = swatch ? (
-                                        <Box
-                                            height="100%"
-                                            width="100%"
-                                            minWidth="32px"
-                                            backgroundRepeat="no-repeat"
-                                            backgroundSize="cover"
-                                            backgroundColor={name.toLowerCase()}
-                                            backgroundImage={`url(${
-                                                swatch?.disBaseLink || swatch.link
-                                            })`}
-                                        />
-                                    ) : (
-                                        name
-                                    )
-
-                                    return (
-                                        <Swatch
-                                            key={value}
-                                            value={value}
-                                            name={name}
-                                            variant={'circle'}
-                                            isFocusable={true}
+                        {/* optional badge */}
+                        {filteredLabels.size > 0 && (
+                            <HStack className='tile-badge' position="absolute" top={2} left={2}>
+                                {Array.from(filteredLabels.entries()).map(
+                                    ([label, colorScheme]) => (
+                                        <Badge
+                                            key={label}
+                                            backgroundColor={colorScheme}
+                                            color='white'
+                                            borderRadius="full"
+                                            px='3'
+                                            fontWeight='900'
                                         >
-                                            {content}
-                                        </Swatch>
+                                            {label}
+                                        </Badge>
                                     )
-                                })}
-                            </SwatchGroup>
+                                )}
+                            </HStack>
+                        )}
+
+                        {/* DARK OVERLAY */}
+                        <Box
+                            position="absolute"
+                            inset={0}
+                            bgGradient="
+                            linear(
+                                to-t,
+                                rgba(0,0,0,0.82) 0%,
+                                rgba(0,0,0,0.15) 55%,
+                                transparent 100%
+                            )
+                        "
+                        />
+
+                        {/* CONTENT */}
+                        <Box
+                            position="absolute"
+                            bottom={0}
+                            left={0}
+                            right={0}
+                            p={[3]}
+                            zIndex={2}
+                            backgroundColor='blackAlpha.300'
+                        >
+                            {/* TITLE */}
+                            <Text
+                                color="white"
+                                fontSize={['md']}
+                                textShadow="0 2px 4px rgba(0,0,0,0.25)"
+                                fontWeight={900}
+                                textTransform="uppercase"
+                                lineHeight={1}
+                                letterSpacing="-0.02em"
+                                mb={2}
+                                noOfLines={1}
+                            >
+                                {localizedProductName}
+                            </Text>
+
+                            {/* PRICE */}
+                            <Box color="white">
+                                <DisplayPrice priceData={priceData} currency={currency} />
+                            </Box>
+
+                            {/* CTA */}
+                            {/* <Box
+                                display="inline-flex"
+                                alignItems="center"
+                                px={4}
+                                py={2}
+                                bg="white"
+                                borderRadius="full"
+                            >
+                                <Text
+                                    fontSize="xs"
+                                    fontWeight={800}
+                                    color="black"
+                                    textTransform="uppercase"
+                                    letterSpacing="0.08em"
+                                >
+                                    Shop Now
+                                </Text>
+                            </Box> */}
                         </Box>
-                    ))}
 
-                {/* Title + Price wrapped with consistent padding */}
-                <Box px={3} pt={2} pb={3}>
-                    <Text {...styles.title}>{localizedProductName}</Text>
+                        {/* Favourite */}
+                        {enableFavourite && (
+                            <Box position="absolute" top={4} right={4} zIndex={3}>
+                                <IconButtonWithRegistration
+                                    data-testid="wishlist-button"
+                                    icon={isFavourite ? <HeartSolidIcon /> : <HeartIcon />}
+                                    isRound
+                                    bg="rgba(255,255,255,0.9)"
+                                    _hover={{bg: 'white'}}
+                                    onClick={async (e) => {
+                                        e.preventDefault()
 
-                    {isRefreshingData ? (
-                        <PricingAndPromotionsSkeleton />
-                    ) : (
-                        <>
-                            {/* Price */}
-                            <DisplayPrice priceData={priceData} currency={currency} />
-
-                            {/* Promotion call-out message */}
-                            {shouldShowPromoCallout(productWithFilteredVariants) && (
-                                <PromoCallout product={productWithFilteredVariants} />
-                            )}
-                        </>
-                    )}
-                </Box>
+                                        if (!isFavouriteLoading.current) {
+                                            isFavouriteLoading.current = true
+                                            await onFavouriteToggle(!isFavourite)
+                                            isFavouriteLoading.current = false
+                                        }
+                                    }}
+                                />
+                            </Box>
+                        )}
+                    </Box>
+                </AspectRatio>
             </Link>
-            {enableFavourite && (
-                <Box
-                    onClick={(e) => {
-                        // stop click event from bubbling
-                        // to avoid user from clicking the underlying
-                        // product while the favourite icon is disabled
-                        e.preventDefault()
-                    }}
-                >
-                    <IconButtonWithRegistration
-                        backgroundColor="white"
-                        data-testid="wishlist-button"
-                        aria-label={
-                            isFavourite
-                                ? intl.formatMessage(
-                                      {
-                                          id: 'product_tile.assistive_msg.remove_from_wishlist',
-                                          defaultMessage: 'Remove {product} from wishlist'
-                                      },
-                                      {product: localizedProductName}
-                                  )
-                                : intl.formatMessage(
-                                      {
-                                          id: 'product_tile.assistive_msg.add_to_wishlist',
-                                          defaultMessage: 'Add {product} to wishlist'
-                                      },
-                                      {product: localizedProductName}
-                                  )
-                        }
-                        icon={isFavourite ? <HeartSolidIcon /> : <HeartIcon color="#FA5400" />}
-                        {...styles.favIcon}
-                        onClick={async () => {
-                            if (!isFavouriteLoading.current) {
-                                isFavouriteLoading.current = true
-                                await onFavouriteToggle(!isFavourite)
-                                isFavouriteLoading.current = false
-                            }
-                        }}
-                    />
-                </Box>
-            )}
-            {filteredLabels.size > 0 && (
-                <HStack {...styles.badgeGroup}>
-                    {Array.from(filteredLabels.entries()).map(([label, colorScheme]) => (
-                        <Badge key={label} data-testid="product-badge" colorScheme={colorScheme}>
-                            {label}
-                        </Badge>
-                    ))}
-                </HStack>
-            )}
         </Box>
     )
 }
 
-ProductTile.displayName = 'ProductTile'
+ProductTileHome.displayName = 'ProductTileHome'
 
-ProductTile.propTypes = {
+ProductTileHome.propTypes = {
     /**
      * The product search hit that will be represented in this
      * component.
@@ -403,7 +419,7 @@ ProductTile.propTypes = {
     isRefreshingData: PropTypes.bool
 }
 
-export default ProductTile
+export default ProductTileHome
 
 const shouldShowPromoCallout = (productWithFilteredVariants) => {
     return productWithFilteredVariants.variants

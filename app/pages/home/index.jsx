@@ -1,56 +1,123 @@
-// At the very top of Home.jsx
-import React, { useEffect } from 'react'
-import { useIntl, FormattedMessage } from 'react-intl'
-import { useLocation } from 'react-router-dom'
+import React, {useEffect, useRef} from 'react'
+import {useIntl} from 'react-intl'
+import {useLocation, useParams} from 'react-router-dom'
 
-// Slick Slider imports
-import Slider from 'react-slick'
-import "slick-carousel/slick/slick.css"
-import "slick-carousel/slick/slick-theme.css"
-
-// Components
 import {
+    Badge,
     Box,
     Button,
-    SimpleGrid,
     HStack,
-    VStack,
-    Text,
     Flex,
-    Stack,
     Container,
-    Link
+    AspectRatio,
+    Heading,
+    SimpleGrid,
+    Text,
+    VStack
 } from '@salesforce/retail-react-app/app/components/shared/ui'
 
-// Project Components
-import Hero from '@salesforce/retail-react-app/app/components/hero'
 import Seo from '@salesforce/retail-react-app/app/components/seo'
-import Section from '@salesforce/retail-react-app/app/components/section'
-import ProductScroller from '@salesforce/retail-react-app/app/components/product-scroller'
 import Island from '@salesforce/retail-react-app/app/components/island'
+import ProductTile from '@salesforce/retail-react-app/app/components/product-tile'
 
-// Hooks
 import useEinstein from '@salesforce/retail-react-app/app/hooks/use-einstein'
 import useDataCloud from '@salesforce/retail-react-app/app/hooks/use-datacloud'
-import { useServerContext } from '@salesforce/pwa-kit-react-sdk/ssr/universal/hooks'
-import { useProductSearch } from '@salesforce/commerce-sdk-react'
+import {useServerContext} from '@salesforce/pwa-kit-react-sdk/ssr/universal/hooks'
+import {useProductSearch} from '@salesforce/commerce-sdk-react'
 
-// Utilities & Constants
-import { getAssetUrl } from '@salesforce/pwa-kit-react-sdk/ssr/universal/utils'
-import { heroFeatures, features } from '@salesforce/retail-react-app/app/pages/home/data'
 import {
     HOME_SHOP_PRODUCTS_CATEGORY_ID,
     HOME_SHOP_PRODUCTS_LIMIT,
     MAX_CACHE_AGE,
     STALE_WHILE_REVALIDATE
 } from '@salesforce/retail-react-app/app/constants'
+import ProductTileHome from '../../components/product-tile/product-tile-home'
+import ProductSlideHome from '../../components/product-tile/product-slide-home'
+import {Tile} from '../../components/shared/ui/Tile'
+import HeroSlider from './partials/hero-slider'
+import Link from '../../components/link'
+import Slider from 'react-slick'
 
+// Pexels CDN helper — verified clothing/athletic photo IDs
+const PX = (id, w = 1920, h = 1080) =>
+    `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&w=${w}&h=${h}&fit=crop`
+
+// Hero: runner, athletic woman, sneakers
+const HERO_SLIDES = [
+    {
+        id: 'slide-1',
+        bg: '#0d0d0d',
+        image: PX(12932518, 1920, 900),
+        eyebrow: 'AI Retail Assistant',
+
+        headline: {
+            primary: 'Smarter Shopping',
+            rest: 'Starts Here'
+        },
+
+        sub: 'Help your customers discover, compare, and buy with real-time intelligent guidance.',
+        ctaPrimary: {label: "Shop Men's", href: '/category/mens'},
+        ctaSecondary: {label: "Shop Women's", href: '/category/womens'}
+    },
+    {
+        id: 'slide-2',
+        bg: '#111827',
+        image: PX(8387129, 1920, 900),
+
+        eyebrow: "Women's Fashion Experience",
+
+        headline: {
+            primary: 'Discover Your Style',
+            rest: 'Effortlessly.'
+        },
+
+        sub: 'Explore curated women’s fashion and find pieces that match your vibe perfectly.',
+
+        ctaPrimary: { label: 'Shop Women', href: '/category/womens' },
+        ctaSecondary: null
+    },
+    {
+        id: 'slide-3',
+        bg: '#1a0a00',
+        image: PX(1598505, 1920, 900),
+
+        eyebrow: 'Iconic Footwear',
+
+        headline: {
+            primary: 'Step Into',
+            rest: 'Fresh Kicks.'
+        },
+
+        sub: 'Iconic silhouettes reimagined for everyday wear and modern style.',
+
+        ctaPrimary: { label: 'Shop Footwear', href: '/category/mens-footwear' },
+        ctaSecondary: { label: 'View Sale', href: '/category/sale' }
+    }
+]
+
+// Category tiles — clothing-appropriate images matched to category
+const CATEGORY_TILES = [
+    {id: 'mens', label: "Men's", subLabel: 'New Arrivals', image: PX(1043474, 600, 800), bg: '#1A1A1A'},
+    {id: 'womens', label: "Women's", subLabel: 'Best Sellers', image: PX(34263759, 600, 800), bg: '#C8B8A2'},
+    {id: 'kids', label: "Kids'", subLabel: 'Fresh Styles', image: PX(6261908, 600, 800), bg: '#BDD7EE'},
+    {id: 'sale', label: 'Sale', subLabel: 'Up to 50% Off', image: PX(1598505, 600, 800), bg: '#FA5400'}
+]
+
+// Product slider — no built-in arrows (we add custom ones in the header row)
+const productSlickSx = {
+    '.slick-list': {overflow: 'visible'},
+    '.slick-track': {display: 'flex', alignItems: 'stretch'},
+    '.slick-slide': {height: 'inherit', '& > div': {height: '100%'}}
+}
+
+// ─── Component ───────────────────────────────────────────────────────────────
 const Home = () => {
     const intl = useIntl()
     const einstein = useEinstein()
     const dataCloud = useDataCloud()
-    const { pathname } = useLocation()
-    const { res } = useServerContext()
+    const {pathname} = useLocation()
+    const {res} = useServerContext()
+    const popularSliderRef = useRef(null)
 
     if (res) {
         res.set(
@@ -59,7 +126,7 @@ const Home = () => {
         )
     }
 
-    const { data: productSearchResult, isLoading } = useProductSearch({
+    const {data: productSearchResult, isLoading} = useProductSearch({
         parameters: {
             allImages: true,
             allVariationProperties: true,
@@ -75,266 +142,532 @@ const Home = () => {
         dataCloud.sendViewPage(pathname)
     }, [])
 
+    const featuredProducts = productSearchResult?.hits?.slice(0, 4) ?? []
+    const popularProducts = productSearchResult?.hits ?? []
+
     return (
-        <Box data-testid="home-page"  className="pageWrapper">
+        <Box data-testid="home-page" bg="white">
             <Seo
                 title="Home Page"
-                description="Commerce Cloud Retail React App"
-                keywords="Commerce Cloud, Retail React App, React Storefront"
+                description="Agent Force — Your AI-Powered Store"
+                keywords="Agent Force, Commerce, Retail"
             />
 
-            {/* Hero Section */}
-            <Island hydrateOn={'visible'}>
-                <Hero
-                    title={intl.formatMessage({
-                        defaultMessage: 'The React PWA Starter Store for Retail',
-                        id: 'home.title.react_starter_store'
-                    })}
-                    className="section-container"
-                    img={{
-                        src: getAssetUrl('static/img/hero.png'),
-                        alt: 'npx pwa-kit-create-app',
-                        fetchPriority: 'high'
-                    }}
-                    actions={
-                        <Stack spacing={{ base: 4, sm: 6 }} direction={{ base: 'column', sm: 'row' }}>
-                            <Button
-                                as={Link}
-                                href="https://developer.salesforce.com/docs/commerce/pwa-kit-managed-runtime/guide/getting-started.html"
-                                target="_blank"
-                                width={{ base: 'full', md: 'inherit' }}
-                                paddingX={7}
-                                _hover={{ textDecoration: 'none' }}
-                            >
-                                <FormattedMessage
-                                    defaultMessage="Get started"
-                                    id="home.link.get_started"
+            {/* ── 1. HERO SLIDER ───────────────────────────────────────── */}
+            <Island hydrateOn="visible">
+                <HeroSlider slides={HERO_SLIDES} />
+            </Island>
+
+            {/* ── 2. SHOP BY CATEGORY ─────────────────────────────────── */}
+            <Island hydrateOn="visible">
+                <Box py={[10, 12, 16]} px={[4, 6, 8]} bg="white">
+                    <Container maxW="container.xl" mx="auto">
+                        <Heading
+                            as="h2"
+                            fontSize={['xl', '2xl', '3xl']}
+                            fontWeight={900}
+                            textTransform="uppercase"
+                            letterSpacing="-0.02em"
+                            color="#111111"
+                            mb={8}
+                        >
+                            Shop by Category
+                        </Heading>
+                        <SimpleGrid columns={[2, 2, 4]} spacing={[3, 4]}>
+                            {CATEGORY_TILES.map((tile, i) => (
+                                <Tile
+                                    key={tile.id}
+                                    href={`/category/${tile.id}`}
+                                    image={tile.image}
+                                    label={tile.label}
+                                    subLabel={tile.subLabel}
+                                    bg={tile.bg}
                                 />
-                            </Button>
-                        </Stack>
-                    }
-                />
-            </Island>
-
-            {/* Hero Features Section */}
-            <Island hydrateOn={'visible'}>
-                <Section
-                    background={'#ddd'}
-                    marginX="auto"
-                    paddingY={{ base: 8, md: 16 }}
-                    paddingX={{ base: 4, md: 8 }}
-                    borderRadius="base"
-                    width={{ base: '100vw', md: 'inherit' }}
-                    position={{ base: 'relative', md: 'inherit' }}
-                    left={{ base: '50%', md: 'inherit' }}
-                    right={{ base: '50%', md: 'inherit' }}
-                    marginLeft={{ base: '-50vw', md: 'auto' }}
-                    marginRight={{ base: '-50vw', md: 'auto' }}
-                >
-                    <SimpleGrid
-                        columns={{ base: 1, md: 1, lg: 3 }}
-                        spacingX={{ base: 1, md: 4 }}
-                        spacingY={{ base: 4, md: 14 }}
-                    >
-                        {heroFeatures.map((feature, index) => (
-                            <Link key={index} target="_blank" href={feature.href}>
-                                <Box
-                                    background={'white'}
-                                    boxShadow="0px 2px 2px rgba(0, 0, 0, 0.1)"
-                                    borderRadius={'4px'}
-                                >
-                                    <HStack>
-                                        <Flex
-                                            paddingLeft={6}
-                                            height={24}
-                                            align={'center'}
-                                            justify={'center'}
-                                        >
-                                            {feature.icon}
-                                        </Flex>
-                                        <Text fontWeight="700">
-                                            {intl.formatMessage(feature.message.title)}
-                                        </Text>
-                                    </HStack>
-                                </Box>
-                            </Link>
-                        ))}
-                    </SimpleGrid>
-                </Section>
-            </Island>
-
-            {/* Shop Products Section with Slick Slider */}
-            {productSearchResult && (
-                <Island hydrateOn={'visible'}>
-                    <Section
-                        py={16}
-                        title={intl.formatMessage({
-                            defaultMessage: 'Shop Products',
-                            id: 'home.heading.shop_products'
-                        })}
-                        className="section-container"
-                        subtitle={intl.formatMessage(
-                            {
-                                defaultMessage:
-                                    'This section contains content from the catalog. {docLink} on how to replace it.',
-                                id: 'home.description.shop_products',
-                            },
-                            {
-                                docLink: (
-                                    <Link
-                                        target="_blank"
-                                        href={'https://sfdc.co/business-manager-manage-catalogs'}
-                                        textDecoration={'none'}
-                                    >
-                                        {intl.formatMessage({
-                                            defaultMessage: 'Read docs',
-                                            id: 'home.link.read_docs'
-                                        })}
-                                    </Link>
-                                )
-                            }
-                        )}
-                    >
-                        <Box pt={8}>
-                            {typeof window !== "undefined" && (
-                                <Slider
-                                    dots={false}        // hide bullets
-                                    arrows={true}       // show arrows
-                                    infinite={true}
-                                    speed={500}
-                                    slidesToShow={4}
-                                    slidesToScroll={1}
-                                    responsive={[
-                                        { breakpoint: 1024, settings: { slidesToShow: 3 } },
-                                        { breakpoint: 768, settings: { slidesToShow: 2 } },
-                                        { breakpoint: 480, settings: { slidesToShow: 1 } }
-                                    ]}
-                                    className="slick-intance-chakra"
-                                >
-                                    {productSearchResult.hits.map((product, index) => (
-                                        <Box key={index} padding={2}>
-                                            <ProductScroller
-                                                products={[product]}
-                                                isLoading={isLoading}
-                                                imgProps={{ width: "100%", height: "auto" }} // Chakra Image 100%
-                                                className="product-item-wrapper"
-                                            />
-                                        </Box>
-                                    ))}
-                                </Slider>
-                            )}
-                        </Box>
-                    </Section>
-                </Island>
-            )}
-
-            {/* Features Section as Horizontal Cards */}
-            <Island hydrateOn={'visible'}>
-                <Section
-                    paddingTop={20}
-                    paddingBottom={20}
-                    className="feature-section"
-                    title={intl.formatMessage({
-                        defaultMessage: 'Features',
-                        id: 'home.heading.features'
-                    })}
-                    bg={'#ddd'}
-                    subtitle={intl.formatMessage({
-                        defaultMessage:
-                            'Out-of-the-box features so that you focus only on adding enhancements.',
-                        id: 'home.description.features'
-                    })}
-                >
-                    <Container maxW={'6xl'} marginTop={10}>
-                        <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={8}>
-                            {features.map((feature, index) => (
-                                <Box
-                                    key={index}
-                                    p={4}
-                                    borderRadius="md"
-                                    boxShadow="md"
-                                    bg="white"
-                                    _hover={{ boxShadow: "lg", transform: "translateY(-2px)", transition: "all 0.3s" }}
-                                >
-                                    <HStack align="start" spacing={4}>
-                                        {/* Icon on the left */}
-                                        <Flex
-                                            width={16}
-                                            height={16}
-                                            align="center"
-                                            justify="center"
-                                            bg="gray.100"
-                                            borderRadius="full"
-                                            color="gray.900"
-                                            flexShrink={0}
-                                        >
-                                            {feature.icon}
-                                        </Flex>
-
-                                        {/* Text content on the right */}
-                                        <VStack align="start" spacing={1}>
-                                            <Text
-                                                as="h3"
-                                                color="black"
-                                                fontWeight={700}
-                                                fontSize="lg"
-                                            >
-                                                {intl.formatMessage(feature.message.title)}
-                                            </Text>
-
-                                            <Text color="gray.700">
-                                                {intl.formatMessage(feature.message.text)}
-                                            </Text>
-                                        </VStack>
-                                    </HStack>
-                                </Box>
                             ))}
                         </SimpleGrid>
                     </Container>
-                </Section>
+                </Box>
             </Island>
 
-            {/* Contact Section */}
-            <Island hydrateOn={'visible'}>
-                <Section
-                    py={'40px'}
-                    title={intl.formatMessage({
-                        defaultMessage: "We're here to help",
-                        id: 'home.heading.here_to_help'
-                    })}
-                    className="help-section"
-                    bg={'#101010'}
-                    color={'#fff'}
-                    subtitle={
-                        <>
-                            {intl.formatMessage({
-                                defaultMessage: 'Contact our support staff.',
-                                id: 'home.description.here_to_help'
-                            })}
-                            <br />
-                            {intl.formatMessage({
-                                defaultMessage: 'They will get you to the right place.',
-                                id: 'home.description.here_to_help_line_2'
-                            })}
-                        </>
-                    }
-                    actions={
-                        <Button
-                            as={Link}
-                            href="https://help.salesforce.com/s/?language=en_US"
-                            target="_blank"
-                            width={'auto'}
-                            paddingX={7}
-                            _hover={{ textDecoration: 'none' }}
-                        >
-                            <FormattedMessage
-                                defaultMessage="Contact Us"
-                                id="home.link.contact_us"
-                            />
-                        </Button>
-                    }
-                    maxWidth={'xl'}
-                />
+            {/* ── 3. NEW ARRIVALS — 4-col product grid ─────────────────── */}
+            {featuredProducts.length > 0 && (
+                <Island hydrateOn="visible">
+                    <Box py={[10, 12, 16]} bg="#F5F5F5">
+                        <Container maxW="container.xl" mx="auto" px={[4, 6, 8]}>
+                            <HStack justify="space-between" align="center" mb={[6, 8]}>
+                                <HStack spacing={3} align="center">
+                                    <Badge
+                                        bg="#111111"
+                                        color="white"
+                                        borderRadius="full"
+                                        px={3}
+                                        py={1}
+                                        fontSize="xs"
+                                        fontWeight={700}
+                                        textTransform="uppercase"
+                                        letterSpacing="0.1em"
+                                    >
+                                        New
+                                    </Badge>
+                                    <Heading
+                                        as="h2"
+                                        fontSize={['xl', '2xl', '3xl']}
+                                        fontWeight={900}
+                                        textTransform="uppercase"
+                                        letterSpacing="-0.02em"
+                                        color="#111111"
+                                        marginBottom={0}
+                                    >
+                                        Arrivals
+                                    </Heading>
+                                </HStack>
+                                <Link
+                                    href="/"
+                                    fontSize="sm"
+                                    fontWeight={700}
+                                    textTransform="uppercase"
+                                    letterSpacing="0.05em"
+                                    color="#111111"
+                                    textDecoration="underline"
+                                    _hover={{color: '#737373'}}
+                                >
+                                    View All
+                                </Link>
+                            </HStack>
+                            <SimpleGrid columns={[1, 2, 4]} spacing={[3, 4, 5]}>
+                                {featuredProducts.map((product) => (
+                                    <Box
+                                        bg="white"
+                                        borderRadius="xl"
+                                        overflow="hidden"
+                                        border="1px solid"
+                                        borderColor="#EBEBEB"
+                                        height="100%"
+                                    >
+                                        <ProductTileHome product={product} />
+                                    </Box>
+                                ))}
+                            </SimpleGrid>
+                        </Container>
+                    </Box>
+                </Island>
+            )}
+
+            {/* ── 4. EDITORIAL SPLIT BANNER ────────────────────────────── */}
+            <Island hydrateOn="visible">
+                <SimpleGrid columns={[1, 1, 2]} spacing={0}>
+                    <Flex
+                        bg="#111111"
+                        align="center"
+                        justify="center"
+                        py={[16, 20, 24]}
+                        px={[8, 12, 16]}
+                        minH={['auto', 'auto', '60vh']}
+                        order={[2, 2, 1]}
+                    >
+                        <VStack align="flex-start" spacing={6} maxW="420px">
+                            <Text
+                                fontSize="xs"
+                                fontWeight={700}
+                                color="#A3A3A3"
+                                textTransform="uppercase"
+                                letterSpacing="0.2em"
+                            >
+                                AI Retail Assistant
+                            </Text>
+
+                            <Heading
+                                as="h2"
+                                fontSize={['3xl', '4xl', '5xl']}
+                                fontWeight={900}
+                                color="white"
+                                textTransform="uppercase"
+                                letterSpacing="-0.03em"
+                                lineHeight={0.92}
+                            >
+                                Shop Smarter. <Text as="span" color="#FA5400">Buy Faster.</Text>
+                            </Heading>
+
+                            <Text fontSize="md" color="#A3A3A3" lineHeight={1.7}>
+                                Your intelligent retail agent helps customers discover products, compare options, and make confident purchase decisions in real time.
+                            </Text>
+
+                            <Button
+                                as={Link}
+                                href="/"
+                                size="lg"
+                                bg="white"
+                                color="#111111"
+                                borderRadius="full"
+                                fontWeight={700}
+                                textTransform="uppercase"
+                                letterSpacing="0.05em"
+                                px={8}
+                                _hover={{ bg: '#F0F0F0', textDecoration: 'none' }}
+                            >
+                                Try Retail Agent
+                            </Button>
+                        </VStack>
+                    </Flex>
+                    <Box
+                        bg="#2A2A2A"
+                        position="relative"
+                        minH={['55vw', '50vh', '60vh']}
+                        overflow="hidden"
+                        order={[1, 1, 2]}
+                    >
+                        <Box
+                            position="absolute"
+                            top={0}
+                            right={0}
+                            bottom={0}
+                            left={0}
+                            bgImage={`url(${PX(8311878, 960, 720)})`}
+                            bgSize="cover"
+                            bgPosition="center"
+                        />
+                    </Box>
+                </SimpleGrid>
+            </Island>
+
+            {/* ── 5. POPULAR RIGHT NOW — product slider with Nike-style top-right arrows */}
+            {popularProducts.length > 0 && (
+                <Island hydrateOn="visible">
+                    <Box py={[10, 12, 16]} bg="white">
+                        <Container maxW="container.xl" mx="auto" px={[4, 6, 8]}>
+                            <HStack justify="space-between" align="center" mb={[6, 8]}>
+                                <Heading
+                                    as="h2"
+                                    fontSize={['xl', '2xl', '3xl']}
+                                    fontWeight={900}
+                                    textTransform="uppercase"
+                                    letterSpacing="-0.02em"
+                                    color="#111111"
+                                >
+                                    Popular Right Now
+                                </Heading>
+                                {/* Nike-style top-right controls */}
+                                <HStack spacing={3}>
+                                    <HStack spacing={2}>
+                                        <Box
+                                            as="button"
+                                            onClick={() => popularSliderRef.current?.slickPrev()}
+                                            w="40px"
+                                            h="40px"
+                                            borderRadius="full"
+                                            border="1.5px solid"
+                                            borderColor="#E5E5E5"
+                                            display="flex"
+                                            alignItems="center"
+                                            justifyContent="center"
+                                            bg="white"
+                                            cursor="pointer"
+                                            fontSize="18px"
+                                            lineHeight={1}
+                                            color="#111111"
+                                            transition="border-color 0.15s"
+                                            _hover={{borderColor: '#111111'}}
+                                        >
+                                            ‹
+                                        </Box>
+                                        <Box
+                                            as="button"
+                                            onClick={() => popularSliderRef.current?.slickNext()}
+                                            w="40px"
+                                            h="40px"
+                                            borderRadius="full"
+                                            border="1.5px solid"
+                                            borderColor="#E5E5E5"
+                                            display="flex"
+                                            alignItems="center"
+                                            justifyContent="center"
+                                            bg="white"
+                                            cursor="pointer"
+                                            fontSize="18px"
+                                            lineHeight={1}
+                                            color="#111111"
+                                            transition="border-color 0.15s"
+                                            _hover={{borderColor: '#111111'}}
+                                        >
+                                            ›
+                                        </Box>
+                                    </HStack>
+                                    <Link
+                                        href="/"
+                                        fontSize="sm"
+                                        fontWeight={700}
+                                        textTransform="uppercase"
+                                        letterSpacing="0.05em"
+                                        color="#111111"
+                                        textDecoration="underline"
+                                        _hover={{color: '#737373'}}
+                                    >
+                                        View All
+                                    </Link>
+                                </HStack>
+                            </HStack>
+                            {typeof window !== 'undefined' && (
+                                <Box sx={productSlickSx} overflow="hidden" height="100%">
+                                    <Slider
+                                        ref={popularSliderRef}
+                                        dots={false}
+                                        arrows={false}
+                                        infinite={popularProducts.length > 4}
+                                        speed={400}
+                                        slidesToShow={4}
+                                        slidesToScroll={2}
+                                        responsive={[
+                                            {
+                                                breakpoint: 1280,
+                                                settings: {slidesToShow: 3, slidesToScroll: 1}
+                                            },
+                                            {
+                                                breakpoint: 768,
+                                                settings: {slidesToShow: 2, slidesToScroll: 1}
+                                            },
+                                            {
+                                                breakpoint: 480,
+                                                settings: {slidesToShow: 1, slidesToScroll: 1}
+                                            }
+                                        ]}
+                                    >
+                                        {popularProducts.map((product) => (
+                                            <Box key={product.productId} px={2} height="100%">
+                                                <Box
+                                                    bg="white"
+                                                    borderRadius="xl"
+                                                    overflow="hidden"
+                                                    border="1px solid"
+                                                    borderColor="#EBEBEB"
+                                                    height="100%"
+                                                    minH="420px"
+                                                >
+                                                    <ProductSlideHome product={product} />
+                                                </Box>
+                                            </Box>
+                                        ))}
+                                    </Slider>
+                                </Box>
+                            )}
+                        </Container>
+                    </Box>
+                </Island>
+            )}
+
+            {/* ── 6. PROMO STRIP — 3-col editorial with clothing images ── */}
+            <Island hydrateOn="visible">
+                <Box py={[8, 10, 12]} px={[4, 6, 8]} bg="#F5F5F5">
+                    <Container maxW="container.xl" mx="auto">
+                        <SimpleGrid columns={[1, 1, 3]} spacing={[4, 4, 5]}>
+                            {[
+                                { id: 33800036, label: 'Smart Picks', badge: 'Trending' },
+                                { id: 33276443, label: 'Personalized Deals', badge: 'AI Curated' },
+                                { id: 5531746, label: 'New Arrivals', badge: 'Just In' }
+                            ].map((promo, i) => (
+                                <Link key={i} href="/" _hover={{ textDecoration: 'none' }}>
+                                    <Box
+                                        borderRadius="xl"
+                                        overflow="hidden"
+                                        position="relative"
+                                        bg="#2a2a2a"
+                                        cursor="pointer"
+                                        transition="transform 0.25s ease"
+                                        _hover={{ transform: 'translateY(-3px)' }}
+                                    >
+                                        <AspectRatio ratio={16 / 9}>
+                                            <Box position="relative" w="full" h="full">
+                                                <Box
+                                                    position="absolute"
+                                                    top={0}
+                                                    right={0}
+                                                    bottom={0}
+                                                    left={0}
+                                                    bgImage={`url(${PX(promo.id, 640, 360)})`}
+                                                    bgSize="cover"
+                                                    bgPosition="center"
+                                                    opacity={0.85}
+                                                />
+                                                <Box
+                                                    position="absolute"
+                                                    top={0}
+                                                    right={0}
+                                                    bottom={0}
+                                                    left={0}
+                                                    bgGradient="linear(to-t, rgba(0,0,0,0.7) 0%, transparent 60%)"
+                                                />
+
+                                                <Flex
+                                                    position="absolute"
+                                                    bottom={0}
+                                                    left={0}
+                                                    right={0}
+                                                    p={4}
+                                                    direction="column"
+                                                    align="flex-start"
+                                                >
+                                                    <Badge
+                                                        bg="white"
+                                                        color="#111111"
+                                                        borderRadius="full"
+                                                        px={2}
+                                                        py="3px"
+                                                        fontSize="2xs"
+                                                        fontWeight={700}
+                                                        textTransform="uppercase"
+                                                        letterSpacing="0.1em"
+                                                        mb={1}
+                                                    >
+                                                        {promo.badge}
+                                                    </Badge>
+
+                                                    <Text
+                                                        fontSize={['md', 'lg']}
+                                                        fontWeight={800}
+                                                        color="white"
+                                                        textTransform="uppercase"
+                                                        letterSpacing="-0.01em"
+                                                    >
+                                                        {promo.label}
+                                                    </Text>
+                                                </Flex>
+                                            </Box>
+                                        </AspectRatio>
+                                    </Box>
+                                </Link>
+                            ))}
+                        </SimpleGrid>
+                    </Container>
+                </Box>
+            </Island>
+
+            {/* ── 7. MEMBERS CTA ──────────────────────────────────────── */}
+            <Island hydrateOn="visible">
+                <Box
+                    position="relative"
+                    bg="#0d0d0d"
+                    py={[20, 24, 28]}
+                    px={[6, 8, 12]}
+                    textAlign="center"
+                    overflow="hidden"
+                >
+                    <Box
+                        position="absolute"
+                        top={0}
+                        right={0}
+                        bottom={0}
+                        left={0}
+                        bgImage={`url(${PX(2897532, 1920, 700)})`}
+                        bgSize="cover"
+                        bgPosition="center"
+                        opacity={0.12}
+                    />
+                    <Container maxW="container.md" mx="auto" position="relative" zIndex={1}>
+                        <VStack spacing={[5, 6]}>
+                            <Text
+                                fontSize={['xs', 'sm']}
+                                fontWeight={700}
+                                color="#737373"
+                                textTransform="uppercase"
+                                letterSpacing="0.2em"
+                            >
+                                Retail AI Membership
+                            </Text>
+
+                            <Heading
+                                as="h2"
+                                fontSize={['3xl', '4xl', '5xl', '6xl']}
+                                fontWeight={900}
+                                color="white"
+                                textTransform="uppercase"
+                                letterSpacing="-0.04em"
+                                lineHeight={0.92}
+                            >
+                                Smarter Shopping for<br />
+                                <Text as="span" color="#FA5400">Every Member.</Text>
+                            </Heading>
+
+                            <Text
+                                fontSize={['md', 'lg']}
+                                color="#737373"
+                                maxW="460px"
+                                lineHeight={1.7}
+                            >
+                                Join free to unlock personalized recommendations, exclusive drops, and faster checkout powered by your retail AI agent.
+                            </Text>
+
+                            <HStack spacing={4} flexWrap="wrap" justify="center" pt={2}>
+                                <Button
+                                    as={Link}
+                                    href="/registration"
+                                    size="lg"
+                                    bg="white"
+                                    color="#111111"
+                                    borderRadius="full"
+                                    fontWeight={700}
+                                    textTransform="uppercase"
+                                    letterSpacing="0.05em"
+                                    px={10}
+                                    _hover={{ bg: '#F0F0F0', textDecoration: 'none' }}
+                                >
+                                    Get Started Free
+                                </Button>
+
+                                <Button
+                                    as={Link}
+                                    href="/login"
+                                    size="lg"
+                                    variant="ghost"
+                                    color="white"
+                                    borderRadius="full"
+                                    fontWeight={700}
+                                    textTransform="uppercase"
+                                    letterSpacing="0.05em"
+                                    px={10}
+                                    _hover={{
+                                        bg: 'rgba(255,255,255,0.08)',
+                                        textDecoration: 'none'
+                                    }}
+                                >
+                                    Sign In
+                                </Button>
+                            </HStack>
+                        </VStack>
+                    </Container>
+                </Box>
+            </Island>
+
+            {/* ── 8. HELP STRIP ───────────────────────────────────────── */}
+            <Island hydrateOn="visible">
+                <Box bg="#F5F5F5" py={[8, 10]} textAlign="center">
+                    <Container maxW="container.sm" mx="auto" px={6}>
+                        <VStack spacing={3}>
+                            <Heading
+                                as="h3"
+                                fontSize={['lg', 'xl']}
+                                fontWeight={800}
+                                textTransform="uppercase"
+                                letterSpacing="-0.01em"
+                                color="#111111"
+                            >
+                                We&apos;re Here to Help
+                            </Heading>
+                            <Text fontSize="sm" color="#737373">
+                                Contact our support staff — we will get you to the right place.
+                            </Text>
+                            <Button
+                                as={Link}
+                                href="https://help.salesforce.com/s/?language=en_US"
+                                target="_blank"
+                                size="md"
+                                px={7}
+                                mt={1}
+                                _hover={{textDecoration: 'none'}}
+                            >
+                                Contact Us
+                            </Button>
+                        </VStack>
+                    </Container>
+                </Box>
             </Island>
         </Box>
     )

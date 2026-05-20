@@ -33,7 +33,7 @@ const ChevronIconTrigger = forwardRef(function ChevronIconTrigger(props, ref) {
     )
 })
 
-const ListMenuTrigger = ({item, name, isOpen, onOpen, onClose}) => {
+const ListMenuTrigger = ({item, name, isOpen, onOpen, onClose, isHeaderTransparent = false}) => {
     const theme = useTheme()
     const {baseStyle} = theme.components.ListMenu
 
@@ -51,6 +51,8 @@ const ListMenuTrigger = ({item, name, isOpen, onOpen, onClose}) => {
                 {...baseStyle.listMenuTriggerLink}
                 {...{name: name + ' __'}}
                 {...(isOpen ? baseStyle.listMenuTriggerLinkActive : {})}
+                color={isHeaderTransparent ? 'white' : '#111111'}
+                _hover={{textDecoration: 'none', color: isHeaderTransparent ? 'rgba(255,255,255,0.7)' : '#737373'}}
             >
                 {name}
             </Link>
@@ -64,6 +66,7 @@ const ListMenuTrigger = ({item, name, isOpen, onOpen, onClose}) => {
                         keyMap[e.key]?.(e)
                     }}
                     {...baseStyle.listMenuTriggerLinkIcon}
+                    color={isHeaderTransparent ? 'white' : '#111111'}
                 >
                     <ChevronIconTrigger {...baseStyle.selectedButtonIcon} />
                 </Link>
@@ -77,7 +80,8 @@ ListMenuTrigger.propTypes = {
     name: PropTypes.string,
     isOpen: PropTypes.bool,
     onOpen: PropTypes.func,
-    onClose: PropTypes.func
+    onClose: PropTypes.func,
+    isHeaderTransparent: PropTypes.bool
 }
 
 export {ListMenuTrigger}

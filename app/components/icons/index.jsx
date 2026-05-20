@@ -56,8 +56,8 @@ import '@salesforce/retail-react-app/app/assets/svg/signout.svg'
 import '@salesforce/retail-react-app/app/assets/svg/user.svg'
 import '@salesforce/retail-react-app/app/assets/svg/visibility.svg'
 import '@salesforce/retail-react-app/app/assets/svg/visibility-off.svg'
-import '@salesforce/retail-react-app/app/assets/svg/heart.svg'
-import '@salesforce/retail-react-app/app/assets/svg/heart-solid.svg'
+import '../../assets/svg/heart.svg'
+import '../../assets/svg/heart-solid.svg'
 import '@salesforce/retail-react-app/app/assets/svg/close.svg'
 
 // For non-square SVGs, we can use the symbol data from the import to set the

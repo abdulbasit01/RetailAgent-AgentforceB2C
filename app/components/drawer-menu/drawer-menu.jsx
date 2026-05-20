@@ -45,7 +45,6 @@ import {AuthHelpers, useAuthHelper, useCustomerType} from '@salesforce/commerce-
 import Link from '@salesforce/retail-react-app/app/components/link'
 // Icons
 import {
-    BrandLogo,
     SignoutIcon,
     StoreIcon,
     UserIcon
@@ -130,11 +129,23 @@ const DrawerMenu = ({
                             defaultMessage: 'Menu Drawer'
                         })}
                     >
-                        <IconButton
-                            icon={<BrandLogo {...styles.logo} />}
-                            variant="unstyled"
-                            onClick={onLogoClick}
-                        />
+                        <Box as="button" onClick={onLogoClick} cursor="pointer">
+                        <Text
+                            fontFamily="'Helvetica Neue', Helvetica, Arial, sans-serif"
+                            fontWeight={900}
+                            fontSize="lg"
+                            letterSpacing="-0.05em"
+                            textTransform="uppercase"
+                            color="#111111"
+                            lineHeight={1}
+                            userSelect="none"
+                        >
+                            Retail/
+                            <Text as="span" color="#FA5400">
+                                Agent
+                            </Text>
+                        </Text>
+                    </Box>
 
                         <DrawerCloseButton />
                     </DrawerHeader>

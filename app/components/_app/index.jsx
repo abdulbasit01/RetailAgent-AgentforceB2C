@@ -197,6 +197,25 @@ const App = (props) => {
     // Used to conditionally render header/footer for checkout page
     const isCheckout = /\/checkout$/.test(location?.pathname)
     const isExpress = /\/express$/.test(location?.pathname)
+    const isHomePage = location?.pathname === '/'
+    const [scrolled, setScrolled] = useState(
+        typeof window !== 'undefined' ? window.scrollY > 64 : false
+    )
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (isHomePage) {
+                setScrolled(window.scrollY > 64)
+            } else {
+                setScrolled(true)
+            }
+        }
+
+        handleScroll()
+        window.addEventListener('scroll', handleScroll, {passive: true})
+
+        return () => window.removeEventListener('scroll', handleScroll)
+    }, [isHomePage])
 
     // Get dynamic height for express payments
     const expressPaymentHeight = useExpressPaymentHeight()
@@ -446,6 +465,7 @@ const App = (props) => {
                                                 onMyAccountClick={onAccountClick}
                                                 onWishlistClick={onWishlistClick}
                                                 onStoreLocatorClick={onOpenStoreLocator}
+                                                isHomePage={isHomePage}
                                             >
                                                 <HideOnDesktop>
                                                     <DrawerMenu
@@ -473,6 +493,9 @@ const App = (props) => {
                                                         itemsKey="categories"
                                                         itemsCountKey="onlineSubCategoriesCount"
                                                         contentComponent={ListMenuContentWithData}
+                                                        isHeaderTransparent={
+                                                            isHomePage && !scrolled
+                                                        }
                                                     />
                                                 </HideOnMobile>
                                             </Header>
@@ -500,6 +523,7 @@ const App = (props) => {
                                             display="flex"
                                             flexDirection="column"
                                             flex="1"
+                                            pt={isHomePage ? '0px' : '70px'}
                                         >
                                             <OfflineBoundary isOnline={false}>
                                                 {children}

@@ -7,7 +7,8 @@
 export default {
     baseStyle: () => ({
         container: {
-            position: 'relative'
+            position: 'relative',
+            bg: 'white'
         },
         favIcon: {
             position: 'absolute',
@@ -17,18 +18,29 @@ export default {
         },
         imageWrapper: {
             position: 'relative',
-            marginBottom: 2
+            marginBottom: 0,
+            bg: '#F5F5F5',
+            overflow: 'hidden'
         },
         image: {
             ratio: 1,
-            paddingBottom: 2
+            paddingBottom: 0
         },
         link: {
-            display: 'block'
+            display: 'block',
+            padding: 0
         },
-        price: {},
+        price: {
+            fontSize: 'sm',
+            color: '#737373',
+            mt: 1
+        },
         title: {
-            fontWeight: 600
+            fontWeight: 600,
+            fontSize: 'sm',
+            color: '#111111',
+            noOfLines: 2,
+            lineHeight: 'tall'
         },
         rating: {},
         variations: {},

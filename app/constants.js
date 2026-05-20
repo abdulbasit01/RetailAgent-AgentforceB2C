@@ -10,7 +10,7 @@ import {noop} from '@salesforce/retail-react-app/app/utils/utils'
 
 // Global app defaults
 export const DEFAULT_LOCALE = 'en-US'
-export const DEFAULT_SITE_TITLE = 'Retail React App'
+export const DEFAULT_SITE_TITLE = 'Retail Agent'
 export const MAX_CACHE_AGE = 60 * 15 // 15 min
 export const STALE_WHILE_REVALIDATE = 60 * 15 // 15 min
 
@@ -272,4 +272,4 @@ export const USER_NOT_FOUND_ERROR = /user not found/i
  * Constant to enable partial hydration capabilities, i.e. `<Island/>` components
  * @deprecated Use `partialHydrationEnabled` in the config file instead
  */
-export const PARTIAL_HYDRATION_ENABLED = false
+export const PARTIAL_HYDRATION_ENABLED = true
