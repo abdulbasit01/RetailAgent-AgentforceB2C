@@ -47,6 +47,8 @@ import {
     getDecoratedVariationAttributes
 } from '@salesforce/retail-react-app/app/utils/product-utils'
 import {PRODUCT_BADGE_DETAILS} from '@salesforce/retail-react-app/app/constants'
+import {getAssetUrl} from '@salesforce/pwa-kit-react-sdk/ssr/universal/utils'
+
 
 const IconButtonWithRegistration = withRegistration(IconButton)
 
@@ -211,7 +213,8 @@ const ProductTileHome = (props) => {
                                 image?.disBaseLink ||
                                 image?.link ||
                                 product?.image?.disBaseLink ||
-                                product?.image?.link
+                                product?.image?.link ||
+                                getAssetUrl('static/img/dummy.png')
                             }[?sw={width}&q=70]`}
                             widths={dynamicImageProps?.widths}
                             imageProps={{

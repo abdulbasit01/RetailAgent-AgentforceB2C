@@ -334,7 +334,7 @@ const Home = () => {
             {popularProducts.length > 0 && (
                 <Island hydrateOn="visible">
                     <Box py={[10, 12, 16]} bg="white">
-                        <Container maxW="container.xxl" mx="auto" px={[4, 6, 8]}>
+                        <Container maxW="container.xl" mx="auto" px={[4, 6, 8]}>
                             <HStack justify="space-between" align="center" mb={[6, 8]}>
                                 <Heading
                                     as="h2"
